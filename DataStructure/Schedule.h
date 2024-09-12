@@ -15,7 +15,7 @@ public:
     std::unordered_map<std::string, Employee> employees;     // Employee ID to Employee object
 
     // Schedule structure: [Department][Shift] -> List of Employee IDs
-    std::map<std::string, std::map<int, std::vector<std::string>>> schedule;
+    std::map<std::string, std::map<int, std::vector<std::string> > > schedule;
 
     // Method to add a department
     void addDepartment(const Department& department);

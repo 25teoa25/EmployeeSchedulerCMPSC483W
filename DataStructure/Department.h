@@ -9,7 +9,7 @@ class Department {
 public:
     std::string name; // Department name
     // Shift number to Employee type to the required count of employees
-    std::unordered_map<int, std::unordered_map<std::string, int>> staffingNeeds; 
+    std::unordered_map<int, std::unordered_map<std::string, int> > staffingNeeds; 
 
     // Constructor
     Department(const std::string& name);

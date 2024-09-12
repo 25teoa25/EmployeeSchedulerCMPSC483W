@@ -2,7 +2,7 @@
 
 int main() {
     NurseScheduler nurseScheduler;
-    nurseScheduler.loadFromCSV("Nurse List Final.csv"); // Replace with the correct path
+    nurseScheduler.loadFromCSV("Nurse_List_Final.csv"); // Replace with the correct path
 
     // Further scheduling logic...
 
