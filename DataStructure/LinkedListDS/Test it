@@ -1,0 +1,3 @@
+How to test run
+Terminal: g++ -std=c++11 main.cpp NurseList.cpp CSVParser.cpp -o nurse_list_program
+Terminal: ./nurse_list_program
