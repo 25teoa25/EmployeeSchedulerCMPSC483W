@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rstack/Documents/ConsoleApp1/ConsoleApp1/ConsoleApp1.csproj": {}
+    "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/CSharpPrototype/DataStructPrototype/ConsoleApp1/ConsoleApp1.csproj": {}
   },
   "projects": {
-    "/Users/rstack/Documents/ConsoleApp1/ConsoleApp1/ConsoleApp1.csproj": {
+    "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/CSharpPrototype/DataStructPrototype/ConsoleApp1/ConsoleApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rstack/Documents/ConsoleApp1/ConsoleApp1/ConsoleApp1.csproj",
+        "projectUniqueName": "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/CSharpPrototype/DataStructPrototype/ConsoleApp1/ConsoleApp1.csproj",
         "projectName": "ConsoleApp1",
-        "projectPath": "/Users/rstack/Documents/ConsoleApp1/ConsoleApp1/ConsoleApp1.csproj",
+        "projectPath": "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/CSharpPrototype/DataStructPrototype/ConsoleApp1/ConsoleApp1.csproj",
         "packagesPath": "/Users/rstack/.nuget/packages/",
-        "outputPath": "/Users/rstack/Documents/ConsoleApp1/ConsoleApp1/obj/",
+        "outputPath": "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/CSharpPrototype/DataStructPrototype/ConsoleApp1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/rstack/.nuget/NuGet/NuGet.Config"
