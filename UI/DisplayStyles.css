@@ -1,3 +1,7 @@
-.home-table {
-border: 5px solid black;
+.home-table-outline {
+    border: 5px solid black;
+}
+
+.home-table-inner {
+    border: 1px solid black;
 }
