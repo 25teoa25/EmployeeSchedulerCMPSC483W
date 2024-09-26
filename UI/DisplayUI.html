@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <head></head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content = "width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="DisplayStyles.css">
+    <script src = "DisplayFunctionality.js"></script>
 </head>
 <html>
-    <h1>Nurse Schedule</h1>
+    <div class = "tabs">
+        <button onClick="switchTab('Overall')">Overall</button>
+        <button onClick="switchTab('Pediatric')">Pediatric</button>
+        <button onClick="switchTab('Oncology')">Oncology</button>
+    </div>
+
+    <h1 id="tabHeader">Overall Schedule</h1>
+    
     <div class = "side-info">
         <div class = "search-box">
             <text class="search-header">Search by Employee ID:</text>
