@@ -20,7 +20,7 @@
 }
 .side-info {
     position: absolute;
-    right: 100px;
+    right: .25%;
     top: 150px;
 }
 .search-input {
@@ -70,4 +70,52 @@
 .summary-info {
     font-size: 16px;
     float: left;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.schedule {
+    flex: 3;
+}
+
+.tabs button {
+    padding: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.schedule table {
+    width: 75%;
+    border-collapse: collapse;
+}
+
+.schedule th, .schedule td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.pediatric {
+    background-color: red;
+    color: white;
+}
+
+.oncology {
+    background-color: blue;
+    color: white;
+}
+
+.side-info {
+    width: 20%;
+    padding: 10px;
+    border-left: 1px solid black;
 }
