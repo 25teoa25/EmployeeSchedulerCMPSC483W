@@ -67,6 +67,8 @@ public:
      */
     void display() const;
 
+    Nurse* getHead() const;
+
 private:
 
     Nurse* head; /**< Pointer to the first nurse in the linked list. */

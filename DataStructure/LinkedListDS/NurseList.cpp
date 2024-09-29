@@ -11,6 +11,10 @@
  */
 Nurse::Nurse( const std::string& nurseName , int number , double nursePay , const std::vector< std::string >& nurseShifts )
     : nurseName( nurseName ) , nurseNumber( number ) , nursePay( nursePay ) , nurseShifts( nurseShifts ) , next( nullptr ) , prev( nullptr ) {}
+    
+Nurse* NurseList::getHead() const {
+    return head;
+}
 
 /**
  * @brief Constructs an empty NurseList object.
