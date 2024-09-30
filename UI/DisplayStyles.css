@@ -81,6 +81,8 @@
 .table-container {
     width: 100%;
     overflow-x: auto;
+    white-space: nowrap;
+    overflow: scroll;
 }
 
 .schedule {
@@ -94,7 +96,7 @@
 }
 
 .schedule table {
-    width: 75%;
+    width: 50%;
     border-collapse: collapse;
 }
 
@@ -116,6 +118,16 @@
 
 .side-info {
     width: 20%;
-    padding: 10px;
+    padding: 2%;
     border-left: 1px solid black;
+}
+
+.left-side-container {
+    width: 70%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.shift-row {
+    height: 150px;
 }
