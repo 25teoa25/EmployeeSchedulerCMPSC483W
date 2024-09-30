@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+using namespace std;
 
 /**
  * @struct Nurse
@@ -14,11 +15,11 @@
  */
 struct Nurse {
 
-    std::string nurseName; /**< Nurse's name. */
+    string nurseName; /**< Nurse's name. */
     int nurseNumber; /**< Unique nurse identifier (e.g., employee number). */
-    std::string nurseType; /**< Nurse's type. */
-    std::string nurseDepartment; /**< Nurse's dept. */
-    std::vector< std::string > nurseShifts;  /**< A vector containing the nurse's assigned shifts (e.g., 42 shifts). */
+    string nurseType; /**< Nurse's type. */
+    string nurseDepartment; /**< Nurse's dept. */
+    vector< string > nurseShifts;  /**< A vector containing the nurse's assigned shifts (e.g., 42 shifts). */
     Nurse* next; /**< Pointer to the next nurse in the linked list. */
     Nurse* prev; /**< Pointer to the previous nurse in the linked list. */
 
@@ -30,7 +31,7 @@ struct Nurse {
      * @param nurseType 
      * @param nurseDept
      */
-    Nurse( const std::string& nurseName , int number , const std::string& nurseType , const std::string& nurseDepartment, const std::vector< std::string >& nurseShifts );
+    Nurse( const string& nurseName , int number , const string& nurseType , const string& nurseDepartment, const vector< string >& nurseShifts );
 
 };
 
@@ -59,7 +60,7 @@ public:
      * 
      * The new nurse is added to the end of the doubly linked list.
      */
-    void addNurse( const std::string& nurseName , int number , const std::string& nurseType , const std::string& nurseDepartment, const std::vector< std::string >& nurseShifts );
+    void addNurse( const string& nurseName , int number , const string& nurseType , const string& nurseDepartment, const vector< string >& nurseShifts );
 
     /**
      * @brief Displays all nurses in the list.

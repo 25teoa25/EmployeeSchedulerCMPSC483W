@@ -3,31 +3,32 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+using namespace std;
 
 //function to load csv with all nurses into 3 linked lists: 1 for each: LPNs, RNS, NAs
-void loadNurses( const std::string& filename , std::unordered_map<std::string , NurseList>& nurse_lists ) {
+void loadNurses( const string& filename , unordered_map<string , NurseList>& nurse_lists ) {
 
     // Open the CSV file
-    std::ifstream file( filename );
+    ifstream file( filename );
 
     // Check if the file was successfully opened
     if ( !file.is_open() ) {
 
-        std::cerr << "Error: Could not open file " << filename << std::endl;
+        cerr << "Error: Could not open file " << filename << endl;
         return;
 
     }
 
-    std::string line;
+    string line;
     getline( file , line );  // Skip header line
 
     // Read each line from the CSV
     while ( getline( file , line ) ) {
 
-        std::stringstream ss( line ); // Create a stringstream to parse the line
-        std::string name, type, dept;
+        stringstream ss( line ); // Create a stringstream to parse the line
+        string name, type, dept;
         int number;
-        std::vector< std::string > shifts( 42 );  // Initialize vector to hold 42 shifts
+        vector< string > shifts( 42 );  // Initialize vector to hold 42 shifts
 
         // Parse the nurse's name (up to the first comma)
         getline( ss , name , ',' );
@@ -57,58 +58,58 @@ void loadNurses( const std::string& filename , std::unordered_map<std::string , 
 }
 
 // Hash function for Key type
-size_t std::hash<Key>::operator()(const Key& k) const {
-    return hash<std::string>()(std::get<0>(k)) ^
-           hash<int>()(std::get<1>(k)) ^
-           hash<std::string>()(std::get<2>(k));
+size_t hash<Key>::operator()(const Key& k) const {
+    return hash<string>()(get<0>(k)) ^
+           hash<int>()(get<1>(k)) ^
+           hash<string>()(get<2>(k));
 }
 
 // Function to read the CSV of department constraints and store the data in NurseMap
 // nurseMap format: (dept, shift #, nurse type) --> # needed
-void loadConstraints(const std::string& filename, NurseMap& nurse_map) {
-    std::ifstream file(filename);
-    std::string line, dept, shift_str, rn_str, lpn_str, na_str;
+void loadConstraints(const string& filename, NurseMap& nurse_map) {
+    ifstream file(filename);
+    string line, dept, shift_str, rn_str, lpn_str, na_str;
     
     // Read the header line first (and ignore it)
-    std::getline(file, line);
+    getline(file, line);
 
     // Read the file line by line
-    while (std::getline(file, line)) {
-        std::istringstream ss(line);
+    while (getline(file, line)) {
+        istringstream ss(line);
         
         // Read the columns (assuming they are comma-separated)
-        std::getline(ss, dept, ',');
-        std::getline(ss, shift_str, ',');
-        std::getline(ss, rn_str, ',');
-        std::getline(ss, lpn_str, ',');
-        std::getline(ss, na_str, ',');
+        getline(ss, dept, ',');
+        getline(ss, shift_str, ',');
+        getline(ss, rn_str, ',');
+        getline(ss, lpn_str, ',');
+        getline(ss, na_str, ',');
 
         // Convert the strings to integers where necessary
-        int shift = std::stoi(shift_str);
-        int rn_count = std::stoi(rn_str);
-        int lpn_count = std::stoi(lpn_str);
-        int na_count = std::stoi(na_str);
+        int shift = stoi(shift_str);
+        int rn_count = stoi(rn_str);
+        int lpn_count = stoi(lpn_str);
+        int na_count = stoi(na_str);
 
         // Insert into the map for each nurse type
-        nurse_map[std::make_tuple(dept, shift, "RN")] = rn_count;
-        nurse_map[std::make_tuple(dept, shift, "LPN")] = lpn_count;
-        nurse_map[std::make_tuple(dept, shift, "NA")] = na_count;
+        nurse_map[make_tuple(dept, shift, "RN")] = rn_count;
+        nurse_map[make_tuple(dept, shift, "LPN")] = lpn_count;
+        nurse_map[make_tuple(dept, shift, "NA")] = na_count;
     }
 }
 
 // Function to display the NurseMap constraints
 void displayNurseMap(const NurseMap& nurse_map) {
-    std::cout << "Department | Shift # | Nurse Type | # Needed" << std::endl;
-    std::cout << "--------------------------------------------" << std::endl;
+    cout << "Department | Shift # | Nurse Type | # Needed" << endl;
+    cout << "--------------------------------------------" << endl;
     
     for (const auto& entry : nurse_map) {
         // Unpack the tuple key
-        const std::string& dept = std::get<0>(entry.first);
-        int shift = std::get<1>(entry.first);
-        const std::string& nurseType = std::get<2>(entry.first);
+        const string& dept = get<0>(entry.first);
+        int shift = get<1>(entry.first);
+        const string& nurseType = get<2>(entry.first);
         int numberNeeded = entry.second;
 
         // Print the values
-        std::cout << dept << " | " << shift << " | " << nurseType << " | " << numberNeeded << std::endl;
+        cout << dept << " | " << shift << " | " << nurseType << " | " << numberNeeded << endl;
     }
 }

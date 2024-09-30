@@ -1,5 +1,7 @@
 // NurseList.cpp
 #include "NurseList.h"
+#include <iostream>
+using namespace std;
 
 /**
  * @brief Constructs a Nurse object with the given name, number, pay, and shift data.
@@ -9,7 +11,7 @@
  * @param nursePay The pay of the nurse (hourly or annual).
  * @param nurseShifts The shifts assigned to the nurse in a vector of strings.
  */
-Nurse::Nurse( const std::string& nurseName , int number , const std::string& nurseType, const std::string& nurseDepartment , const std::vector< std::string >& nurseShifts )
+Nurse::Nurse( const string& nurseName , int number , const string& nurseType, const string& nurseDepartment , const vector< string >& nurseShifts )
     : nurseName( nurseName ) , nurseNumber( number ) , nurseType( nurseType ) ,nurseDepartment( nurseDepartment ), nurseShifts( nurseShifts ) , next( nullptr ) , prev( nullptr ) {}
     
 Nurse* NurseList::getHead() const {
@@ -34,7 +36,7 @@ NurseList::NurseList() : head( nullptr ) , tail( nullptr ) {}
  * This method dynamically allocates memory for a new nurse and appends the nurse to the end of the list. 
  * If the list is empty, the new nurse becomes both the head and the tail of the list. Otherwise, the new nurse is appended to the tail.
  */
-void NurseList::addNurse( const std::string& nurseName , int number , const std::string& nurseType, const std::string& nurseDepartment , const std::vector< std::string >& nurseShifts ) {
+void NurseList::addNurse( const string& nurseName , int number , const string& nurseType, const string& nurseDepartment , const vector< string >& nurseShifts ) {
 
     Nurse* newNurse = new Nurse( nurseName , number , nurseType, nurseDepartment , nurseShifts );
 
@@ -59,16 +61,16 @@ void NurseList::display() const {
 
     while ( current ) {
 
-        std::cout << "nurseName: " << current->nurseName << ", Number: " << current->nurseNumber
+        cout << "nurseName: " << current->nurseName << ", Number: " << current->nurseNumber
                   << ", nurseType: " << current->nurseType << ", nurseDept: " << current->nurseDepartment << ", Shifts: ";
 
         for ( const auto& shift : current->nurseShifts ) {
 
-            std::cout << shift << " ";
+            cout << shift << " ";
 
         }
 
-        std::cout << std::endl;
+        cout << endl;
         current = current->next;
 
     }

@@ -1,6 +1,7 @@
 #include "NurseFunctions.h"
 #include <algorithm>
 #include <iostream>
+using namespace std;
 
 /**
  * @brief Selects the best nurses for a specific shift and department based on their preferences and the constraints.
@@ -12,9 +13,9 @@
  * 
  * @return A vector of pointers to the best-selected nurses for the given shift and department.
  */
-std::vector<Nurse*> selectBestNurses(const std::unordered_map<std::string, NurseList>& nurse_lists,
-                                     const std::vector<std::vector<std::string>>& constraints,
-                                     int shift_number, const std::string& department) {
+vector<Nurse*> selectBestNurses(const unordered_map<string, NurseList>& nurse_lists,
+                                     const vector<vector<string>>& constraints,
+                                     int shift_number, const string& department) {
 
     // Variables to store required nurses for the shift
     int required_rn = 0, required_lpn = 0, required_emergency_nurses = 0;
@@ -22,25 +23,25 @@ std::vector<Nurse*> selectBestNurses(const std::unordered_map<std::string, Nurse
 
     // Search for the department and shift constraints in the CSV data
     for (const auto& row : constraints) {
-        if (row[0] == department && std::stoi(row[1]) == shift_number) {
-            required_rn = std::stoi(row[2]);   // Number of Registered Nurses required
-            required_lpn = std::stoi(row[3]);  // Number of Licensed Practical Nurses required
-            required_emergency_nurses = std::stoi(row[4]);   // Number of Emergency Nurses required
+        if (row[0] == department && stoi(row[1]) == shift_number) {
+            required_rn = stoi(row[2]);   // Number of Registered Nurses required
+            required_lpn = stoi(row[3]);  // Number of Licensed Practical Nurses required
+            required_emergency_nurses = stoi(row[4]);   // Number of Emergency Nurses required
             department_found = true;
             break;
         }
     }
 
     if (!department_found) {
-        std::cerr << "No constraints found for department " << department << " and shift " << shift_number << std::endl;
+        cerr << "No constraints found for department " << department << " and shift " << shift_number << endl;
         return {};
     }
 
-    std::vector<Nurse*> selected_nurses;
+    vector<Nurse*> selected_nurses;
 
     // Helper function to filter nurses by preference for the shift
-    auto filterNursesByPreference = [shift_number](const NurseList& nurse_list, int required_count) -> std::vector<Nurse*> {
-        std::vector<Nurse*> type_selected_nurses;
+    auto filterNursesByPreference = [shift_number](const NurseList& nurse_list, int required_count) -> vector<Nurse*> {
+        vector<Nurse*> type_selected_nurses;
 
         Nurse* current = nurse_list.getHead();  // Use the getter method here
 
@@ -54,7 +55,7 @@ std::vector<Nurse*> selectBestNurses(const std::unordered_map<std::string, Nurse
         }
 
         // Sort nurses based on preference (preferred nurses first)
-        std::sort(type_selected_nurses.begin(), type_selected_nurses.end(), 
+        sort(type_selected_nurses.begin(), type_selected_nurses.end(), 
             [shift_number](Nurse* a, Nurse* b) {
                 return a->nurseShifts[shift_number - 1] > b->nurseShifts[shift_number - 1];
             });
@@ -69,19 +70,19 @@ std::vector<Nurse*> selectBestNurses(const std::unordered_map<std::string, Nurse
 
     // Select the required Registered Nurses based on preference
     if (nurse_lists.find("Registered Nurse") != nurse_lists.end()) {
-        std::vector<Nurse*> rn_nurses = filterNursesByPreference(nurse_lists.at("Registered Nurse"), required_rn);
+        vector<Nurse*> rn_nurses = filterNursesByPreference(nurse_lists.at("Registered Nurse"), required_rn);
         selected_nurses.insert(selected_nurses.end(), rn_nurses.begin(), rn_nurses.end());
     }
 
     // Select the required Licensed Practical Nurses based on preference
     if (nurse_lists.find("Licensed Practical Nurse") != nurse_lists.end()) {
-        std::vector<Nurse*> lpn_nurses = filterNursesByPreference(nurse_lists.at("Licensed Practical Nurse"), required_lpn);
+        vector<Nurse*> lpn_nurses = filterNursesByPreference(nurse_lists.at("Licensed Practical Nurse"), required_lpn);
         selected_nurses.insert(selected_nurses.end(), lpn_nurses.begin(), lpn_nurses.end());
     }
 
     // Select the required Emergency Nurses based on preference
     if (nurse_lists.find("Emergency Nursing") != nurse_lists.end()) {
-        std::vector<Nurse*> emergency_nurses = filterNursesByPreference(nurse_lists.at("Emergency Nursing"), required_emergency_nurses);
+        vector<Nurse*> emergency_nurses = filterNursesByPreference(nurse_lists.at("Emergency Nursing"), required_emergency_nurses);
         selected_nurses.insert(selected_nurses.end(), emergency_nurses.begin(), emergency_nurses.end());
     }
 

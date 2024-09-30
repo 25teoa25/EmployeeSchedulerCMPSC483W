@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "NurseList.h"
+using namespace std;
 
 /**
  * @brief Selects the best nurses for a specific shift and department based on their preferences and the constraints.
@@ -16,8 +17,8 @@
  * 
  * @return A vector of pointers to the best-selected nurses for the given shift and department.
  */
-std::vector<Nurse*> selectBestNurses(const std::unordered_map<std::string, NurseList>& nurse_lists,
-                                     const std::vector<std::vector<std::string>>& constraints,
-                                     int shift_number, const std::string& department);
+vector<Nurse*> selectBestNurses(const unordered_map<string, NurseList>& nurse_lists,
+                                     const vector<vector<string>>& constraints,
+                                     int shift_number, const string& department);
 
 #endif // NURSE_FUNCTIONS_H
