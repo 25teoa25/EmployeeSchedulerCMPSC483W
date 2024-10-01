@@ -13,7 +13,7 @@ int main() {
     unordered_map< string, NurseList > nurse_lists;  // Map to store linked lists for each nurse type
 
     // Read the CSV file and populate nurse lists
-    loadNurses( "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/nurse_data.csv" , nurse_lists );
+    loadNurses( "/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/nurse_data.csv" , nurse_lists );
 
 
 
@@ -30,21 +30,11 @@ int main() {
     }
 
     NurseMap nurse_map;
-    string filename = "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/5Day_Constraints.csv";
+    string filename = "/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/5Day_Constraints.csv";
 
     // Read the CSV and populate the data structure
-    loadConstraints(filename, nurse_map);
+    loadConstraints(filename, nurse_map); //populates nurse_map where key is a tuple (dept, shift num, ype of nurse) : how many needed
     displayNurseMap(nurse_map);
-
-    //hard coded to fit five day schedule
-    int shift_num = 1;
-    for (int day = 1; day <= 5; day++) {
-        for (int current_nurse = 1; current_nurse <= 100; current_nurse++) {
-            for (shift_num = shift_num * day; shift_num <= 15; shift_num++) {
-                //selectBestNurses(nurse_lists, )
-            }
-        }
-    }
 
     // Array of departments
     std::vector<std::string> departments = { "Oncology", "Pediatric", "Surgery" };
