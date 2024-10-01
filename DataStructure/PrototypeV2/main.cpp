@@ -47,7 +47,7 @@ int main() {
     }
 
     // Array of departments
-    std::vector<std::string> departments = { "Oncology", "Pediatrics", "Surgery" };
+    std::vector<std::string> departments = { "Oncology", "Pediatric", "Surgery" };
 
     // Array of nurse types
     std::vector<std::string> nurse_types = { "RN", "LPN", "NA" };
