@@ -71,6 +71,10 @@ public:
 
     Nurse* getHead() const;
 
+    void sortNursesByShift(int shiftIndex);
+
+    void swap(Nurse* a, Nurse* b);
+
 private:
 
     Nurse* head; /**< Pointer to the first nurse in the linked list. */
