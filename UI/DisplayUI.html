@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <head></head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content = "width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="DisplayStyles.css">
+    <script src = "DisplayFunctionality.js"></script>
 </head>
 <html>
-    <h1>Nurse Schedule &#128513;</h1>
-    <div class="popup" onclick="myFunction()">Click me!
-        <span class="popuptext" id="myPopup">Popup text...</span>
+    <h1>Nurse Schedule</h1>
+    <div class="popup" onclick="myFunction()"> This is going to the be the emoji popup thing. &#128513;
+        <span class="popuptext" id="myPopup">This scheduled shift has a Satisfaction rate of: 75%</span>
       </div>
+    <div class = "tabs">
+        <button onClick="switchTab('Overall')">Overall</button>
+        <button onClick="switchTab('Pediatric')">Pediatric</button>
+        <button onClick="switchTab('Oncology')">Oncology</button>
+    </div>
+
+    <h1 id="tabHeader">Overall Schedule</h1>
+    
     <div class = "side-info">
         <div class = "search-box">
             <text class="search-header">Search by Employee ID:</text>
@@ -24,4 +35,50 @@
             
         </div>
     </div>
+<head>
+    <link rel="stylesheet" href="DisplayStyles.css">
+</head>
+<body>
+    <h1>Week of (9/30)</h1>
+    <div class="left-side-container">
+        <div class="table-container">
+            <div class="schedule">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Monday (9/30)</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                            <th>Monday (10/7)</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="shift-row">Shift 1 (7am-3pm)</th>
+                            <td>Oncology</td>
+                            <td>Pediatric</td>
+                        </tr>
+                        <tr>
+                            <th class="shift-row">Shift 2 (3pm-11pm)</th>
+                        </tr>
+                        <tr>
+                            <th class="shift-row">Shift 3 (11pm-7am)</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
