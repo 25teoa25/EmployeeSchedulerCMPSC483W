@@ -74,5 +74,43 @@ void NurseList::display() const {
         current = current->next;
 
     }
-
 }
+
+void NurseList::sortNursesByShift(int shiftIndex) {
+    if (!head) return;  // If the list is empty, no need to sort.
+
+    bool swapped;
+    do {
+        swapped = false;
+        Nurse* current = head;
+
+        while (current && current->next) {
+            // Ensure we are not accessing an out-of-bounds shiftIndex
+            if (shiftIndex < current->nurseShifts.size() && shiftIndex < current->next->nurseShifts.size()) {
+                int currentShift = stoi(current->nurseShifts[shiftIndex]);
+                int nextShift = stoi(current->next->nurseShifts[shiftIndex]);
+
+                // Compare shifts and swap if the current shift is less than the next
+                if (currentShift < nextShift) {
+                    // Swap nurse details (we're swapping data, not the nodes themselves)
+                    swap(current, current->next);
+                    swapped = true;
+                }
+            }
+            current = current->next;
+        }
+    } while (swapped);  // Continue until no swaps are made
+}
+
+
+
+// Utility function to swap two nurses (swaps their data, not the nodes themselves)
+void NurseList::swap(Nurse* a, Nurse* b) {
+    std::swap(a->nurseName, b->nurseName);
+    std::swap(a->nurseNumber, b->nurseNumber);
+    std::swap(a->nurseType, b->nurseType);
+    std::swap(a->nurseDepartment, b->nurseDepartment);
+    std::swap(a->nurseShifts, b->nurseShifts);
+}
+
+
