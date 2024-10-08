@@ -32,14 +32,39 @@
             <Text class = "summary-info">- Blah blah information</Text>
         </div>
     </div>
-<head>
-    <link rel="stylesheet" href="DisplayStyles.css">
-</head>
 <body>
     <h1>Week of (9/30)</h1>
     <div class="left-side-container">
         <div class="table-container">
-            <div class="schedule">
+            <div class="schedule" id="pediatricSchedule">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Monday (9/30)</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                            <th>Monday (10/7)</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shift-table-body">
+                        <!-- JavaScript will fill in this row -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="table-container"></div>
+            <div class="schedule" id="oncologySchedule">
                 <table>
                     <thead>
                         <tr>
@@ -63,18 +88,6 @@
                     <tbody id="shift-table-body">
                         <!-- JavaScript will fill in this row -->
                     </tbody>
-                    <!-- <tbody>
-                        <tr>
-                            <th class="shift-row">Shift 1 <br> 7am-3pm</th>
-                            
-                        </tr>
-                        <tr>
-                            <th class="shift-row">Shift 2 <br> 3pm-11pm</th>
-                        </tr>
-                        <tr>
-                            <th class="shift-row">Shift 3 <br> 11pm-7am</th>
-                        </tr>
-                    </tbody> -->
                 </table>
             </div>
         </div>
