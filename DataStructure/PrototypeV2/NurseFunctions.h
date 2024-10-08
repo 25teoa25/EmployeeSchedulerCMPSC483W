@@ -21,4 +21,7 @@ vector<Nurse*> selectBestNurses(const unordered_map<string, NurseList>& nurse_li
                                      const vector<vector<string>>& constraints,
                                      int shift_number, const string& department);
 
+// Function to calculate average satisfaction score of assigned nurses
+double calculateAverageSatisfaction(const std::vector<Nurse*>& assigned_nurses, int shift);
+
 #endif // NURSE_FUNCTIONS_H
