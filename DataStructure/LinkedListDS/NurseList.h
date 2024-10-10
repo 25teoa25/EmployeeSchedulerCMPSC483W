@@ -1,79 +1,45 @@
-// NurseList.h
 #ifndef NURSE_LIST_H
 #define NURSE_LIST_H
 
-#include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
+#include <unordered_map>
 
 /**
- * @struct Nurse
- * @brief A structure that stores information about a nurse, including their name, ID number, pay, and work shifts.
+ * @brief Structure representing a nurse's data.
  * 
- * The Nurse structure holds details about a nurse and is used in the doubly linked list for storing nurse records.
+ * This structure holds information about a nurse, including their full name, 
+ * nurse number, type (e.g., "RN", "LPN"), department, and shift preferences.
  */
 struct Nurse {
-
-    std::string nurseName; /**< Nurse's name. */
-    int nurseNumber; /**< Unique nurse identifier (e.g., employee number). */
-    double nursePay; /**< Hourly or annual salary of the nurse. */
-    std::vector< std::string > nurseShifts;  /**< A vector containing the nurse's assigned shifts (e.g., 42 shifts). */
-    Nurse* next; /**< Pointer to the next nurse in the linked list. */
-    Nurse* prev; /**< Pointer to the previous nurse in the linked list. */
-
+    std::string fullName;
+    int nurseNumber;
+    std::string nurseType;
+    std::string department;
+    std::vector<int> shiftPreferences; // Stores preferences for 42 shifts
+    
     /**
-     * @brief Constructs a Nurse object.
+     * @brief Gets the shift preference for a specific shift.
      * 
-     * @param nurseName The nurse's name.
-     * @param number The nurse's unique ID number.
-     * @param nursePay The nurse's hourly or annual pay.
-     * @param nurseShifts A vector of shifts assigned to the nurse.
+     * @param shiftNumber The shift number (1-42).
+     * @return int The preference for the specified shift (0, 1, 2).
      */
-    Nurse( const std::string& nurseName , int number , double nursePay , const std::vector< std::string >& nurseShifts );
-
+    int getShiftPreference(int shiftNumber) const {
+        if (shiftNumber >= 1 && shiftNumber <= shiftPreferences.size()) {
+            return shiftPreferences[shiftNumber - 1];
+        }
+        return -1; // Invalid shift number
+    }
 };
 
 /**
- * @class NurseList
- * @brief A doubly linked list class for storing and managing a collection of nurses.
+ * @brief Global map for storing nurses categorized by department and type.
  * 
- * The NurseList class allows adding nurses to a doubly linked list and displaying the list.
+ * This map uses the department name as the key, and each value is another map that categorizes 
+ * nurses by their type (e.g., "RN", "LPN"). Each type map holds a vector of nurses.
  */
-class NurseList {
-public:
-    /**
-     * @brief Constructs an empty NurseList object.
-     * 
-     * Initializes an empty doubly linked list where both head and tail pointers are set to nullptr.
-     */
-    NurseList();
+extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;
 
-    /**
-     * @brief Adds a new nurse to the list.
-     * 
-     * @param nurseName The nurse's name.
-     * @param number The nurse's unique ID number.
-     * @param nursePay The nurse's hourly or annual pay.
-     * @param nurseShifts A vector of shifts assigned to the nurse.
-     * 
-     * The new nurse is added to the end of the doubly linked list.
-     */
-    void addNurse( const std::string& nurseName , int number , double nursePay , const std::vector< std::string >& nurseShifts );
-
-    /**
-     * @brief Displays all nurses in the list.
-     * 
-     * This function traverses the list and prints out details of each nurse.
-     */
-    void display() const;
-
-    Nurse* getHead() const;
-
-private:
-
-    Nurse* head; /**< Pointer to the first nurse in the linked list. */
-    Nurse* tail; /**< Pointer to the last nurse in the linked list. */
-
-};
+// No need to declare viewNursesByDepartmentAndType here; it's in NurseFunctions.h
 
 #endif // NURSE_LIST_H
