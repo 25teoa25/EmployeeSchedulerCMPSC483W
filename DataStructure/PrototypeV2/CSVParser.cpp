@@ -5,7 +5,14 @@
 #include <iostream>
 using namespace std;
 
-//function to load csv with all nurses into 3 linked lists: 1 for each: LPNs, RNS, NAs
+/**
+ * @brief Reads a CSV file and populates nurse data into linked lists based on nurse type.
+ * 
+ * @param filename The name of the CSV file to read.
+ * @param nurse_lists A reference to an unordered_map where the key is the nurse type (e.g., "RN", "LPN") and the value is a NurseList containing nurses of that type.
+ * 
+ * The function processes the CSV, where each line represents a nurse and their attributes. It goes line by line and adds nurses to the proper linked list.
+ */
 void loadNurses( const string& filename , unordered_map<string , NurseList>& nurse_lists ) {
 
     // Open the CSV file
@@ -64,8 +71,15 @@ size_t hash<Key>::operator()(const Key& k) const {
            hash<string>()(get<2>(k));
 }
 
-// Function to read the CSV of department constraints and store the data in NurseMap
-// nurseMap format: (dept, shift #, nurse type) --> # needed
+/**
+ * @brief Reads a CSV file and populates nurse constraints into nurse map. nurseMap format: (dept, shift #, nurse type) --> # needed
+ * 
+ * @param filename The name of the CSV file to read.
+ * @param nurse_map A reference to a map of nurse constarints in the format: (dept, shift #, nurse type) --> # needed
+ * 
+ * The function processes the CSV, where each line represents a department and their constraints. It makes the proper tuple and sets the number of
+ * nurses needed for that shift.
+ */
 void loadConstraints(const string& filename, NurseMap& nurse_map) {
     ifstream file(filename);
     string line, dept, shift_str, rn_str, lpn_str, na_str;
@@ -97,7 +111,13 @@ void loadConstraints(const string& filename, NurseMap& nurse_map) {
     }
 }
 
-// Function to display the NurseMap constraints
+/**
+ * @brief displays nurse map (all constraints for departments in the4 hopital for each shift)
+ * 
+ * @param nurse_map A reference to a map of nurse constarints in the format: (dept, shift #, nurse type) --> # needed
+ * 
+ * The function takes the nurse_map of the nurse constraints and prints it to the console in an easy to read format
+ */
 void displayNurseMap(const NurseMap& nurse_map) {
     cout << "Department | Shift # | Nurse Type | # Needed" << endl;
     cout << "--------------------------------------------" << endl;

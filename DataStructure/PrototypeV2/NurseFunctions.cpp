@@ -88,3 +88,25 @@ vector<Nurse*> selectBestNurses(const unordered_map<string, NurseList>& nurse_li
 
     return selected_nurses;
 }
+
+/**
+ * @brief Calculates the average satisfaction score of nurses assigned to a specific shift.
+ * 
+ * @param assigned_nurses A vector of pointers to Nurse objects representing the nurses assigned to the shift.
+ * @param shift The shift number (1-based) for which the average satisfaction score is to be calculated.
+ *               Note: The `shift` parameter is 1-based, while the `nurseShifts` vector is 0-based.
+ * 
+ * @return The average satisfaction score for the assigned nurses for the specified shift.
+ *         Returns 0.0 if no nurses are assigned to avoid division by zero.
+ */
+double calculateAverageSatisfaction(const std::vector<Nurse*>& assigned_nurses, int shift) {
+    int total_satisfaction = 0;
+
+    // Sum the satisfaction scores for each nurse for the given shift
+    for (const Nurse* nurse : assigned_nurses) {
+        total_satisfaction += std::stoi(nurse->nurseShifts[shift - 1]);  // nurseShifts is 0-based, shift is 1-based
+    }
+
+    // Return the average satisfaction score
+    return assigned_nurses.empty() ? 0.0 : static_cast<double>(total_satisfaction) / assigned_nurses.size();
+}

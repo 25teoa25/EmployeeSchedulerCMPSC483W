@@ -71,6 +71,14 @@ public:
 
     Nurse* getHead() const;
 
+/**
+ * @brief Sorts nurses by satisfaction number for a given shift
+ * 
+ * @param shiftIndex Shift number to sort satisfaction by
+ * 
+ *  This function sorts nurses from most willing to least willing to work a given shift, which allows us to pick nurses
+ * with a higher satisfaction score
+ */
     void sortNursesByShift(int shiftIndex);
 
     void swap(Nurse* a, Nurse* b);
