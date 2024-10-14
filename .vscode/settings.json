@@ -55,7 +55,8 @@
         "print": "cpp",
         "queue": "cpp",
         "stack": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "set": "cpp"
     },
     "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }
