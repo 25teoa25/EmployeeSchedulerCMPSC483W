@@ -13,7 +13,7 @@ int main() {
     unordered_map< string, NurseList > nurse_lists;  // Map to store linked lists for each nurse type
 
     // Read the CSV file and populate nurse lists
-    loadNurses("/Users/alexteo/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/Nurse_List_Department_Included.csv", nurse_lists);
+    loadNurses("/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/Nurse_List_Department_Included.csv", nurse_lists);
 
     // Display all nurses
     for (auto it = nurse_lists.begin(); it != nurse_lists.end(); ++it) {
@@ -25,10 +25,12 @@ int main() {
 
         // Call the display() method of NurseList
         nurseList.display();
+
+        nurseList.displayJSON();
     }
 
     NurseMap nurse_map;
-    string filename = "/Users/alexteo/Downloads/Nurse Constraints Test.csv";
+    string filename = "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/5Day_Constraints.csv";
 
     // Read the CSV and populate the data structure
     loadConstraints(filename, nurse_map);
