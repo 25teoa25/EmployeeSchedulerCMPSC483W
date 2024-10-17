@@ -31,7 +31,25 @@ namespace std {
     };
 }
 
+/**
+ * @brief Reads a CSV file and populates nurse constraints into nurse map. nurseMap format: (dept, shift #, nurse type) --> # needed
+ * 
+ * @param filename The name of the CSV file to read.
+ * @param nurse_map A reference to a map of nurse constarints in the format: (dept, shift #, nurse type) --> # needed
+ * 
+ * The function processes the CSV, where each line represents a nurse and their attributes. It parses the nurse's name, number, type, pay, and assigned shifts,
+ * and adds the nurse to the appropriate linked list based on their type.
+ */
 void loadConstraints(const string& filename, NurseMap& nurse_map);
+
+/**
+ * @brief displays nurse map (all constraints for departments in the4 hopital for each shift)
+ * 
+ * @param nurse_map A reference to a map of nurse constarints in the format: (dept, shift #, nurse type) --> # needed
+ * 
+ * The function processes the CSV, where each line represents a nurse and their attributes. It parses the nurse's name, number, type, pay, and assigned shifts,
+ * and adds the nurse to the appropriate linked list based on their type.
+ */
 void displayNurseMap(const NurseMap& nurse_map);
 
 #endif // CSV_PARSER_H

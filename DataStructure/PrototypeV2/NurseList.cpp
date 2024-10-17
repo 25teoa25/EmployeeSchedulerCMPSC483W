@@ -1,7 +1,9 @@
 // NurseList.cpp
 #include "NurseList.h"
 #include <iostream>
+#include "json.hpp"  // Include the JSON library
 using namespace std;
+using json = nlohmann::json;
 
 /**
  * @brief Constructs a Nurse object with the given name, number, pay, and shift data.
@@ -54,7 +56,13 @@ void NurseList::addNurse( const string& nurseName , int number , const string& n
 
 }
 
-// Display all nurses in the list
+/**
+ * @brief Displays all nurses in the list
+ * 
+ * 
+ * Iterates through the list starting at the head and outputs the information for each nurse
+ * 
+ */
 void NurseList::display() const {
 
     Nurse* current = head;
@@ -76,6 +84,42 @@ void NurseList::display() const {
     }
 }
 
+void NurseList::displayJSON() const {
+    Nurse* current = head;
+    
+    json nursesList = json::array();  // Create a JSON array to hold nurse data
+    
+    while (current) {
+        // Create a JSON object for each nurse
+        json nurseJson;
+        nurseJson["nurseName"] = current->nurseName;
+        nurseJson["nurseNumber"] = current->nurseNumber;
+        nurseJson["nurseType"] = current->nurseType;
+        nurseJson["nurseDept"] = current->nurseDepartment;
+        
+        // Convert shifts to JSON array
+        nurseJson["Shifts"] = json::array();
+        for (const auto& shift : current->nurseShifts) {
+            nurseJson["Shifts"].push_back(shift);
+        }
+        
+        // Add nurse JSON object to the list
+        nursesList.push_back(nurseJson);
+        
+        current = current->next;
+    }
+    
+    // Output the JSON
+    cout << nursesList.dump(4) << endl;  // Pretty-print with indentation of 4 spaces
+}
+/**
+ * @brief Sorts nurses by satisfaction number for a given shift
+ * 
+ * @param shiftIndex Shift number to sort satisfaction by
+ * 
+ *  This function sorts nurses from most willing to least willing to work a given shift, which allows us to pick nurses
+ * with a higher satisfaction score
+ */
 void NurseList::sortNursesByShift(int shiftIndex) {
     if (!head) return;  // If the list is empty, no need to sort.
 
