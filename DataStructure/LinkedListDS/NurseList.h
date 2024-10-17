@@ -9,15 +9,15 @@
  * @brief Structure representing a nurse's data.
  * 
  * This structure holds information about a nurse, including their full name, 
- * nurse number, type (e.g., "RN", "LPN"), department, and shift preferences.
+ * nurse number, type, department, and shift preferences.
  */
 struct Nurse {
-    std::string fullName;
-    int nurseNumber;
-    std::string nurseType;
-    std::string department;
-    std::vector<int> shiftPreferences; // Stores preferences for 42 shifts
-    
+    std::string fullName;    ///< Full name of the nurse
+    int nurseNumber;         ///< Unique identifier for the nurse
+    std::string nurseType;   ///< Type of nurse (e.g., "RN", "LPN")
+    std::string department;  ///< Department of the nurse (e.g., "Oncology")
+    std::vector<int> shiftPreferences; ///< Stores preferences for 42 shifts (0, 1, 2)
+
     /**
      * @brief Gets the shift preference for a specific shift.
      * 
@@ -32,14 +32,8 @@ struct Nurse {
     }
 };
 
-/**
- * @brief Global map for storing nurses categorized by department and type.
- * 
- * This map uses the department name as the key, and each value is another map that categorizes 
- * nurses by their type (e.g., "RN", "LPN"). Each type map holds a vector of nurses.
- */
+// Global variables
 extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;
-
-// No need to declare viewNursesByDepartmentAndType here; it's in NurseFunctions.h
+extern std::unordered_map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> constraintsMap;
 
 #endif // NURSE_LIST_H
