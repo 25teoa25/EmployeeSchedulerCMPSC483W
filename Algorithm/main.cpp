@@ -7,6 +7,7 @@
 #include "../DataStructure/LinkedListDS/NurseFunctions.h"
 #include "../DataStructure/LinkedListDS/CSVParser.h"
 #include "../DataStructure/LinkedListDS/NurseList.h"
+#include "../Algorithm/neighbor.h"
 
 using namespace std;
 
