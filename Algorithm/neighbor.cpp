@@ -236,4 +236,5 @@ void structure8(){
         nurse3.shiftPreferences[shiftIndex3] = nurse2.shiftPreferences[shiftIndex2];
         nurse2.shiftPreferences[shiftIndex2] = temp;
         cout << "Shifts cycled for 3 nurses on day " << day << endl;
+    }
 }
