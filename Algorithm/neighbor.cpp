@@ -6,17 +6,24 @@
 #include <random>
 using namespace std;
 
-/*
-To my knowledge, these structures only run on nurses of the same type in the same department.
+/* To my knowledge, these structures only run on nurses of the same type in the same department.
 In order to check if the change is feasible, it must improve nurse happiness and also not 
-break any of the listed constraints.
-*/
+break any of the listed constraints. */
+
+/* Funtion to check if a change is feasible ( the change does not reduce happiness )*/
+bool feasible(int currPref, int newPref){
+    if (currPref < newPref){
+        return false;
+    }
+    return true;
+}
 
 /* 
 1. Select 2 nurses working back to back shifts
 2. Check if a long shift is feasible
     a. If so, swap the nurses out for a long shift
 */
+
 void structure1(){
 
 }
