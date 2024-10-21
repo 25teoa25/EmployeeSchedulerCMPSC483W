@@ -18,6 +18,9 @@ const double MUTATION_RATE = 0.05;
 // Nurse preference (0: can work, 1: prefer not, 2: doesn't want to work)
 int nurse_preferences[NUM_NURSES][NUM_SHIFTS]; // Filled from the CSV
 
+// Declare debug_print_preferences
+void debug_print_preferences(int num_nurses_to_print = 5);
+
 // Function to read data from CSV and fill nurse_preferences
 void read_csv(const string& filename) {
     ifstream file(filename);
@@ -32,26 +35,48 @@ void read_csv(const string& filename) {
     // Skip the header line
     getline(file, line);
 
+    // Process each line in the CSV
     while (getline(file, line) && nurse_index < NUM_NURSES) {
         stringstream ss(line);
         string value;
         int shift_index = 0;
+        int column_index = 0; // Track column index to skip the first 4
 
-        // Skip the first 4 columns: Full Name, Nurse Number, Nurse Type, Nurse Department
-        for (int i = 0; i < 4; ++i) {
-            getline(ss, value, ',');
+        while (getline(ss, value, ',')) {
+            if (column_index >= 4) {  // Start reading shift preferences after 4 columns
+                if (shift_index < NUM_SHIFTS) {
+                    // Convert value to integer and store in the array
+                    nurse_preferences[nurse_index][shift_index] = stoi(value);
+                    shift_index++;
+                }
+            }
+            column_index++;
         }
 
-        // Read shift preferences
-        while (getline(ss, value, ',') && shift_index < NUM_SHIFTS) {
-            nurse_preferences[nurse_index][shift_index] = stoi(value);
-            shift_index++;
+        if (shift_index != NUM_SHIFTS) {
+            cerr << "Error: Row " << nurse_index + 1 << " does not have " << NUM_SHIFTS << " shift preferences.\n";
+            exit(1);
         }
 
         nurse_index++;
     }
 
     file.close();
+
+    // Debug print call
+    debug_print_preferences();
+    cout << "CSV file successfully read and loaded into nurse_preferences array.\n";
+}
+
+void debug_print_preferences(int num_nurses_to_print) {
+    cout << "Printing first " << num_nurses_to_print << " nurses' preferences:" << endl;
+    for (int i = 0; i < num_nurses_to_print; i++) {
+        cout << "Nurse " << i + 1 << ": ";
+        for (int j = 0; j < NUM_SHIFTS; j++) {
+            cout << nurse_preferences[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
 
 // Chromosome structure representing a schedule
@@ -73,10 +98,11 @@ vector<Chromosome> initialize_population() {
 
     for (auto& chromosome : population) {
         for (int i = 0; i < NUM_SHIFTS; ++i) {
-            // Prefer assigning nurses with preference 0 first, then 1, and avoid 2 if possible
             vector<int> preferred_nurses;
             vector<int> fallback_nurses;
+            vector<int> least_preferred_nurses;
 
+            // Group nurses based on their preferences for the current shift
             for (int nurse = 0; nurse < NUM_NURSES; ++nurse) {
                 if (nurse_preferences[nurse][i] == 0) {
                     preferred_nurses.push_back(nurse);
@@ -84,62 +110,58 @@ vector<Chromosome> initialize_population() {
                 else if (nurse_preferences[nurse][i] == 1) {
                     fallback_nurses.push_back(nurse);
                 }
+                else if (nurse_preferences[nurse][i] == 2) {
+                    least_preferred_nurses.push_back(nurse);
+                }
             }
 
-            if (!preferred_nurses.empty()) {
+            // Randomly assign a nurse with some probability of choosing less optimal nurses
+            double random_choice = (double)rand() / RAND_MAX;
+            if (!preferred_nurses.empty() && random_choice < 0.6) {
+                // 60% chance to pick from preferred nurses (Preference: 0)
                 uniform_int_distribution<> distr(0, preferred_nurses.size() - 1);
                 chromosome.shifts[i] = preferred_nurses[distr(gen)];
             }
-            else if (!fallback_nurses.empty()) {
+            else if (!fallback_nurses.empty() && random_choice < 0.9) {
+                // 30% chance to pick from fallback nurses (Preference: 1)
                 uniform_int_distribution<> distr(0, fallback_nurses.size() - 1);
                 chromosome.shifts[i] = fallback_nurses[distr(gen)];
             }
-            else {
-                chromosome.shifts[i] = gen() % NUM_NURSES;
+            else if (!least_preferred_nurses.empty()) {
+                // 10% chance to pick from least preferred nurses (Preference: 2)
+                uniform_int_distribution<> distr(0, least_preferred_nurses.size() - 1);
+                chromosome.shifts[i] = least_preferred_nurses[distr(gen)];
             }
+            else {
+                chromosome.shifts[i] = gen() % NUM_NURSES; // Random fallback in case no preferences are available
+            }
+
+            // Debug output for each shift assignment
+            cout << "Shift " << i + 1 << " assigned Nurse " << chromosome.shifts[i] + 1
+                 << " with Preference " << nurse_preferences[chromosome.shifts[i]][i] << endl;
         }
     }
     return population;
 }
-
-// Fitness function to evaluate each chromosome
+// Updated calculate_fitness function to accept Chromosome parameter
 int calculate_fitness(const Chromosome& chromosome) {
     int fitness = 0;
 
-    // Evaluate shift preferences
-    for (int i = 0; i < NUM_SHIFTS; ++i) {
-        int nurse = chromosome.shifts[i];
-        int preference = nurse_preferences[nurse][i];
+    for (int shift = 0; shift < NUM_SHIFTS; shift++) {
+        int nurse_id = chromosome.shifts[shift];
+        int preference = nurse_preferences[nurse_id][shift];
 
-        if (preference == 2) {
-            fitness += 200;  // Much larger penalty for "doesn't want to work"
+        // Adjust fitness based on preference
+        if (preference == 1) {
+            fitness -= 1; // Prefer not
+        } else if (preference == 2) {
+            fitness -= 2; // Doesn't want to work
         }
-        else if (preference == 1) {
-            fitness += 50;  // Moderate penalty for "prefer not"
-        }
-        else {
-            fitness -= 10;  // Small bonus for "can work"
-        }
-    }
 
-    // Penalize for consecutive shifts beyond 2 in a row
-    for (int i = 0; i < NUM_SHIFTS - 2; ++i) {
-        if (chromosome.shifts[i] == chromosome.shifts[i + 1] && chromosome.shifts[i + 1] == chromosome.shifts[i + 2]) {
-            fitness += 100;  // Strong penalty for more than 2 consecutive shifts
-        }
-    }
-
-    // Penalize for nurses assigned to too many shifts
-    vector<int> nurse_shift_count(NUM_NURSES, 0);
-    for (int i = 0; i < NUM_SHIFTS; ++i) {
-        int nurse = chromosome.shifts[i];
-        nurse_shift_count[nurse]++;
-    }
-
-    for (int count : nurse_shift_count) {
-        if (count > 2) {
-            fitness += (count - 2) * 10; // Penalty for each additional shift beyond 2
-        }
+        // Debug output
+        cout << "Shift " << shift + 1 << ": Nurse " << nurse_id + 1
+             << " (Preference: " << preference << ") - Fitness impact: "
+             << ((preference == 1) ? -1 : (preference == 2) ? -2 : 0) << endl;
     }
 
     return fitness;
@@ -217,64 +239,69 @@ void mutate(Chromosome& chromosome) {
 
 // Main function to run the genetic algorithm
 int main() {
-    // Read nurse preferences from the CSV file
+    // Step 1: Read nurse preferences from the CSV file
+    cout << "Loading nurse preferences from CSV...\n";
     read_csv("Nurse_List_Department_Included.csv");
 
-    // Initialize population
+    // Step 2: Initialize the population with random schedules
+    cout << "Initializing population...\n";
     vector<Chromosome> population = initialize_population();
 
-    // Evaluate initial fitness
+    // Step 3: Evaluate the initial fitness of each chromosome in the population
+    cout << "Evaluating initial fitness for each chromosome...\n";
     for (auto& chromosome : population) {
         chromosome.fitness = calculate_fitness(chromosome);
     }
 
-    // Track the best chromosome overall
+    // Step 4: Track the best chromosome across all generations
     Chromosome best_overall = *min_element(population.begin(), population.end(),
         [](const Chromosome& a, const Chromosome& b) {
             return a.fitness < b.fitness;
         });
+    cout << "Initial best fitness: " << best_overall.fitness << "\n";
 
-    // Evolution loop
+    // Step 5: Evolution loop - generate new populations for each generation
     for (int generation = 0; generation < MAX_GENERATIONS; ++generation) {
         vector<Chromosome> new_population;
 
-        // Create new generation
+        // Generate new population through selection, crossover, and mutation
         while (new_population.size() < POPULATION_SIZE) {
             Chromosome parent1 = select_parent(population);
             Chromosome parent2 = select_parent(population);
             Chromosome offspring = crossover(parent1, parent2);
             mutate(offspring);
-            offspring.fitness = calculate_fitness(offspring);
+            offspring.fitness = calculate_fitness(offspring);  // Evaluate fitness of offspring
             new_population.push_back(offspring);
         }
 
-        // Replace old population with new population
+        // Replace the old population with the new one
         population = std::move(new_population);
 
-        // Find the best chromosome in the current generation
+        // Identify the best chromosome in the current generation
         auto best_chromosome_iter = min_element(population.begin(), population.end(),
             [](const Chromosome& a, const Chromosome& b) {
                 return a.fitness < b.fitness;
             });
 
+        // If the current generation's best is better than the overall best, update it
         if (best_chromosome_iter != population.end() && best_chromosome_iter->fitness < best_overall.fitness) {
             best_overall = *best_chromosome_iter;
+            cout << "New best fitness found in generation " << generation << ": " << best_overall.fitness << endl;
         }
-
-        cout << "Generation " << generation << " - Best Fitness: " << best_chromosome_iter->fitness << endl;
     }
 
-    // Print the best chromosome overall
+    // Step 6: Output the best chromosome found
     cout << "\nBest Schedule Found:\n";
     cout << "Fitness: " << best_overall.fitness << "\n";
     cout << "Shift Assignments:\n";
     for (int i = 0; i < NUM_SHIFTS; ++i) {
         int nurse = best_overall.shifts[i];
         int preference = nurse_preferences[nurse][i];
-        cout << "Shift " << (i + 1) << ": Nurse " << nurse << " (Preference: " << preference << ")\n";
+        cout << "Shift " << (i + 1) << ": Nurse " << nurse + 1 << " (Preference: " << preference << ")\n";
+        cout << "DEBUG: Confirming Nurse " << nurse + 1 << " assigned to Shift " << (i + 1) << " with Preference " << preference << endl;
     }
 
-    // Save the best chromosome to a file
+    // Optional: Save the best schedule to a file
     ofstream output_file("best_schedule.txt");
     if (output_file.is_open()) {
         output_file << "Best Schedule Found:\n";
@@ -283,12 +310,11 @@ int main() {
         for (int i = 0; i < NUM_SHIFTS; ++i) {
             int nurse = best_overall.shifts[i];
             int preference = nurse_preferences[nurse][i];
-            output_file << "Shift " << (i + 1) << ": Nurse " << nurse << " (Preference: " << preference << ")\n";
+            output_file << "Shift " << (i + 1) << ": Nurse " << nurse + 1 << " (Preference: " << preference << ")\n";
         }
         output_file.close();
         cout << "\nBest schedule saved to 'best_schedule.txt'.\n";
-    }
-    else {
+    } else {
         cerr << "Error: Could not open file to save the best schedule.\n";
     }
 
