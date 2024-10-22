@@ -1,3 +1,10 @@
+/* Shift specification algorithm runs first on the departmentNursesMap, which is fully populated
+with all nurse information and preferences. The output of the shift specification algorithm is a
+____ with nurses randomly assigned to shifts. Using _____, we will mutate it via running it through
+the neighborhood method. The data structure will be run through each neighborhood method x times.
+After running through each neighborhood method, the final schedule will be outputted through our 
+mutated data structure. Also, the happiness score will be outputted for the entire data structure.
+*/
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -11,11 +18,18 @@
 
 using namespace std;
 
+//to run this file right now:
+//g++ -std=c++11 main.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/CSVParser.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseList.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseFunctions.cpp -o Testfile
+//then: ./Testfile
+
 // Define shift types
 enum ShiftType { MORNING = 'M', EVENING = 'E', NIGHT = 'N' };
 
 // Global map declaration (moved from NurseList.cpp)
-extern unordered_map<string, unordered_map<string, vector<Nurse>>> departmentNursesMap;
+// Outer key is department, inner map key is nurse type, inner map value is a vector of Nurse objects
+// Example: {Pediatric: {LPN: <N1,N2,N3>, NA: <N1>, RN: <N1,N2>}, Oncology: {LPN: <N1,N2>, NA: <N1,N2>, RN: <N1>}}
+// Already filled with nurse information
+// extern unordered_map<string, unordered_map<string, vector<Nurse>>> departmentNursesMap;
 
 // Structure to represent a nurse assignment
 struct NurseAssignment {
@@ -118,11 +132,11 @@ int main() {
     int total_satisfaction_score = 0;
     int total_assigned_nurses = 0;
 
-    // 5-day schedule
+    // 14-day schedule
     for (int day = 1; day <= 14; ++day) {
         for (const string& department : departments) {
             // Initialize demand for each shift type
-            int dm = 5, de = 7, dn = 3; // Example values, adjust as needed
+            int dm = 1, de = 2, dn = 1; // Example values, adjust as needed
 
             for (const string& nurse_type : nurse_types) {
                 while (dm > 0 || de > 0 || dn > 0) {
