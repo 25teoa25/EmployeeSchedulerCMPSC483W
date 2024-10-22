@@ -3,14 +3,20 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content = "width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="DisplayStyles.css">
-    <script src = "JS/DisplayFunctionality.js"></script>
-    <script src = "JS/table.js"></script>
+    <script src = "JS\DisplayFunctionality.js"></script>
+    <script src = "JS\table.js"></script>
+    <script type = "text/javascript">
+        window.onload = startupFunction;
+        function startupFunction() {
+            fillTabs();
+        };
+    </script>
 </head>
 <html>
-    <div class = "tabs">
-        <button onClick="switchTab('Overall')">Overall</button>
-        <button onClick="switchTab('Pediatric')">Pediatric</button>
-        <button onClick="switchTab('Oncology')">Oncology</button>
+    <div class = "tabs" id = "tabs">
+        <!-- <button onClick="switchTab('Overall')">Overall</button> <-->
+        <!-- <button onClick="switchTab('Pediatric')">Pediatric</button> <-->
+        <!-- <button onClick="switchTab('Oncology')">Oncology</button> <-->
     </div>
 
     <h1 id="tabHeader">Overall Schedule</h1>
@@ -40,34 +46,6 @@
                 <table>
                     <thead>
                         <tr class="shift-row">
-                            <th class="shift-col"></th>
-                            <th class="shift-col">Monday (9/30)</th>
-                            <th class="shift-col">Tuesday</th>
-                            <th class="shift-col">Wednesday</th>
-                            <th class="shift-col">Thursday</th>
-                            <th class="shift-col">Friday</th>
-                            <th class="shift-col">Saturday</th>
-                            <th class="shift-col">Sunday</th>
-                            <th class="shift-col">Monday (10/7)</th>
-                            <th class="shift-col">Tuesday</th>
-                            <th class="shift-col">Wednesday</th>
-                            <th class="shift-col">Thursday</th>
-                            <th class="shift-col">Friday</th>
-                            <th class="shift-col">Saturday</th>
-                            <th class="shift-col">Sunday</th>
-                        </tr>
-                    </thead>
-                    <tbody id="shift-table-body">
-                        <!-- JavaScript will fill in this row -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="table-container"></div>
-            <div class="schedule" id="oncologySchedule">
-                <table>
-                    <thead>
-                        <tr>
                             <th class="shift-col"></th>
                             <th class="shift-col">Monday (9/30)</th>
                             <th class="shift-col">Tuesday</th>
