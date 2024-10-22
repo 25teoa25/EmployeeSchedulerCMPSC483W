@@ -2,6 +2,8 @@
 #define NURSE_FUNCTIONS_H
 
 #include <string>
+#include "json.hpp"
+
 
 /**
  * @brief Displays a list of nurses filtered by department and type.
@@ -12,5 +14,7 @@
  * This function outputs the list of nurses in the specified department and of the specified type.
  */
 void viewNursesByDepartmentAndType(const std::string& department, const std::string& type);
+
+void viewNursesByDepartmentAndTypeJSON(const std::string& department, const std::string& type);
 
 #endif // NURSE_FUNCTIONS_H

@@ -1,7 +1,9 @@
 // NurseList.cpp
 #include "NurseList.h"
 #include <iostream>
+#include "json.hpp"  // Include the JSON library
 using namespace std;
+using json = nlohmann::json;
 
 /**
  * @brief Constructs a Nurse object with the given name, number, pay, and shift data.
@@ -82,6 +84,34 @@ void NurseList::display() const {
     }
 }
 
+void NurseList::displayJSON() const {
+    Nurse* current = head;
+    
+    json nursesList = json::array();  // Create a JSON array to hold nurse data
+    
+    while (current) {
+        // Create a JSON object for each nurse
+        json nurseJson;
+        nurseJson["nurseName"] = current->nurseName;
+        nurseJson["nurseNumber"] = current->nurseNumber;
+        nurseJson["nurseType"] = current->nurseType;
+        nurseJson["nurseDept"] = current->nurseDepartment;
+        
+        // Convert shifts to JSON array
+        nurseJson["Shifts"] = json::array();
+        for (const auto& shift : current->nurseShifts) {
+            nurseJson["Shifts"].push_back(shift);
+        }
+        
+        // Add nurse JSON object to the list
+        nursesList.push_back(nurseJson);
+        
+        current = current->next;
+    }
+    
+    // Output the JSON
+    cout << nursesList.dump(4) << endl;  // Pretty-print with indentation of 4 spaces
+}
 /**
  * @brief Sorts nurses by satisfaction number for a given shift
  * 

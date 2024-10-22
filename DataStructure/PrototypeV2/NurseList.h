@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "json.hpp"  // Include the JSON library
+
 using namespace std;
 
 /**
@@ -68,6 +70,9 @@ public:
      * This function traverses the list and prints out details of each nurse.
      */
     void display() const;
+
+    void displayJSON() const;
+
 
     Nurse* getHead() const;
 

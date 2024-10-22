@@ -1,6 +1,7 @@
 #include "NurseFunctions.h"
 #include "NurseList.h"
 #include <iostream>
+using json = nlohmann::json;
 
 /**
  * @brief Displays a list of nurses filtered by department and type.
@@ -28,3 +29,32 @@ void viewNursesByDepartmentAndType(const std::string& department, const std::str
         std::cout << "No such department: " << department << std::endl;
     }
 }
+
+void viewNursesByDepartmentAndTypeJSON(const std::string& department, const std::string& type) {
+    if (departmentNursesMap.find(department) != departmentNursesMap.end()) {
+        const auto& typeMap = departmentNursesMap[department];
+        if (typeMap.find(type) != typeMap.end()) {
+            const auto& nurses = typeMap.at(type);
+            json result;
+            result["department"] = department;
+            result["type"] = type;
+            
+            json nurseArray = json::array();
+            for (const auto& nurse : nurses) {
+                json nurseJson;
+                nurseJson["nurseNumber"] = nurse.nurseNumber;
+                nurseJson["fullName"] = nurse.fullName;
+                nurseArray.push_back(nurseJson);
+            }
+            
+            result["nurses"] = nurseArray;
+            std::cout << result.dump(4) << std::endl; // Pretty print with 4-space indentation
+        } else {
+            std::cout << json{{"error", "No nurses of type " + type + " in department " + department}}.dump(4) << std::endl;
+        }
+    } else {
+        std::cout << json{{"error", "No such department: " + department}}.dump(4) << std::endl;
+    }
+}
+
+
