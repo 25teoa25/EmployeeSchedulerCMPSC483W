@@ -1,6 +1,8 @@
 #include "NurseFunctions.h"
 #include "NurseList.h"
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include <fstream>
 using json = nlohmann::json;
 
 /**
@@ -57,4 +59,29 @@ void viewNursesByDepartmentAndTypeJSON(const std::string& department, const std:
     }
 }
 
+/**
+ * @brief Converts a Nurse object to JSON and writes it to a file.
+ * 
+ * @param nurse The Nurse object to be converted.
+ * @param filename The name of the output JSON file.
+ */
+void nurseToJSON(const Nurse& nurse, const std::string& filename) {
+    // Create a JSON object
+    json nurseJson = {
+        {"fullName", nurse.fullName},
+        {"nurseNumber", nurse.nurseNumber},
+        {"nurseType", nurse.nurseType},
+        {"department", nurse.department},
+        {"shiftPreferences", nurse.shiftPreferences}
+    };
 
+    // Write the JSON object to a file
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        file << nurseJson.dump(4); // Pretty print with 4 spaces indentation
+        file.close();
+        std::cout << "Nurse data saved to " << filename << std::endl;
+    } else {
+        std::cerr << "Failed to open the file: " << filename << std::endl;
+    }
+}
