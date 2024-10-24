@@ -6,13 +6,6 @@ using namespace std;
 std::random_device rd;
 std::mt19937 gen(rd());
 
-// Helper function to get a random nurse
-Nurse& getRandomNurse(const string& department, const string& type) {
-    auto& nurses = departmentNursesMap[department][type];
-    std::uniform_int_distribution<> dis(0, nurses.size() - 1);
-    return nurses[dis(gen)];
-}
-
 // Helper function to get a random day
 int getRandomDay() {
     std::uniform_int_distribution<> dis(0, 13); // Assuming 2 weeks, 14 days
@@ -23,6 +16,20 @@ int getRandomDay() {
 int getRandomShift() {
     std::uniform_int_distribution<> dis(0, 2); // Assuming 3 shifts per day
     return dis(gen);
+}
+
+// Helper function to get a random nurse
+Nurse& getRandomNurse(const string& department, const string& type) {
+    auto& nurses = departmentNursesMap[department][type];
+    std::uniform_int_distribution<> dis(0, nurses.size() - 1);
+    return nurses[dis(gen)];
+}
+
+// Helper function to get a random assigned nurse
+Nurse& getRandomAssignedNurse() {
+    int shift = getRandomShift();
+                                        //UPdate
+    return;
 }
 
 /* To my knowledge, these structures only run on nurses of the same type in the same department.
@@ -45,7 +52,7 @@ bool feasible(int currPref, int newPref){
     a. If so, swap the nurses out for a long shift
 */
 
-void structure1(){
+void structure1(int currPref, string nurseType){
     string department = "Oncology"; // Example department       UPDATE with dynamic name
     string nurseType = "RN";        // Example nurse type       UPDATE
     int day = getRandomDay();
@@ -73,7 +80,7 @@ void structure1(){
 3. Check if splitting the back-to-back shift between the 2 nurses is feasible
     a. If so, split
 */
-void structure2(){
+void structure2(int currPref, string nurseType){
     string department = "Pediatric"; // Example department
     string nurseType = "LPN"; // Example nurse type
     int day = getRandomDay();
@@ -96,7 +103,7 @@ void structure2(){
 2. Check if the shift swap between the nurses on different days if feasible
     a. If so, swap
 */
-void structure3(){
+void structure3(int currPref, string nurseType){
     string department = "Surgery"; // Example department
     string nurseType = "NA"; // Example nurse type
 
@@ -122,10 +129,7 @@ void structure3(){
 2. Check if swapping the shifts on the same day is feasible
     a. If so, swap
 */
-void structure4(){
-    string department = "Oncology"; // Example department
-    string nurseType = "RN"; // Example nurse type
-
+void structure4(int currPref, string nurseType){
     int day = getRandomDay();
     int shift1 = getRandomShift();
     int shift2 = (shift1 + 1) % 3;
@@ -148,8 +152,8 @@ void structure4(){
 2. Check if swapping shifts is feasible
     a. If so, swap
 */
-void structure5(){
-    structure3();
+void structure5(int currPref, string nurseType){
+    structure3(int currPref, string nurseType);
 }
 
 /*
@@ -157,7 +161,7 @@ void structure5(){
 2. Check if a clockwise rotation of shifts is feasible
     a. If so, do
 */
-void structure6(){
+void structure6(int currPref, string nurseType){
     string department = "Pediatric"; // Example department
     string nurseType = "LPN"; // Example nurse type
 
@@ -190,7 +194,7 @@ void structure6(){
 1. Choose a day (k), a shift (i) and a nurse (j) 
 2. If the nurse can work that shift, schedule it
 */
-void structure7(){
+void structure7(int currPref, string nurseType){
     string department = "Surgery"; // Example department
     string nurseType = "NA"; // Example nurse type
 
@@ -210,7 +214,7 @@ void structure7(){
 2. Check if cycling the shifts is feasible
     a. If so, do
 */
-void structure8(){
+void structure8(int currPref, string nurseType){
         string department = "Oncology"; // Example department
     string nurseType = "RN"; // Example nurse type
 
