@@ -1,10 +1,14 @@
 /* Shift specification algorithm runs first on the departmentNursesMap, which is fully populated
-with all nurse information and preferences. The output of the shift specification algorithm is a
-____ with nurses randomly assigned to shifts. Using _____, we will mutate it via running it through
-the neighborhood method. The data structure will be run through each neighborhood method x times.
-After running through each neighborhood method, the final schedule will be outputted through our 
-mutated data structure. Also, the happiness score will be outputted for the entire data structure.
+with all nurse information and preferences. The output of the shift specification algorithm is an
+array for a specific department containing 42 indices, each index representing a shift. At each
+index will be a vector of nurse objects which represents nurses scheduled for that shift. At
+first, nurses will be randomly assigned to the shifts. We will mutate the output data structure
+via running it through the neighborhood method. The data structure will be run through each neighborhood 
+method x times. After running through each neighborhood method, the final schedule will be 
+outputted through our mutated data structure. Also, the happiness score will be outputted for 
+the entire data structure.
 */
+
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -25,11 +29,10 @@ using namespace std;
 // Define shift types
 enum ShiftType { MORNING = 'M', EVENING = 'E', NIGHT = 'N' };
 
-// Global map declaration (moved from NurseList.cpp)
+// Global map that contains all nurse information for all departments (moved from NurseList.cpp):
+// unordered_map<string, unordered_map<string, vector<Nurse>>> departmentNursesMap
 // Outer key is department, inner map key is nurse type, inner map value is a vector of Nurse objects
 // Example: {Pediatric: {LPN: <N1,N2,N3>, NA: <N1>, RN: <N1,N2>}, Oncology: {LPN: <N1,N2>, NA: <N1,N2>, RN: <N1>}}
-// Already filled with nurse information
-// extern unordered_map<string, unordered_map<string, vector<Nurse>>> departmentNursesMap;
 
 // Structure to represent a nurse assignment
 struct NurseAssignment {
@@ -123,6 +126,13 @@ void assignNurses(vector<Nurse>& nurses, ShiftType shift, int required_nurses, i
 }
 
 int main() {
+
+    // Iterate through each of the departments in the departmentNursesMap
+    for (const auto& department : departmentNursesMap) {
+        
+    }
+
+
     // Load nurses from CSV
     parseNursesCSV("/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
 
