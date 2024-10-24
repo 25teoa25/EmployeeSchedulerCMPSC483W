@@ -132,6 +132,7 @@ int main() {
         
     }
 
+    ShiftSchedule department1(42);
 
     // Load nurses from CSV
     parseNursesCSV("/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
