@@ -31,8 +31,13 @@ break any of the listed constraints. */
 
 /* Funtion to check if a change is feasible ( the change does not reduce happiness )*/
 bool feasible(int currPref, int newPref){
-    return currPref >= newPref;
+    if (newPref < currPref){
+        return false;
+    }
+    
+    return true;
 }
+
 
 /* 
 1. Select 2 nurses working back to back shifts
@@ -41,24 +46,22 @@ bool feasible(int currPref, int newPref){
 */
 
 void structure1(){
-    string department = "Oncology"; // Example department
-    string nurseType = "RN"; // Example nurse type
+    string department = "Oncology"; // Example department       UPDATE with dynamic name
+    string nurseType = "RN";        // Example nurse type       UPDATE
     int day = getRandomDay();
+    int shift = getRandomShift();
 
-    Nurse& nurse1 = getRandomNurse(department, nurseType);
-    Nurse& nurse2 = getRandomNurse(department, nurseType);
+    Nurse& nurse1 = shift.getNurse();   // Get the nurse of the selected shift
+    Nurse& nurse2 = shift.getNurse();   // Get the nurse after the selected Shift       UPDATE
 
-    int shift1 = day * 3;
-    int shift2 = day * 3 + 1;
+    int currPreference = 0;
 
-    if (feasible(nurse1.shiftPreferences[shift1], 2) &&
-        feasible(nurse2.shiftPreferences[shift2], 2)) {
+    if (feasible(currPreference, currPreference - nurse2.shiftPreferences[shift2] 
+    + nurse1.shiftPreferences[shift2])) {                   // UPDATE Check if new schedule is feasible
         // Implement long shift for nurse1
-        nurse1.shiftPreferences[shift1] = 2;
-        nurse1.shiftPreferences[shift2] = 2;
-        // Remove nurse2 from shift2
-        nurse2.shiftPreferences[shift2] = 0;
-        cout << "Long shift implemented for " << nurse1.fullName << endl;
+        schedule.add(shift2, nurse1);           // UPDATE function to add a nurse to a shift
+        schedule.remove(shift2, nurse2);        // Update function to remove nurse from a shift
+        //schedule.swap(shift1, nurse 1, shift2, nurse2);   // Update function to swap 2 nurses, might not be needed
     }
 }
 
@@ -84,9 +87,7 @@ void structure2(){
     if (nurse1.shiftPreferences[shift1] == 2 && nurse1.shiftPreferences[shift2] == 2 &&
         nurse2.shiftPreferences[shift1] == 0 && nurse2.shiftPreferences[shift2] == 0) {
         // Split the back-to-back shift
-        nurse1.shiftPreferences[shift2] = 0;
-        nurse2.shiftPreferences[shift2] = 2;
-        cout << "Back-to-back shift split between " << nurse1.fullName << " and " << nurse2.fullName << endl;
+        
     }
 }
 
@@ -113,7 +114,6 @@ void structure3(){
         feasible(nurse2.shiftPreferences[shiftIndex1], nurse2.shiftPreferences[shiftIndex2])) {
         // Swap shifts
         swap(nurse1.shiftPreferences[shiftIndex1], nurse2.shiftPreferences[shiftIndex2]);
-        cout << "Shifts swapped between " << nurse1.fullName << " and " << nurse2.fullName << endl;
     }
 }
 
@@ -140,7 +140,6 @@ void structure4(){
         feasible(nurse2.shiftPreferences[shiftIndex1], nurse2.shiftPreferences[shiftIndex2])) {
         // Swap shifts
         swap(nurse1.shiftPreferences[shiftIndex1], nurse2.shiftPreferences[shiftIndex2]);
-        cout << "Shifts swapped on the same day between " << nurse1.fullName << " and " << nurse2.fullName << endl;
     }
 }
 
@@ -184,7 +183,6 @@ void structure6(){
         swap(nurse2.shiftPreferences[shiftIndex2], nurse3.shiftPreferences[shiftIndex3]);
         swap(nurse3.shiftPreferences[shiftIndex3], nurse4.shiftPreferences[shiftIndex4]);
         swap(nurse4.shiftPreferences[shiftIndex4], nurse1.shiftPreferences[shiftIndex1]);
-        cout << "Clockwise rotation of shifts performed for 4 nurses" << endl;
     }
 }
 
@@ -204,7 +202,6 @@ void structure7(){
 
     if (nurse.shiftPreferences[shiftIndex] == 0) {
         nurse.shiftPreferences[shiftIndex] = 1; // Schedule the nurse
-        cout << nurse.fullName << " scheduled for shift " << shift << " on day " << day << endl;
     }
 }
 
@@ -235,6 +232,5 @@ void structure8(){
         nurse1.shiftPreferences[shiftIndex1] = nurse3.shiftPreferences[shiftIndex3];
         nurse3.shiftPreferences[shiftIndex3] = nurse2.shiftPreferences[shiftIndex2];
         nurse2.shiftPreferences[shiftIndex2] = temp;
-        cout << "Shifts cycled for 3 nurses on day " << day << endl;
     }
 }
