@@ -19,5 +19,9 @@ int main() {
     int rnRequired = constraintsMap[1]["Oncology"]["RN"];
     std::cout << "Required RN nurses for Shift 1 in Oncology: " << rnRequired << std::endl;
 
+    // Retrieve the vector of nurses of the specific type
+    // You can then traverse these nurse objects in the vector
+    std::vector<Nurse>& nurses = departmentNursesMap["department name"]["nurseType name"];
+
     return 0;
 }
