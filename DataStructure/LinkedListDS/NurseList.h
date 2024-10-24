@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>  // For std::remove
+#include <iostream>
 #include <unordered_map>
 
 /**
@@ -18,19 +20,18 @@ struct Nurse {
     std::string department;  ///< Department of the nurse (e.g., "Oncology")
     std::vector<int> shiftPreferences; ///< Stores preferences for 42 shifts (0, 1, 2)
 
-    /**
-     * @brief Gets the shift preference for a specific shift.
-     * 
-     * @param shiftNumber The shift number (1-42).
-     * @return int The preference for the specified shift (0, 1, 2).
-     */
-    int getShiftPreference(int shiftNumber) const {
-        if (shiftNumber >= 1 && shiftNumber <= shiftPreferences.size()) {
-            return shiftPreferences[shiftNumber - 1];
-        }
-        return -1; // Invalid shift number
+    // Equality operator to compare nurses by nurseNumber for removal
+    bool operator==(const Nurse& other) const {
+        return nurseNumber == other.nurseNumber;
     }
+
 };
+
+// Alias for the shift schedule: Vector of 42 vectors of Nurses
+using ShiftSchedule = std::vector<std::vector<Nurse>>;
+
+void add(ShiftSchedule& schedule, int shift, const Nurse& nurse);
+void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse);
 
 // Global variables
 extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;

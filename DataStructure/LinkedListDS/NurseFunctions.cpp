@@ -1,7 +1,7 @@
 #include "NurseFunctions.h"
 #include "NurseList.h"
 #include <iostream>
-#include <nlohmann/json.hpp>
+#include "json.hpp"
 #include <fstream>
 using json = nlohmann::json;
 
@@ -83,5 +83,32 @@ void nurseToJSON(const Nurse& nurse, const std::string& filename) {
         std::cout << "Nurse data saved to " << filename << std::endl;
     } else {
         std::cerr << "Failed to open the file: " << filename << std::endl;
+    }
+}
+
+// Add a nurse to a specific shift
+void add(ShiftSchedule& schedule, int shift, const Nurse& nurse) {
+    if (shift < 1 || shift > 42) {
+        std::cerr << "Error: Shift number must be between 1 and 42.\n";
+        return;
+    }
+    schedule[shift - 1].push_back(nurse);  // Add nurse to the appropriate shift
+}
+
+// Remove a nurse from a specific shift
+void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse) {
+    if (shift < 1 || shift > 42) {
+        std::cerr << "Error: Shift number must be between 1 and 42.\n";
+        return;
+    }
+    auto& shiftNurses = schedule[shift - 1];  // Get the nurses for the shift
+
+    // Use std::remove to find and remove the nurse by nurseNumber
+    auto it = std::remove(shiftNurses.begin(), shiftNurses.end(), nurse);
+    if (it != shiftNurses.end()) {
+        shiftNurses.erase(it, shiftNurses.end());
+    } else {
+        std::cerr << "Error: Nurse with ID " << nurse.nurseNumber 
+                  << " not found in shift " << shift << ".\n";
     }
 }
