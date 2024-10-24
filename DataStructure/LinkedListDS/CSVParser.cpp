@@ -55,63 +55,53 @@ void parseNursesCSV(const std::string& fileName) {
 }
 
 /**
- * @brief Reads a CSV of department constraints and stores the data in the global constraintsMap.
+ * @brief Parses a CSV file with dynamic nurse types and populates the constraintsMap.
  * 
- * @param fileName The name of the CSV file to read.
- * 
- * This function processes the CSV, where each row specifies the required nurses for a given 
- * shift, department, and nurse type.
+ * @param fileName The name of the CSV file to parse.
  */
 void parseConstraintsCSV(const std::string& fileName) {
     std::ifstream file(fileName);
     if (!file.is_open()) {
-        std::cerr << "Error: Could not open file " << fileName << std::endl;
+        std::cerr << "Error: Could not open the file " << fileName << std::endl;
         return;
     }
 
     std::string line;
-    std::getline(file, line); // Skip header
+    std::vector<std::string> nurseTypes;
 
-    int lineNumber = 1; // Track line number for better error reporting
+    // Read the header row to extract dynamic nurse types
+    std::getline(file, line);
+    std::stringstream headerStream(line);
+    std::string column;
 
+    // Skip "Department" and "Shift (1 - 42)" columns, extract nurse types dynamically
+    std::getline(headerStream, column, ','); // Skip "Department"
+    std::getline(headerStream, column, ','); // Skip "Shift (1 - 42)"
+    while (std::getline(headerStream, column, ',')) {
+        nurseTypes.push_back(column);
+    }
+
+    // Parse the remaining rows to populate the constraints map
     while (std::getline(file, line)) {
-        lineNumber++;
-        if (line.empty()) continue; // Skip empty lines
+        std::stringstream ss(line);
+        std::string department;
+        int shift, nurseCount;
 
-        std::istringstream ss(line);
-        std::string shiftStr, department, nurseType, requiredStr;
+        // Extract the department and shift number
+        std::getline(ss, department, ',');
+        ss >> shift;
+        ss.ignore(); // Ignore the comma
 
-        try {
-            // Read and trim each field
-            std::getline(ss, shiftStr, ',');
-            std::getline(ss, department, ',');
-            std::getline(ss, nurseType, ',');
-            std::getline(ss, requiredStr, ',');
+        // Extract nurse counts for each dynamic nurse type
+        for (const auto& nurseType : nurseTypes) {
+            ss >> nurseCount;
+            ss.ignore(); // Ignore the comma
 
-            shiftStr = trim(shiftStr);
-            department = trim(department);
-            nurseType = trim(nurseType);
-            requiredStr = trim(requiredStr);
-
-            // Ensure fields are not empty
-            if (shiftStr.empty() || department.empty() || nurseType.empty() || requiredStr.empty()) {
-                std::cerr << "Skipping malformed entry on line " << lineNumber << ": " << line << std::endl;
-                continue;
-            }
-
-            // Convert fields to appropriate data types
-            int shift = std::stoi(shiftStr);
-            int required = std::stoi(requiredStr);
-
-            // Insert into the constraints map
-            constraintsMap[shift][department][nurseType] = required;
-
-        } catch (const std::invalid_argument& e) {
-            std::cerr << "Invalid data on line " << lineNumber << ": " << line
-                      << " - " << e.what() << std::endl;
+            // Insert the value into the constraintsMap
+            constraintsMap[shift][department][nurseType] = nurseCount;
         }
     }
 
     file.close();
-    std::cout << "Constraints successfully parsed from " << fileName << std::endl;
+    std::cout << "CSV parsing completed, constraintsMap populated." << std::endl;
 }

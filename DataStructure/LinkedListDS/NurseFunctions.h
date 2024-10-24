@@ -4,7 +4,6 @@
 #include <string>
 #include "/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/json.hpp"
 
-
 /**
  * @brief Displays a list of nurses filtered by department and type.
  * 
