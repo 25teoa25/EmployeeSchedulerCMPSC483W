@@ -15,10 +15,11 @@ the entire data structure.
 #include <random>
 #include <algorithm>
 #include <set>
+#include <map>
 #include "../DataStructure/LinkedListDS/NurseFunctions.h"
 #include "../DataStructure/LinkedListDS/CSVParser.h"
 #include "../DataStructure/LinkedListDS/NurseList.h"
-#include "../Algorithm/neighbor.h"
+//#include "../Algorithm/neighbor.h"
 
 using namespace std;
 
@@ -26,155 +27,101 @@ using namespace std;
 //g++ -std=c++11 main.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/CSVParser.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseList.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseFunctions.cpp -o Testfile
 //then: ./Testfile
 
-// Define shift types
-enum ShiftType { MORNING = 'M', EVENING = 'E', NIGHT = 'N' };
 
 // Global map that contains all nurse information for all departments (moved from NurseList.cpp):
 // unordered_map<string, unordered_map<string, vector<Nurse>>> departmentNursesMap
 // Outer key is department, inner map key is nurse type, inner map value is a vector of Nurse objects
 // Example: {Pediatric: {LPN: <N1,N2,N3>, NA: <N1>, RN: <N1,N2>}, Oncology: {LPN: <N1,N2>, NA: <N1,N2>, RN: <N1>}}
 
-// Structure to represent a nurse assignment
-struct NurseAssignment {
-    int nurseNumber;
-    int day;
-    ShiftType shift;
 
-    bool operator<(const NurseAssignment& other) const {
-        return tie(nurseNumber, day, shift) < tie(other.nurseNumber, other.day, other.shift);
-    }
-};
-
-// Set to keep track of nurse assignments
-set<NurseAssignment> assignedNurses;
-
-// Function to implement the shift specification algorithm
-ShiftType specifyShift(int& dm, int& de, int& dn) {
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> dis(1, 3);
-    
-    int r = dis(gen);
-    
-    if (r == 1) {
-        if (dm == 0) return specifyShift(dm, de, dn);
-        if (de > 0) {
-            dm--;
-            de--;
-            return MORNING;
-        } else {
-            dm--;
-            return MORNING;
-        }
-    } else if (r == 2) {
-        if (de == 0) return specifyShift(dm, de, dn);
-        if (dm > 0) {
-            dm--;
-            de--;
-            return EVENING;
-        } else {
-            de--;
-            return EVENING;
-        }
-    } else {
-        if (dn == 0) return specifyShift(dm, de, dn);
-        dn--;
-        return NIGHT;
-    }
+// Function to randomly generate a shift preference
+int generateRandomShift() {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist(1, 3);
+    return dist(gen);
 }
 
-// Function to check if a nurse is available for a shift
-bool isNurseAvailable(const Nurse& nurse, int day, ShiftType shift) {
-    NurseAssignment assignment{nurse.nurseNumber, day, shift};
-    return assignedNurses.find(assignment) == assignedNurses.end();
+// Function to check if a nurse can be assigned based on constraints
+bool canAssignNurse(int shift, const std::string& department, const std::string& nurseType, int currentCount) {
+    if (constraintsMap.count(shift) && constraintsMap[shift].count(department) &&
+        constraintsMap[shift][department].count(nurseType)) {
+        
+        int requiredCount = constraintsMap[shift][department][nurseType];
+        return currentCount < requiredCount;
+    }
+    return true; // Allow assignment if no constraint exists
 }
 
-// Function to assign nurses based on the specified shift
-void assignNurses(vector<Nurse>& nurses, ShiftType shift, int required_nurses, int day, const string& department) {
-    vector<Nurse*> selected_nurses;
-    int shift_index = (day - 1) * 3 + static_cast<int>(shift) - static_cast<int>(MORNING);
+// Function to implement the shift specification algorithm with cumulative satisfaction scoring
+void assignShifts(ShiftSchedule& schedule, std::vector<Nurse>& nurses, const std::string& department, 
+                  const std::string& nurseType, int shift, int& totalSatisfaction) {
+    int dm = 0, de = 0, dn = 0;
+    int d1 = 2, d2 = 2, d3 = 1; // Example demand values for morning, evening, night
 
-    // First pass: select nurses with preference "2"
-    for (auto& nurse : nurses) {
-        if (selected_nurses.size() >= required_nurses) break;
-        if (nurse.shiftPreferences[shift_index] == 2 && isNurseAvailable(nurse, day, shift)) {
-            selected_nurses.push_back(&nurse);
-        }
-    }
+    dm = d1;
+    de = d2;
+    dn = d3;
 
-    // Second pass: select nurses with preference "1" if needed
-    if (selected_nurses.size() < required_nurses) {
-        for (auto& nurse : nurses) {
-            if (selected_nurses.size() >= required_nurses) break;
-            if (nurse.shiftPreferences[shift_index] == 1 && 
-                isNurseAvailable(nurse, day, shift) &&
-                find(selected_nurses.begin(), selected_nurses.end(), &nurse) == selected_nurses.end()) {
-                selected_nurses.push_back(&nurse);
+    int nurseCountForShift = 0;
+
+    for (Nurse& nurse : nurses) {
+        if (nurse.department == department && shift <= nurse.shiftPreferences.size() &&
+            (nurse.shiftPreferences[shift - 1] == 1 || nurse.shiftPreferences[shift - 1] == 2) &&
+            canAssignNurse(shift, department, nurseType, nurseCountForShift)) {
+            
+            int r = generateRandomShift();
+            bool assigned = false;
+
+            if (r == 1 && dm > 0) {
+                dm--; assigned = true;
+            } else if (r == 2 && de > 0) {
+                de--; assigned = true;
+            } else if (r == 3 && dn > 0) {
+                dn--; assigned = true;
+            }
+
+            // Assign nurse if demands allow it
+            if (assigned) {
+                add(schedule, shift - 1, nurse);
+                totalSatisfaction += nurse.shiftPreferences[shift - 1];
+                nurseCountForShift++;
+
+                // Stop if demand is met
+                if (dm == 0 && de == 0 && dn == 0) break;
             }
         }
-    }
-
-    // Assign the selected nurses
-    for (Nurse* nurse : selected_nurses) {
-        cout << "Assigning Nurse " << nurse->fullName << ", " << nurse->nurseType 
-             << " to " << static_cast<char>(shift) << " shift on day " << day 
-             << " in " << department << endl;
-        
-        // Add the assignment to the set
-        assignedNurses.insert({nurse->nurseNumber, day, shift});
     }
 }
 
 int main() {
+    std::string nurseFile = "/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv";
+    std::string constraintsFile = "/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse Constraints Test.csv";
+    parseNursesCSV(nurseFile);         // Populate departmentNursesMap with nurse data
+    parseConstraintsCSV(constraintsFile); // Populate constraintsMap with shift constraints
 
-    // Iterate through each of the departments in the departmentNursesMap
-    for (const auto& department : departmentNursesMap) {
-        
-    }
+    ShiftSchedule schedule(42);
+    int totalSatisfaction = 0;
+    std::string department = "Oncology";
 
-    ShiftSchedule department1(42);
+    // Iterate over all nurse types within the specified department
+    for (auto& nurseTypeEntry : departmentNursesMap[department]) {
+        const std::string& nurseType = nurseTypeEntry.first; // Nurse type key
+        auto& nurses = nurseTypeEntry.second;                // Vector of nurses for this type
 
-    // Load nurses from CSV
-    parseNursesCSV("/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
-
-    vector<string> departments = { "Oncology", "Pediatric", "Surgery" };
-    vector<string> nurse_types = { "RN", "LPN", "NA" };
-
-    int total_satisfaction_score = 0;
-    int total_assigned_nurses = 0;
-
-    // 14-day schedule
-    for (int day = 1; day <= 14; ++day) {
-        for (const string& department : departments) {
-            // Initialize demand for each shift type
-            int dm = 1, de = 2, dn = 1; // Example values, adjust as needed
-
-            for (const string& nurse_type : nurse_types) {
-                while (dm > 0 || de > 0 || dn > 0) {
-                    ShiftType shift = specifyShift(dm, de, dn);
-                    int shift_num = (day - 1) * 3 + static_cast<int>(shift) - static_cast<int>(MORNING) + 1;
-                    
-                    // Check if we have nurses of this type in this department
-                    if (departmentNursesMap.count(department) && 
-                        departmentNursesMap[department].count(nurse_type)) {
-                        
-                        vector<Nurse>& nurses = departmentNursesMap[department][nurse_type];
-                        int required_nurses = 1; // Adjust this based on your requirements
-
-                        assignNurses(nurses, shift, required_nurses, day, department);
-                        
-                        // Update satisfaction score (simplified)
-                        total_satisfaction_score += required_nurses * 2; // Assuming all assignments are satisfactory
-                        total_assigned_nurses += required_nurses;
-                    }
-                }
-            }
+        for (int shift = 1; shift <= schedule.size(); ++shift) {
+            assignShifts(schedule, nurses, department, nurseType, shift, totalSatisfaction);
         }
     }
 
-    double overall_average_satisfaction = total_assigned_nurses > 0 ? 
-        static_cast<double>(total_satisfaction_score) / total_assigned_nurses : 0.0;
-    cout << "Overall average satisfaction score: " << overall_average_satisfaction << endl;
+    for (int i = 0; i < schedule.size(); ++i) {
+        std::cout << "Shift " << (i + 1) << ": ";
+        for (const Nurse& nurse : schedule[i]) {
+            std::cout << nurse.fullName << ", ";
+        }
+        std::cout << std::endl;
+    }
 
+    std::cout << "Overall Satisfaction Score: " << totalSatisfaction << std::endl;
     return 0;
 }
