@@ -15,11 +15,8 @@ function fillTabs () {
     for (let department of arrDepartments) {
         console.log('Creating table: ' + department);
         let departmentID = department.toLowerCase();
-        console.log("Test");
         departmentID = departmentID.concat("Schedule");
-        console.log("Test");
         let container = document.getElementById("table-container");
-        console.log("Item generated");
         console.log(container);
         document.getElementById("table-container").innerHTML += 
         `<div class="schedule" id="${departmentID}">
