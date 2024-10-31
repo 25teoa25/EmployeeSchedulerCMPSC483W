@@ -11,7 +11,43 @@ function fillTabs () {
         //Fill tab header with all departments
         document.getElementById("tabs").innerHTML += `<button onClick="switchTab('${department}')">${department}</button>`;
     }
-    
+    //Create a table for each department (hide by default)
+    for (let department of arrDepartments) {
+        console.log('Creating table: ' + department);
+        let departmentID = department.toLowerCase();
+        console.log("Test");
+        departmentID = departmentID.concat("Schedule");
+        console.log("Test");
+        let container = document.getElementById("table-container");
+        console.log("Item generated");
+        console.log(container);
+        document.getElementById("table-container").innerHTML += 
+        `<div class="schedule" id="${departmentID}">
+            <table>
+                <thead>
+                    <tr class="shift-row">
+                        <th class="shift-col"></th>
+                        <th class="shift-col">Monday (9/30)</th>
+                        <th class="shift-col">Tuesday</th>
+                        <th class="shift-col">Wednesday</th>
+                        <th class="shift-col">Thursday</th>
+                        <th class="shift-col">Friday</th>
+                        <th class="shift-col">Saturday</th>
+                        <th class="shift-col">Sunday</th>
+                        <th class="shift-col">Monday (10/7)</th>
+                        <th class="shift-col">Tuesday</th>
+                        <th class="shift-col">Wednesday</th>
+                        <th class="shift-col">Thursday</th>
+                        <th class="shift-col">Friday</th>
+                        <th class="shift-col">Saturday</th>
+                        <th class="shift-col">Sunday</th>
+                    </tr>
+                </thead>
+                <tbody id="shift-table-body">
+                </tbody>
+            </table>
+        </div>`;
+    }
 }
 function switchTab (tabSelected) {
     //Change header at top of page
@@ -19,6 +55,7 @@ function switchTab (tabSelected) {
     document.getElementById('tabHeader').innerHTML = `${currentTab} Schedule`;
     //Switch table
     for (let department of arrDepartments) {
+        console.log(department);
         let oldTabID = department.toLowerCase();
         oldTabID = oldTabID.concat("Schedule");
         let oldTab = document.getElementById(oldTabID);
