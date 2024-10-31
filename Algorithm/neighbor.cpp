@@ -7,6 +7,7 @@ std::random_device rd;
 std::mt19937 gen(rd());
 
 // Helper function to get a random day
+// 1 - Indexed
 int getRandomDay() {
     std::uniform_int_distribution<> dis(0, 13); // Assuming 2 weeks, 14 days
     return dis(gen);
@@ -81,20 +82,21 @@ void structure1(int currPref, string nurseType){
     a. If so, split
 */
 void structure2(int currPref, string nurseType){
-    int shift = getRandomShift();
-    int newPref = 0;
+    int ranDay = getRandomDay();
+    int ranShift = getRandomShift();
+    int shift = ranDay * 3 + ranShift;
 
     Nurse& nurse1 = schedule[shift].getRandomNurse(nurseType);      // Get a randomly scheduled nurse
     Nurse& nurse2 = getRandomNurse(nurseType);                      // Get a random nurse from the list
 
-    newPref = currPref - nurse1.shiftPreferences[shift + 1] + nurse2.shiftPreferences[shift + 1];
-    if (feasible(currPref, newPref)) {
+    int newPref1 = currPref - nurse1.shiftPreferences[shift + 1] + nurse2.shiftPreferences[shift + 1];
+    int newPref2 = currPref - nurse1.shiftPreferences[shift] + nurse2.shiftPreferences[shift];
+    if (feasible(currPref, newPref1)) {
         schedule.add(shift + 1, nurse2);
         schedule.remove(shift + 1, nurse1);
     }
 
-    newPref = currPref - nurse1.shiftPreferences[shift] + nurse2.shiftPreferences[shift];
-    else if (feasible(currPref, newPref)) {
+    else if (feasible(currPref, newPref2)) {
         schedule.add(shift, nurse2);
         schedule.remove(shift, nurse1);
     }
@@ -110,20 +112,36 @@ void structure2(int currPref, string nurseType){
 void structure3(int currPref, string nurseType){
     int day1 = getRandomDay();
     int day2 = getRandomDay();
-    int shift1 = getRandomShift();
-    int shift2 = getRandomShift();
+    int ranShift1 = getRandomShift();
+    int ranShift2 = getRandomShift();
+
+    int shift1 = day1 * 3 + ranShift1;
+    int shift2 = day1 * 3 + ranShift2;
+    int shift3 = day2 * 3 + ranShift1;
+    int shift4 = day2 * 3 + ranShift2;
 
     Nurse& nurse1 = schedule[shift1].getRandomNurse(nurseType);
     Nurse& nurse2 = schedule[shift2].getRandomNurse(nurseType);
+    Nurse& nurse3 = schedule[shift3].getRandomNurse(nurseType);
+    Nurse& nurse4 = schedule[shift4].getRandomNurse(nurseType);
 
-    int newPref = currPref - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift2] 
-                  - nurse2.shiftPreferences[shift2] + nures2.shiftPreferences[shift1];
+
+    int newPref = currPref 
+                - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift3] 
+                - nurse2.shiftPreferences[shift2] + nures2.shiftPreferences[shift4]
+                - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift1]
+                - nurse4.shiftPreferences[shift4] + nurse4.shiftPreferences[shift2];
+    
     if (feasible(currPref, newPref)) {
         // Swap shifts
-        schedule.add(shift1, nurse2);
-        schedule.add(shift2, nurse1);
+        schedule.add(shift3, nurse1);
         schedule.remove(shift1, nurse1);
+        schedule.add(shift4, nurse2);
         schedule.remove(shift2, nurse2);
+        schedule.add(shift1, nurse3);
+        schedule.remove(shift3, nurse3);
+        schedule.add(shift2, nurse4);
+        schedule.remove(shift4, nurse4);
     }
 }
 
@@ -135,19 +153,36 @@ void structure3(int currPref, string nurseType){
 void structure4(int currPref, string nurseType){
     int day1 = getRandomDay();
     int day2 = getRandomDay();
-    int shift1 = getRandomShift();
-    int shift2 = (shift1 + 1) % 3;
+    int ranShift1 = getRandomShift();
+    int ranShift2 = getRandomShift();
 
-    Nurse& nurse1 = getRandomNurse(nurseType);
-    Nurse& nurse2 = getRandomNurse(nurseType);
+    int shift1 = day1 * 3 + ranShift1;
+    int shift2 = day1 * 3 + ranShift2;
+    int shift3 = day2 * 3 + ranShift1;
+    int shift4 = day2 * 3 + ranShift2;
 
-    int shiftIndex1 = day * 3 + shift1;
-    int shiftIndex2 = day * 3 + shift2;
+    Nurse& nurse1 = schedule[shift1].getRandomNurse(nurseType);
+    Nurse& nurse2 = schedule[shift2].getRandomNurse(nurseType);
+    Nurse& nurse3 = schedule[shift3].getRandomNurse(nurseType);
+    Nurse& nurse4 = schedule[shift4].getRandomNurse(nurseType);
 
-    if (feasible(nurse1.shiftPreferences[shiftIndex2], nurse1.shiftPreferences[shiftIndex1]) &&
-        feasible(nurse2.shiftPreferences[shiftIndex1], nurse2.shiftPreferences[shiftIndex2])) {
+    int newPref = currPref 
+                - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift2] 
+                - nurse2.shiftPreferences[shift2] + nures2.shiftPreferences[shift1]
+                - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift4]
+                - nurse4.shiftPreferences[shift4] + nurse4.shiftPreferences[shift3];
+
+
+    if (feasible(currPref, newPref)) {
         // Swap shifts
-        swap(nurse1.shiftPreferences[shiftIndex1], nurse2.shiftPreferences[shiftIndex2]);
+        schedule.add(shift2, nurse1);
+        schedule.remove(shift1, nurse1);
+        schedule.add(shift1, nurse2);
+        schedule.remove(shift2, nurse2);
+        schedule.add(shift4, nurse3);
+        schedule.remove(shift3, nurse3);
+        schedule.add(shift3, nurse4);
+        schedule.remove(shift4, nurse4);
     }
 }
 
@@ -157,7 +192,7 @@ void structure4(int currPref, string nurseType){
     a. If so, swap
 */
 void structure5(int currPref, string nurseType){
-    structure3(int currPref, string nurseType);
+    structure3(currPref, nurseType);
 }
 
 /*
@@ -166,31 +201,37 @@ void structure5(int currPref, string nurseType){
     a. If so, do
 */
 void structure6(int currPref, string nurseType){
-    string department = "Pediatric"; // Example department
-    string nurseType = "LPN"; // Example nurse type
-
     int day1 = getRandomDay();
     int day2 = getRandomDay();
+    int ranShift1 = getRandomShift();
+    int ranShift2 = getRandomShift();
 
-    Nurse& nurse1 = getRandomNurse(department, nurseType);
-    Nurse& nurse2 = getRandomNurse(department, nurseType);
-    Nurse& nurse3 = getRandomNurse(department, nurseType);
-    Nurse& nurse4 = getRandomNurse(department, nurseType);
+    int shift1 = day1 * 3 + ranShift1;
+    int shift2 = day1 * 3 + ranShift2;
+    int shift3 = day2 * 3 + ranShift1;
+    int shift4 = day2 * 3 + ranShift2;
 
-    int shiftIndex1 = day1 * 3;
-    int shiftIndex2 = day1 * 3 + 1;
-    int shiftIndex3 = day2 * 3;
-    int shiftIndex4 = day2 * 3 + 1;
+    Nurse& nurse1 = schedule[shift1].getRandomNurse(nurseType);
+    Nurse& nurse2 = schedule[shift2].getRandomNurse(nurseType);
+    Nurse& nurse3 = schedule[shift3].getRandomNurse(nurseType);
+    Nurse& nurse4 = schedule[shift4].getRandomNurse(nurseType);
 
-    if (feasible(nurse2.shiftPreferences[shiftIndex1], nurse1.shiftPreferences[shiftIndex1]) &&
-        feasible(nurse3.shiftPreferences[shiftIndex2], nurse2.shiftPreferences[shiftIndex2]) &&
-        feasible(nurse4.shiftPreferences[shiftIndex3], nurse3.shiftPreferences[shiftIndex3]) &&
-        feasible(nurse1.shiftPreferences[shiftIndex4], nurse4.shiftPreferences[shiftIndex4])) {
+    int newPref = currPref 
+                - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift3] 
+                - nurse2.shiftPreferences[shift2] + nures2.shiftPreferences[shift1]
+                - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift4]
+                - nurse4.shiftPreferences[shift4] + nurse4.shiftPreferences[shift2];
+
+    if (feasible(currPref, newPref)) {
         // Perform clockwise rotation
-        swap(nurse1.shiftPreferences[shiftIndex1], nurse2.shiftPreferences[shiftIndex2]);
-        swap(nurse2.shiftPreferences[shiftIndex2], nurse3.shiftPreferences[shiftIndex3]);
-        swap(nurse3.shiftPreferences[shiftIndex3], nurse4.shiftPreferences[shiftIndex4]);
-        swap(nurse4.shiftPreferences[shiftIndex4], nurse1.shiftPreferences[shiftIndex1]);
+        schedule.add(shift3, nurse1);
+        schedule.remove(shift1, nurse1);
+        schedule.add(shift1, nurse2);
+        schedule.remove(shift2, nurse2);
+        schedule.add(shift4, nurse3);
+        schedule.remove(shift3, nurse3);
+        schedule.add(shift2, nurse4);
+        schedule.remove(shift4, nurse4);
     }
 }
 
@@ -199,17 +240,15 @@ void structure6(int currPref, string nurseType){
 2. If the nurse can work that shift, schedule it
 */
 void structure7(int currPref, string nurseType){
-    string department = "Surgery"; // Example department
-    string nurseType = "NA"; // Example nurse type
-
     int day = getRandomDay();
     int shift = getRandomShift();
-    Nurse& nurse = getRandomNurse(department, nurseType);
+    Nurse& nurse = getRandomNurse(nurseType);
 
     int shiftIndex = day * 3 + shift;
+    int newPref = currPref + nurse.shiftPreferences[shiftIndex];
 
-    if (nurse.shiftPreferences[shiftIndex] == 0) {
-        nurse.shiftPreferences[shiftIndex] = 1; // Schedule the nurse
+    if (feasible(currPref, newPref)) {                              // I dont think this newPref check is needed, cause it will always be same or greater
+        schedule.add(shiftIndex, nurse); // Schedule the nurse
     }
 }
 
@@ -219,26 +258,28 @@ void structure7(int currPref, string nurseType){
     a. If so, do
 */
 void structure8(int currPref, string nurseType){
-        string department = "Oncology"; // Example department
-    string nurseType = "RN"; // Example nurse type
-
     int day = getRandomDay();
+    
+    int shift1 = day * 3;
+    int shift2 = day * 3 + 1;
+    int shift3 = day * 3 + 2;
 
-    Nurse& nurse1 = getRandomNurse(department, nurseType);
-    Nurse& nurse2 = getRandomNurse(department, nurseType);
-    Nurse& nurse3 = getRandomNurse(department, nurseType);
+    Nurse& nurse1 = schedule[shift1].getRandomNurse(nurseType);
+    Nurse& nurse2 = schedule[shift2]getRandomNurse(nurseType);
+    Nurse& nurse3 = schedule[shift3]getRandomNurse(nurseType);
 
-    int shiftIndex1 = day * 3;
-    int shiftIndex2 = day * 3 + 1;
-    int shiftIndex3 = day * 3 + 2;
-
-    if (feasible(nurse2.shiftPreferences[shiftIndex1], nurse1.shiftPreferences[shiftIndex1]) &&
-        feasible(nurse3.shiftPreferences[shiftIndex2], nurse2.shiftPreferences[shiftIndex2]) &&
-        feasible(nurse1.shiftPreferences[shiftIndex3], nurse3.shiftPreferences[shiftIndex3])) {
+    int newPref = currPref
+                - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift2]
+                - nurse2.shiftPreferences[shift2] + nurse2.shiftPreferences[shift3]
+                - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift1];
+    
+    if (feasible(currPref, newPref)) {
         // Cycle shifts
-        int temp = nurse1.shiftPreferences[shiftIndex1];
-        nurse1.shiftPreferences[shiftIndex1] = nurse3.shiftPreferences[shiftIndex3];
-        nurse3.shiftPreferences[shiftIndex3] = nurse2.shiftPreferences[shiftIndex2];
-        nurse2.shiftPreferences[shiftIndex2] = temp;
+        schedule.add(shift2, nurse1);
+        schedule.remove(nurse1, nurse1);
+        schedule.add(shift3, nurse2);
+        schedule.remove(nurse2, nurse2);
+        schedule.add(shift1, nurse3);
+        schedule.remove(shift3, nurse3);
     }
 }
