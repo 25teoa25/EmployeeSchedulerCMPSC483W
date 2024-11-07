@@ -2,31 +2,61 @@
     "Shift1": [
         {
             "day": "Monday",
-            "Nurses": [
+            "departments": [
                 {
-                    "name": "Paul Johnson",
-                    "Department": "oncology",
-                    "Score": 1
+                    "name": "Oncology",
+                    "nurses": [
+                        {
+                            "name": "Paul Johnson",
+                            "type": "Registered Nurse",
+                            "score": 1
+                        }
+                    ]
                 },
                 {
-                    "name": "Emily Smith",
-                    "Department": "pediatrics",
-                    "Score": 2
+                    "name": "Pediatric",
+                    "nurses": [
+                        {
+                            "name": "Lamelo Ball",
+                            "type": "Registered Nurse",
+                            "score": 2
+                        },
+                        {
+                            "name": "Lavar Ball",
+                            "type": "Nurse Practitioner",
+                            "score": 1
+                        }
+                    ]
                 }
             ]
         },
         {
             "day": "Tuesday",
-            "Nurses": [
+            "departments": [
                 {
-                    "name": "Alice Brown",
-                    "Department": "surgery",
-                    "Score": 1
+                    "name": "Oncology",
+                    "nurses": [
+                        {
+                            "name": "Paul Johnson",
+                            "type": "Registered Nurse",
+                            "score": 1
+                        }
+                    ]
                 },
                 {
-                    "name": "John Doe",
-                    "Department": "oncology",
-                    "Score": 2
+                    "name": "Pediatric",
+                    "nurses": [
+                        {
+                            "name": "Lamelo Ball",
+                            "type": "Registered Nurse",
+                            "score": 2
+                        },
+                        {
+                            "name": "Lavar Ball",
+                            "type": "Nurse Practitioner",
+                            "score": 1
+                        }
+                    ]
                 }
             ]
         }
@@ -34,63 +64,31 @@
     "Shift2": [
         {
             "day": "Monday",
-            "Nurses": [
+            "departments": [
                 {
-                    "name": "Paul Johnson",
-                    "Department": "oncology",
-                    "Score": 0
+                    "name": "Oncology",
+                    "nurses": [
+                        {
+                            "name": "Paul Johnson",
+                            "type": "Registered Nurse",
+                            "score": 1
+                        }
+                    ]
                 },
                 {
-                    "name": "Emily Smith",
-                    "Department": "pediatrics",
-                    "Score": 3
-                }
-            ]
-        },
-        {
-            "day": "Tuesday",
-            "Nurses": [
-                {
-                    "name": "Alice Brown",
-                    "Department": "surgery",
-                    "Score": 1
-                },
-                {
-                    "name": "John Doe",
-                    "Department": "oncology",
-                    "Score": 2
-                }
-            ]
-        }
-    ],
-    "Shift3": [
-        {
-            "day": "Monday",
-            "Nurses": [
-                {
-                    "name": "Paul Johnson",
-                    "Department": "oncology",
-                    "Score": 2
-                },
-                {
-                    "name": "Emily Smith",
-                    "Department": "pediatrics",
-                    "Score": 1
-                }
-            ]
-        },
-        {
-            "day": "Tuesday",
-            "Nurses": [
-                {
-                    "name": "Alice Brown",
-                    "Department": "surgery",
-                    "Score": 1
-                },
-                {
-                    "name": "John Doe",
-                    "Department": "oncology",
-                    "Score": 1
+                    "name": "Pediatric",
+                    "nurses": [
+                        {
+                            "name": "Lamelo Ball",
+                            "type": "Registered Nurse",
+                            "score": 2
+                        },
+                        {
+                            "name": "Lavar Ball",
+                            "type": "Nurse Practitioner",
+                            "score": 1
+                        }
+                    ]
                 }
             ]
         }
