@@ -13,11 +13,12 @@ function fillTabs () {
     }
     //Create a table for each department (hide by default)
     for (let department of arrDepartments) {
-        console.log('Creating table: ' + department);
+        //console.log('Creating table: ' + department);
         let departmentID = department.toLowerCase();
         departmentID = departmentID.concat("Schedule");
+        console.log(departmentID);
         let container = document.getElementById("table-container");
-        console.log(container);
+        //console.log(container);
         document.getElementById("table-container").innerHTML += 
         `<div class="schedule" id="${departmentID}">
             <table>
@@ -49,37 +50,20 @@ function fillTabs () {
 function switchTab (tabSelected) {
     //Change header at top of page
     currentTab = tabSelected;
+    console.log(currentTab);
     document.getElementById('tabHeader').innerHTML = `${currentTab} Schedule`;
     //Switch table
     for (let department of arrDepartments) {
         let oldTabID = department.toLowerCase();
         oldTabID = oldTabID.concat("Schedule");
-        console.log(oldTabID);
+        //console.log(oldTabID);
         let oldTab = document.getElementById(oldTabID);
-        console.log(oldTab);
         oldTab.setAttribute("hidden", "hidden");
         console.log('Hiding tab: ' + oldTabID);
     }
     let selectedTabID = tabSelected.toLowerCase();
     selectedTabID = selectedTabID.concat("Schedule"); 
-    console.log('Switching to ' + selectedTabID);
+    console.log('Showing tab ' + selectedTabID);
     let selectedTab = document.getElementById(selectedTabID);
     selectedTab.removeAttribute("hidden");
-    /*if (tabSelected == 'Pediatric') {
-        console.log('Switching to pediatric')
-        let selectedTab = document.getElementById('pediatricSchedule');
-        let oldTab = document.getElementById('oncologySchedule');
-        selectedTab.removeAttribute("hidden");
-        oldTab.setAttribute("hidden", "hidden");
-    }
-    if (tabSelected == 'Oncology') {
-        console.log('Switching to oncology')
-        let selectedTab = document.getElementById('oncologySchedule');
-        let oldTab = document.getElementById('pediatricSchedule');
-        selectedTab.removeAttribute("hidden");
-        oldTab.setAttribute("hidden", "hidden");
-    }
-    else {
-        console.log('Switching to overall')
-    }*/
 }
