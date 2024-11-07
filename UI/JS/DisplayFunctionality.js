@@ -24,7 +24,7 @@ function fillTabs () {
                 <thead>
                     <tr class="shift-row">
                         <th class="shift-col"></th>
-                        <th class="shift-col">Monday (9/30)</th>
+                        <th class="shift-col">${department}Monday (9/30)</th>
                         <th class="shift-col">Tuesday</th>
                         <th class="shift-col">Wednesday</th>
                         <th class="shift-col">Thursday</th>
@@ -52,10 +52,11 @@ function switchTab (tabSelected) {
     document.getElementById('tabHeader').innerHTML = `${currentTab} Schedule`;
     //Switch table
     for (let department of arrDepartments) {
-        console.log(department);
         let oldTabID = department.toLowerCase();
         oldTabID = oldTabID.concat("Schedule");
+        console.log(oldTabID);
         let oldTab = document.getElementById(oldTabID);
+        console.log(oldTab);
         oldTab.setAttribute("hidden", "hidden");
         console.log('Hiding tab: ' + oldTabID);
     }

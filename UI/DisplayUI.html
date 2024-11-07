@@ -9,6 +9,7 @@
         window.onload = startupFunction;
         function startupFunction() {
             fillTabs();
+            switchTab("Overall");
         };
     </script>
 </head>
@@ -45,25 +46,6 @@
             <!-- Leave the overall tab as that will always be there-->
             <div class="schedule" id="overallSchedule">
                 <table>
-                    <thead>
-                        <tr class="shift-row">
-                            <th class="shift-col"></th>
-                            <th class="shift-col">Monday (9/30)</th>
-                            <th class="shift-col">Tuesday</th>
-                            <th class="shift-col">Wednesday</th>
-                            <th class="shift-col">Thursday</th>
-                            <th class="shift-col">Friday</th>
-                            <th class="shift-col">Saturday</th>
-                            <th class="shift-col">Sunday</th>
-                            <th class="shift-col">Monday (10/7)</th>
-                            <th class="shift-col">Tuesday</th>
-                            <th class="shift-col">Wednesday</th>
-                            <th class="shift-col">Thursday</th>
-                            <th class="shift-col">Friday</th>
-                            <th class="shift-col">Saturday</th>
-                            <th class="shift-col">Sunday</th>
-                        </tr>
-                    </thead>
                     <tbody id="shift-table-body">
                     </tbody>
                 </table>
