@@ -49,29 +49,34 @@ int calculateFitness(const Schedule& schedule) {
     return fitness;
 }
 
-// Print detailed schedule debugging information
 void printScheduleDebug(const Schedule& schedule) {
     cout << "Schedule Debugging Info:\n";
     for (int shift = 0; shift < NUM_SHIFTS; ++shift) {
         int nurseId = schedule.shiftAssignments[shift];
+        
         if (nurseId != -1) {
             bool nurseFound = false;
-            for (auto& [department, typeMap] : departmentNursesMap) {
-                for (auto& [type, nurses] : typeMap) {
-                    if (nurseId < nurses.size()) {
-                        Nurse& nurse = nurses[nurseId];
-                        int preference = nurse.shiftPreferences[shift];
+            for (const auto& [department, typeMap] : departmentNursesMap) {
+                for (const auto& [type, nurses] : typeMap) {
+                    // Search for nurse by nurseNumber
+                    auto it = std::find_if(nurses.begin(), nurses.end(), 
+                                           [&](const Nurse& nurse) { return nurse.nurseNumber == nurseId; });
+                    
+                    if (it != nurses.end()) {
                         cout << "Shift " << shift + 1 
-                             << ": Nurse ID " << nurseId 
-                             << " (" << nurse.fullName << ")"
+                             << ": Nurse ID " << it->nurseNumber 
+                             << " (" << it->fullName << ")"
                              << ", Department: " << department 
                              << ", Type: " << type 
-                             << ", Preference: " << preference << endl;
+                             << ", Preference: " << it->shiftPreferences[shift] << endl;
                         nurseFound = true;
                         break;
                     }
                 }
                 if (nurseFound) break;
+            }
+            if (!nurseFound) {
+                cout << "Shift " << shift + 1 << ": Nurse with ID " << nurseId << " not found in departmentNursesMap.\n";
             }
         } else {
             cout << "Shift " << shift + 1 << ": No nurse assigned.\n";
@@ -80,7 +85,6 @@ void printScheduleDebug(const Schedule& schedule) {
     cout << endl;
 }
 
-// Genetic algorithm functions: initialization, selection, crossover, mutation
 vector<Schedule> initializePopulation() {
     vector<Schedule> population(POPULATION_SIZE);
     random_device rd;
@@ -106,7 +110,7 @@ vector<Schedule> initializePopulation() {
                         // Randomly select a nurse with preference 0 for the shift
                         uniform_int_distribution<> nurseDist(0, preferenceZeroNurses.size() - 1);
                         int chosenNurseId = preferenceZeroNurses[nurseDist(gen)];
-                        schedule.shiftAssignments[shift] = chosenNurseId;
+                        schedule.shiftAssignments[shift] = nurses[chosenNurseId].nurseNumber;  // Use nurse number directly
                         assigned = true;
                         break;
                     }
@@ -120,7 +124,8 @@ vector<Schedule> initializePopulation() {
                     for (auto& [type, nurses] : typeMap) {
                         uniform_int_distribution<> nurseDist(0, nurses.size() - 1);
                         int randomNurseId = nurseDist(gen);
-                        schedule.shiftAssignments[shift] = randomNurseId;
+                        schedule.shiftAssignments[shift] = nurses[randomNurseId].nurseNumber;  // Ensure it's a valid nurse number
+                        assigned = true;
                         break;
                     }
                     if (assigned) break;
@@ -132,6 +137,8 @@ vector<Schedule> initializePopulation() {
     }
     return population;
 }
+
+
 
 // Selection, crossover, and mutation functions (simplified, add as needed)
 void mutate(Schedule& schedule) {
