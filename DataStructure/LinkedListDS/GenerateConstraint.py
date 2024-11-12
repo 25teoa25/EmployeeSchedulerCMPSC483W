@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 
-def generate_sorted_nurse_schedule_no_index_csv(departments, nurse_types, shifts=42, min_nurses=1, max_nurses=60, output_file="NurseContraints.csv"):
+def generate_sorted_nurse_schedule_no_index_csv(departments, nurse_types, shifts=42, min_nurses=1, max_nurses=5, output_file="NurseContraints.csv"):
     """
     Generates a CSV file with random nurse requirements for each shift across multiple departments, sorted by shift, without the index column.
     
@@ -37,7 +37,7 @@ departments = ["Oncology", "Pediatric", "Surgery"]
 nurse_types = [
     "Nurse Type: Registered Nurse",
     "Nurse Type: Licensed Practical Nurse",
-    "Nurse Type: Emergency Nursing"
+    "Nurse Type: Nurse Assistant"
 ]
 
 # Generate the nurse schedule

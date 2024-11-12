@@ -112,3 +112,22 @@ void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse) {
                   << " not found in shift " << shift << ".\n";
     }
 }
+
+void printShiftSchedule(const ShiftSchedule& schedule) {
+    for (size_t i = 0; i < schedule.size(); ++i) {
+        const auto& shiftNurses = schedule[i];
+        std::cout << "Shift " << i + 1 << ":\n";
+        
+        if (shiftNurses.empty()) {
+            std::cout << "  No nurses assigned.\n";
+        } else {
+            for (const auto& nurse : shiftNurses) {
+                std::cout << "  Nurse ID: " << nurse.nurseNumber
+                          << ", Name: " << nurse.fullName
+                          << ", Dept: " << nurse.department
+                            << ", Type: " << nurse.nurseType << '\n';
+            }
+        }
+    }
+    std::cout << std::endl;
+}
