@@ -131,3 +131,49 @@ void printShiftSchedule(const ShiftSchedule& schedule) {
     }
     std::cout << std::endl;
 }
+
+// Assume that ShiftSchedule and Nurse are defined properly
+void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filename) {
+    nlohmann::json jsonOutput = nlohmann::json::array();  // Create a JSON array to hold all shifts
+
+    // Iterate over the shifts
+    for (size_t i = 0; i < schedule.size(); ++i) {
+        const auto& shiftNurses = schedule[i];
+        nlohmann::json shiftJson;  // Create a JSON object for each shift
+
+        // Assign the shift number first
+        shiftJson["shift"] = i + 1;
+
+        // Check if nurses are assigned to this shift
+        if (shiftNurses.empty()) {
+            shiftJson["nurses"] = "No nurses assigned";  // If no nurses are assigned
+        } else {
+            nlohmann::json nursesJson = nlohmann::json::array();  // Array to hold nurse data
+            for (const auto& nurse : shiftNurses) {
+                nlohmann::json nurseJson;
+                nurseJson["nurseID"] = nurse.nurseNumber;
+                nurseJson["name"] = nurse.fullName;
+                nurseJson["department"] = nurse.department;
+                nurseJson["nurseType"] = nurse.nurseType;
+                nurseJson["score"] = nurse.shiftPreferences[i];
+                nursesJson.push_back(nurseJson);  // Add each nurse's info to the array
+            }
+            shiftJson["nurses"] = nursesJson;  // Add the nurses array to the shift
+        }
+
+        jsonOutput.push_back(shiftJson);  // Add the shift's JSON to the output array
+    }
+
+    // Pretty print the entire JSON output to the console
+    std::cout << jsonOutput.dump(4) << std::endl;
+
+    // Open a file and write the JSON data to it
+    std::ofstream outFile(filename);
+    if (outFile.is_open()) {
+        outFile << jsonOutput.dump(4);  // Write pretty-printed JSON to the file
+        outFile.close();  // Close the file
+        std::cout << "JSON data has been saved to " << filename << std::endl;
+    } else {
+        std::cerr << "Error opening file for writing: " << filename << std::endl;
+    }
+}

@@ -2,6 +2,8 @@
 #include "NurseFunctions.h"
 #include "NurseList.h"
 #include <iostream>
+#include "json.hpp"
+using json = nlohmann::json;
 
 int main() {
     // Parse the nurse CSV file to populate the data structure
@@ -39,11 +41,19 @@ int main() {
         std::cout << "  " << nurse.fullName << " (" << nurse.nurseType << ")\n";
     }
     
+    // Create sortedConstraintsMap with std::map for sorted keys
+    std::map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> sortedConstraintsMap(
+        constraintsMap.begin(), constraintsMap.end()
+    );
+
+    int counter = 0;
+    ShiftSchedule shiftSchedule(42);
+
     // Iterate over each shifts 1-42
-    for (const auto& shiftPair : constraintsMap) {
+    for (const auto& shiftPair : sortedConstraintsMap) {
         int shift = shiftPair.first;
         std::cout << shift << std::endl;
-        ShiftSchedule shiftSchedule(42);
+        //ShiftSchedule shiftSchedule(42);
 
         // Iterate over each department in the current shift
         for (const auto& deptPair : shiftPair.second) {
@@ -97,12 +107,21 @@ int main() {
     
         
         }
-        printShiftSchedule(shiftSchedule);
-        std::cout << "ENDING";
+        //printShiftSchedule(shiftSchedule);
+        std::cout << "ENDING" << counter << std::endl;
+        counter++;
     }
+    printShiftSchedule(shiftSchedule);
 
    
             
+    // Convert the ShiftSchedule to JSON
+    std::string filename = "shift_schedule.json";
+    shiftScheduleToJSON(shiftSchedule, filename);
+
+    // Print the JSON
+    //std::cout << jsonOutput.dump(4) << std::endl;
+
         
     return 0;
 }
