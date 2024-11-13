@@ -8,24 +8,24 @@ function fillTabs () {
     console.log(arrDepartments);
     for (let department of arrDepartments) {
         console.log('Inserting tab:' + department);
-        //Fill tab header with all departments
+        // Fill tab header with all departments
         document.getElementById("tabs").innerHTML += `<button onClick="switchTab('${department}')">${department}</button>`;
     }
-    //Create a table for each department (hide by default)
+    // Create a table for each department (hide by default)
     for (let department of arrDepartments) {
-        //console.log('Creating table: ' + department);
+        console.log('Creating table: ' + department);
         let departmentID = department.toLowerCase();
         departmentID = departmentID.concat("Schedule");
-        console.log(departmentID);
         let container = document.getElementById("table-container");
-        //console.log(container);
+        console.log(container);
+        console.log(`${departmentID}-shift-table-body`);
         document.getElementById("table-container").innerHTML += 
-        `<div class="schedule" id="${departmentID}">
+        `<div class="schedule" id="${departmentID}" hidden>
             <table>
                 <thead>
                     <tr class="shift-row">
                         <th class="shift-col"></th>
-                        <th class="shift-col">${department}Monday (9/30)</th>
+                        <th class="shift-col">${department} Monday (9/30)</th>
                         <th class="shift-col">Tuesday</th>
                         <th class="shift-col">Wednesday</th>
                         <th class="shift-col">Thursday</th>
@@ -41,29 +41,90 @@ function fillTabs () {
                         <th class="shift-col">Sunday</th>
                     </tr>
                 </thead>
-                <tbody id="shift-table-body">
+                <tbody id="${departmentID}-shift-table-body">
                 </tbody>
             </table>
         </div>`;
     }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    fillTabs();
+
+    arrDepartments.forEach(department => {
+        const tableBody = document.getElementById(`${department.toLowerCase()}Schedule-shift-table-body`);
+        if (tableBody) {
+            console.log(`Filling table for ${department}`);
+            
+            fetch('nurses.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch the JSON file');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    let row1 = document.createElement('tr');
+                    row1.innerHTML = `<th class="shift-row">Shift 1 <br> 7am-3pm</th>`;
+                    
+                    data.Shift1.forEach(shift => {
+                        let cell = document.createElement('td');
+                        shift.departments.forEach(departmentJSON => {
+                            if (departmentJSON.name == department) {
+                                departmentJSON.nurses.forEach(nurse =>
+                                    cell.innerHTML += `<p>${nurse.name} (${nurse.type})</p>`
+                                )
+                            }
+                        })
+
+                        row1.appendChild(cell);
+                    });
+
+                    tableBody.appendChild(row1);
+                })
+                .catch(error => {
+                    console.error('Error loading JSON:', error);
+                });
+        } else {
+            console.error(`Element with ID #${department.toLowerCase()}Schedule-shift-table-body not found.`);
+        }
+    });
+});
+
 function switchTab (tabSelected) {
     //Change header at top of page
     currentTab = tabSelected;
-    console.log(currentTab);
     document.getElementById('tabHeader').innerHTML = `${currentTab} Schedule`;
     //Switch table
     for (let department of arrDepartments) {
         let oldTabID = department.toLowerCase();
         oldTabID = oldTabID.concat("Schedule");
-        //console.log(oldTabID);
+        console.log(oldTabID);
         let oldTab = document.getElementById(oldTabID);
+        console.log(oldTab);
         oldTab.setAttribute("hidden", "hidden");
         console.log('Hiding tab: ' + oldTabID);
     }
     let selectedTabID = tabSelected.toLowerCase();
     selectedTabID = selectedTabID.concat("Schedule"); 
-    console.log('Showing tab ' + selectedTabID);
+    console.log('Switching to ' + selectedTabID);
     let selectedTab = document.getElementById(selectedTabID);
     selectedTab.removeAttribute("hidden");
+    /*if (tabSelected == 'Pediatric') {
+        console.log('Switching to pediatric')
+        let selectedTab = document.getElementById('pediatricSchedule');
+        let oldTab = document.getElementById('oncologySchedule');
+        selectedTab.removeAttribute("hidden");
+        oldTab.setAttribute("hidden", "hidden");
+    }
+    if (tabSelected == 'Oncology') {
+        console.log('Switching to oncology')
+        let selectedTab = document.getElementById('oncologySchedule');
+        let oldTab = document.getElementById('pediatricSchedule');
+        selectedTab.removeAttribute("hidden");
+        oldTab.setAttribute("hidden", "hidden");
+    }
+    else {
+        console.log('Switching to overall')
+    }*/
 }
