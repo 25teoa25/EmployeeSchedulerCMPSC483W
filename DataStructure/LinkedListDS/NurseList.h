@@ -27,6 +27,10 @@ struct Nurse {
 
 };
 
+// Fake nurse for a shift unable to be scheduled
+// Declare a global instance of Nurse
+extern Nurse fakeNurse;
+    
 // Alias for the shift schedule: Vector of 42 vectors of Nurses
 using ShiftSchedule = std::vector<std::vector<Nurse>>;
 
