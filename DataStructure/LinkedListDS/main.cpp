@@ -94,7 +94,7 @@ int main() {
                 for (const auto& nurse : availableNurses) {
                     if (assignedCount >= nursesNeeded) break;
     
-                    if (nurse.shiftPreferences[shift] == 2) {
+                    if (nurse.shiftPreferences[shift-1] == 2) {
                         add(shiftSchedule, shift, nurse); // Add nurse to shift schedule
                         assignedCount++;
                     }
@@ -105,7 +105,7 @@ int main() {
                 for (const auto& nurse : availableNurses) {
                     if (assignedCount >= nursesNeeded) break;
 
-                    if (nurse.shiftPreferences[shift] == 1) {
+                    if (nurse.shiftPreferences[shift-1] == 1) {
                         add(shiftSchedule, shift, nurse); // Add nurse to shift schedule
                         assignedCount++;
                     }
@@ -114,7 +114,7 @@ int main() {
 
                 // If there are still not enough nurses, output an error message
                 if (assignedCount < nursesNeeded) {
-                    std::cerr << "Error: Not enough nurses available for shift " << shift << ". Needed: " 
+                    std::cerr << "Error: Not enough nurses available for shift " << shift-1 << ". Needed: " 
                     << nursesNeeded << ", Assigned: " << assignedCount << std::endl;
                 }
                 
@@ -124,11 +124,9 @@ int main() {
     
         
         }
-        //printShiftSchedule(shiftSchedule);
-        //std::cout << "ENDING" << counter << std::endl;
         counter++;
     }
-    printShiftSchedule(shiftSchedule);
+    //printShiftSchedule(shiftSchedule);
 
    
             
