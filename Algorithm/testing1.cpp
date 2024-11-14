@@ -1,3 +1,4 @@
+/*//#include "DataStructure/PrototypeV2/CSVParser.h"  
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -240,4 +241,205 @@ int main() {
     }
 
     return 0;
+}
+*/
+#include "NurseList.h"
+#include "CSVParser.h"
+#include "NurseFunctions.h"
+#include "json.hpp"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <ctime>
+
+using json = nlohmann::json;
+
+// Global variables for nurse data and constraints
+extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;
+extern std::unordered_map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> constraintsMap;
+
+
+// Define a chromosome (schedule)
+struct Schedule {
+    std::vector<std::vector<Nurse>> shifts; // Shift assignments for nurses
+
+    // Fitness function: Count satisfied nurses and apply constraints
+    int fitness() const {
+        int satisfiedCount = 0;
+        int penalty = 0;
+
+        // General constraints: No more than 10 shifts in 2 weeks
+        std::unordered_map<int, int> shiftCount;
+
+        // Check all nurses' preferences and apply constraints
+        for (const auto& department : departmentNursesMap) {
+            for (const auto& type : department.second) {
+                for (const auto& nurse : type.second) {
+                    bool foundViolation = false;
+                    // Count shifts for each nurse and check for consecutive shift violations
+                    int consecutiveShifts = 0;
+
+                    for (int shift : nurse.shiftPreferences) {
+                        if (shiftCount[nurse.nurseNumber] >= 10) {
+                            penalty += 100; // Penalize if a nurse exceeds 10 shifts
+                            foundViolation = true;
+                        }
+                        shiftCount[nurse.nurseNumber]++;
+                        if (shift == 1) consecutiveShifts++;
+                        if (consecutiveShifts > 2) {
+                            penalty += 100; // Penalize if a nurse works more than 2 shifts in a row
+                            foundViolation = true;
+                        }
+                    }
+
+                    if (!foundViolation) {
+                        satisfiedCount++;
+                    }
+                }
+            }
+        }
+
+        // Department-specific nurse requirements (ensuring correct number of nurses in each department)
+        for (const auto& department : departmentNursesMap) {
+            for (const auto& type : department.second) {
+                int requiredNurses = constraintsMap[0][department.first][type.first];
+                int actualNursesAssigned = type.second.size(); // Count of nurses assigned to this type
+
+                if (actualNursesAssigned != requiredNurses) {
+                    penalty += 200; // Penalize for not meeting department nurse requirements
+                }
+            }
+        }
+
+        // Special conditions: Check for Nurse Anesthetist, Nurse Educator, etc.
+        for (const auto& department : departmentNursesMap) {
+            for (const auto& type : department.second) {
+                if (type.first == "Nurse Anesthetist") {
+                    // Ensure only 1 Nurse Anesthetist is assigned to weekends
+                    int weekendCount = 0;
+                    for (int shift : type.second[0].shiftPreferences) {
+                        if (shift == 6 || shift == 7) weekendCount++; // Check for weekend shifts
+                    }
+                    if (weekendCount > 1) penalty += 100;
+                } else if (type.first == "Nurse Educator" || type.first == "Health Informatics" || type.first == "Occupational Health Nursing") {
+                    // Ensure these roles only work on weekdays (no weekend or overnight shifts)
+                    for (int shift : type.second[0].shiftPreferences) {
+                        if (shift == 6 || shift == 7) penalty += 100; // Penalize for working on weekends
+                    }
+                }
+            }
+        }
+
+        return satisfiedCount - penalty; // Return total score, considering penalties
+    }
+};
+
+// Initialize population
+std::vector<Schedule> initializePopulation(int populationSize) {
+    std::vector<Schedule> population;
+
+    for (int i = 0; i < populationSize; i++) {
+        Schedule schedule;
+        // Initialize random schedule (need add from req)
+        // For example, randomly assign nurses to shifts in a valid way while respecting constraints
+        population.push_back(schedule);
+    }
+
+    return population;
+}
+
+// Select two parents based on fitness
+Schedule selectParent(const std::vector<Schedule>& population) {
+    // Sort population by fitness in descending order
+    std::vector<Schedule> sortedPopulation = population;
+    std::sort(sortedPopulation.begin(), sortedPopulation.end(), [](const Schedule& a, const Schedule& b) {
+        return a.fitness() > b.fitness();
+    });
+
+    // Select two best individuals
+    return sortedPopulation[0]; // Return the best schedule
+}
+
+// Crossover (recombination) between two parents to create a child schedule
+Schedule crossover(const Schedule& parent1, const Schedule& parent2) {
+    Schedule child;
+    // For simplicity, take half from parent1 and half from parent2
+    // need improved maybe
+
+    for (int shift = 0; shift < 42; shift++) { // 42 shifts
+        if (rand() % 2 == 0) {
+            child.shifts[shift] = parent1.shifts[shift];
+        } else {
+            child.shifts[shift] = parent2.shifts[shift];
+        }
+    }
+
+    return child;
+}
+
+// Mutation: Randomly change one shift assignment in the schedule
+void mutate(Schedule& schedule) {
+    int shift = rand() % 42; // Randomly choose a shift
+    int nurseIndex = rand() % schedule.shifts[shift].size(); // Randomly choose a nurse
+
+    // Mutate: Reassign nurse to a different shift
+    Nurse nurse = schedule.shifts[shift][nurseIndex];
+    schedule.shifts[shift][nurseIndex] = schedule.shifts[rand() % 42][rand() % schedule.shifts[shift].size()];
+    schedule.shifts[rand() % 42][rand() % schedule.shifts[shift].size()] = nurse;
+}
+
+// Genetic Algorithm
+Schedule geneticAlgorithm(int populationSize, int generations, double mutationRate) {
+    std::vector<Schedule> population = initializePopulation(populationSize);
+
+    for (int generation = 0; generation < generations; generation++) {
+        std::vector<Schedule> newPopulation;
+
+        // Selection and Crossover
+        while (newPopulation.size() < populationSize) {
+            Schedule parent1 = selectParent(population);
+            Schedule parent2 = selectParent(population);
+            Schedule child = crossover(parent1, parent2);
+            newPopulation.push_back(child);
+        }
+
+        // Mutation
+        for (Schedule& schedule : newPopulation) {
+            if (rand() % 100 < mutationRate * 100) {
+                mutate(schedule);
+            }
+        }
+
+        population = newPopulation; // Update population for next generation
+    }
+
+    // Return the best schedule from the final generation
+    return *std::max_element(population.begin(), population.end(), [](const Schedule& a, const Schedule& b) {
+        return a.fitness() < b.fitness();
+    });
+}
+
+int main() {
+    srand(time(0));
+
+    parseNursesCSV("Nurse_List_Department_Included.csv");
+
+    // Constraints for departments 
+    constraintsMap[0]["Cardiac Nursing"]["Registered Nurse"] = 8;
+    constraintsMap[0]["Surgical Nurse"]["Registered Nurse"] = 10;
+    // Continue --> requirements doc
+
+   
+    int populationSize = 100;     //population size
+    int generations = 1000;       //number of generations
+    double mutationRate = 0.05;   //mutation rate
+
+    Schedule bestSchedule = geneticAlgorithm(populationSize, generations, mutationRate);
+
+
+    std::cout << "Best schedule fitness: " << bestSchedule.fitness() << std::endl;
+
+    return 0; 
 }

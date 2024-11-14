@@ -2,7 +2,10 @@
 #define NURSE_FUNCTIONS_H
 
 #include <string>
-#include "/Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/json.hpp"
+#include "json.hpp"
+#include "NurseList.h"
+#include <fstream>
+using json = nlohmann::json;
 
 /**
  * @brief Displays a list of nurses filtered by department and type.
@@ -16,4 +19,13 @@ void viewNursesByDepartmentAndType(const std::string& department, const std::str
 
 void viewNursesByDepartmentAndTypeJSON(const std::string& department, const std::string& type);
 
+using ShiftSchedule = std::vector<std::vector<Nurse>>;
+
+void printShiftSchedule(const ShiftSchedule& schedule);
+
+void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse);
+
+void add(ShiftSchedule& schedule, int shift, const Nurse& nurse);
+
+void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filename);
 #endif // NURSE_FUNCTIONS_H
