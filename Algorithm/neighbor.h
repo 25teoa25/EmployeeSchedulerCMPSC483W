@@ -16,13 +16,13 @@ extern std::unordered_map<std::string, std::unordered_map<std::string, std::vect
 bool feasible(int currPref, int newPref);
 
 // Neighborhood structures
-void structure1(int currPref, string nurseType);
-void structure2(int currPref, string nurseType);
-void structure3(int currPref, string nurseType);
-void structure4(int currPref, string nurseType);
-void structure5(int currPref, string nurseType);
-void structure6(int currPref, string nurseType);
-void structure7(int currPref, string nurseType);
-void structure8(int currPref, string nurseType);
+int structure1(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
+int structure2(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
+int structure3(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
+int structure4(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
+int structure5(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
+int structure6(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
+int structure7(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
+int structure8(ShiftSchedule schedule, const string &department, int currPref, string nurseType);
 
 #endif // NEIGHBOR_H
