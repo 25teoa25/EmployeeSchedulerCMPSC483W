@@ -7,10 +7,10 @@ using json = nlohmann::json;
 
 int main() {
     // Parse the nurse CSV file to populate the data structure
-    parseNursesCSV("/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
+    parseNursesCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
 
     // Parse the constraints CSV file
-    parseConstraintsCSV("/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseContraints.csv");
+    parseConstraintsCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/NurseContraints.csv");
 
     // Print out the constraints
     for (const auto& shiftPair : constraintsMap) {
@@ -131,8 +131,8 @@ int main() {
    
             
     // Convert the ShiftSchedule to JSON
-    std::string filename = "shift_schedule.json";
-    shiftScheduleToJSON(shiftSchedule, filename);
+    //std::string filename = "shift_schedule.json";
+    //shiftScheduleToJSON(shiftSchedule, filename);
 
     // Print the JSON
     //std::cout << jsonOutput.dump(4) << std::endl;
