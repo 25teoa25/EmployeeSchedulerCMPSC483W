@@ -143,7 +143,7 @@ void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filen
         nlohmann::json shiftJson;  // Create a JSON object for each shift
 
         // Assign the shift number first
-        shiftJson["shift"] = i + 1;
+        shiftJson["1shift"] = i + 1;
 
         // Check if nurses are assigned to this shift
         if (shiftNurses.empty()) {

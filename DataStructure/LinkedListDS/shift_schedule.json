@@ -1,5 +1,6 @@
 [
     {
+        "1shift": 1,
         "nurses": [
             {
                 "department": "Oncology",
@@ -897,10 +898,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 1
+        ]
     },
     {
+        "1shift": 2,
         "nurses": [
             {
                 "department": "Midwife",
@@ -1973,10 +1974,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 2
+        ]
     },
     {
+        "1shift": 3,
         "nurses": [
             {
                 "department": "Forensic",
@@ -3042,10 +3043,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 3
+        ]
     },
     {
+        "1shift": 4,
         "nurses": [
             {
                 "department": "Forensic",
@@ -3992,10 +3993,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 4
+        ]
     },
     {
+        "1shift": 5,
         "nurses": [
             {
                 "department": "Midwife",
@@ -4984,10 +4985,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 5
+        ]
     },
     {
+        "1shift": 6,
         "nurses": [
             {
                 "department": "Midwife",
@@ -5976,10 +5977,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 6
+        ]
     },
     {
+        "1shift": 7,
         "nurses": [
             {
                 "department": "Midwife",
@@ -7031,10 +7032,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 7
+        ]
     },
     {
+        "1shift": 8,
         "nurses": [
             {
                 "department": "Forensic",
@@ -7988,10 +7989,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 8
+        ]
     },
     {
+        "1shift": 9,
         "nurses": [
             {
                 "department": "Forensic",
@@ -9029,10 +9030,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 9
+        ]
     },
     {
+        "1shift": 10,
         "nurses": [
             {
                 "department": "Midwife",
@@ -9965,10 +9966,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 10
+        ]
     },
     {
+        "1shift": 11,
         "nurses": [
             {
                 "department": "Midwife",
@@ -11160,10 +11161,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 11
+        ]
     },
     {
+        "1shift": 12,
         "nurses": [
             {
                 "department": "Oncology",
@@ -12236,10 +12237,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 12
+        ]
     },
     {
+        "1shift": 13,
         "nurses": [
             {
                 "department": "Forensic",
@@ -13291,10 +13292,10 @@
                 "nurseType": "NA",
                 "score": 1
             }
-        ],
-        "shift": 13
+        ]
     },
     {
+        "1shift": 14,
         "nurses": [
             {
                 "department": "Forensic",
@@ -14444,10 +14445,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 14
+        ]
     },
     {
+        "1shift": 15,
         "nurses": [
             {
                 "department": "Oncology",
@@ -15618,10 +15619,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 15
+        ]
     },
     {
+        "1shift": 16,
         "nurses": [
             {
                 "department": "Forensic",
@@ -16659,10 +16660,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 16
+        ]
     },
     {
+        "1shift": 17,
         "nurses": [
             {
                 "department": "Midwife",
@@ -17826,10 +17827,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 17
+        ]
     },
     {
+        "1shift": 18,
         "nurses": [
             {
                 "department": "Forensic",
@@ -19014,10 +19015,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 18
+        ]
     },
     {
+        "1shift": 19,
         "nurses": [
             {
                 "department": "Forensic",
@@ -19922,10 +19923,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 19
+        ]
     },
     {
+        "1shift": 20,
         "nurses": [
             {
                 "department": "Midwife",
@@ -20865,10 +20866,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 20
+        ]
     },
     {
+        "1shift": 21,
         "nurses": [
             {
                 "department": "Forensic",
@@ -21997,10 +21998,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 21
+        ]
     },
     {
+        "1shift": 22,
         "nurses": [
             {
                 "department": "Midwife",
@@ -23115,10 +23116,10 @@
                 "nurseType": "NA",
                 "score": 1
             }
-        ],
-        "shift": 22
+        ]
     },
     {
+        "1shift": 23,
         "nurses": [
             {
                 "department": "Forensic",
@@ -24198,10 +24199,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 23
+        ]
     },
     {
+        "1shift": 24,
         "nurses": [
             {
                 "department": "Forensic",
@@ -25267,10 +25268,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 24
+        ]
     },
     {
+        "1shift": 25,
         "nurses": [
             {
                 "department": "Midwife",
@@ -26371,10 +26372,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 25
+        ]
     },
     {
+        "1shift": 26,
         "nurses": [
             {
                 "department": "Forensic",
@@ -27468,10 +27469,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 26
+        ]
     },
     {
+        "1shift": 27,
         "nurses": [
             {
                 "department": "Midwife",
@@ -28439,10 +28440,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 27
+        ]
     },
     {
+        "1shift": 28,
         "nurses": [
             {
                 "department": "Midwife",
@@ -29515,10 +29516,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 28
+        ]
     },
     {
+        "1shift": 29,
         "nurses": [
             {
                 "department": "Forensic",
@@ -30507,10 +30508,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 29
+        ]
     },
     {
+        "1shift": 30,
         "nurses": [
             {
                 "department": "Forensic",
@@ -31590,10 +31591,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 30
+        ]
     },
     {
+        "1shift": 31,
         "nurses": [
             {
                 "department": "Midwife",
@@ -32610,10 +32611,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 31
+        ]
     },
     {
+        "1shift": 32,
         "nurses": [
             {
                 "department": "Midwife",
@@ -33518,10 +33519,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 32
+        ]
     },
     {
+        "1shift": 33,
         "nurses": [
             {
                 "department": "Midwife",
@@ -34622,10 +34623,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 33
+        ]
     },
     {
+        "1shift": 34,
         "nurses": [
             {
                 "department": "Forensic",
@@ -35544,10 +35545,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 34
+        ]
     },
     {
+        "1shift": 35,
         "nurses": [
             {
                 "department": "Forensic",
@@ -36557,10 +36558,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 35
+        ]
     },
     {
+        "1shift": 36,
         "nurses": [
             {
                 "department": "Midwife",
@@ -37794,10 +37795,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 36
+        ]
     },
     {
+        "1shift": 37,
         "nurses": [
             {
                 "department": "Forensic",
@@ -38905,10 +38906,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 37
+        ]
     },
     {
+        "1shift": 38,
         "nurses": [
             {
                 "department": "Forensic",
@@ -40065,10 +40066,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 38
+        ]
     },
     {
+        "1shift": 39,
         "nurses": [
             {
                 "department": "Midwife",
@@ -41190,10 +41191,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 39
+        ]
     },
     {
+        "1shift": 40,
         "nurses": [
             {
                 "department": "Midwife",
@@ -42329,10 +42330,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 40
+        ]
     },
     {
+        "1shift": 41,
         "nurses": [
             {
                 "department": "Midwife",
@@ -43363,10 +43364,10 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 41
+        ]
     },
     {
+        "1shift": 42,
         "nurses": [
             {
                 "department": "Mental Health",
@@ -44341,7 +44342,6 @@
                 "nurseType": "NA",
                 "score": 2
             }
-        ],
-        "shift": 42
+        ]
     }
 ]
