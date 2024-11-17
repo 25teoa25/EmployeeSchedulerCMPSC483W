@@ -21,6 +21,17 @@ void viewNursesByDepartmentAndTypeJSON(const std::string& department, const std:
 
 using ShiftSchedule = std::vector<std::vector<Nurse>>;
 
+/**
+ * @brief Randomly selects a nurse from a specified shift and nurse type.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurse objects for all shifts.
+ * @param shift The shift number (1-based index).
+ * @param nurseType The type of nurse to filter (e.g., "RN", "LPN").
+ * @return Nurse A randomly selected nurse of the specified type from the given shift.
+ *         Returns a fake nurse if no matching nurse is found.
+ */
+Nurse getRandomNurseFromShift(const ShiftSchedule& schedule, int shift, const std::string& nurseType);
+
 void printShiftSchedule(const ShiftSchedule& schedule);
 
 void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse);
