@@ -1,0 +1,96 @@
+{
+    "Shift1": [
+        {
+            "day": "Monday",
+            "departments": [
+                {
+                    "name": "Oncology",
+                    "nurses": [
+                        {
+                            "name": "Paul Johnson",
+                            "type": "Registered Nurse",
+                            "score": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "Pediatric",
+                    "nurses": [
+                        {
+                            "name": "Lamelo Ball",
+                            "type": "Registered Nurse",
+                            "score": 2
+                        },
+                        {
+                            "name": "Lavar Ball",
+                            "type": "Nurse Practitioner",
+                            "score": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "day": "Tuesday",
+            "departments": [
+                {
+                    "name": "Oncology",
+                    "nurses": [
+                        {
+                            "name": "Paul Johnson",
+                            "type": "Registered Nurse",
+                            "score": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "Pediatric",
+                    "nurses": [
+                        {
+                            "name": "Lamelo Ball",
+                            "type": "Registered Nurse",
+                            "score": 2
+                        },
+                        {
+                            "name": "Lavar Ball",
+                            "type": "Nurse Practitioner",
+                            "score": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "Shift2": [
+        {
+            "day": "Monday",
+            "departments": [
+                {
+                    "name": "Oncology",
+                    "nurses": [
+                        {
+                            "name": "Paul Johnson",
+                            "type": "Registered Nurse",
+                            "score": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "Pediatric",
+                    "nurses": [
+                        {
+                            "name": "Lamelo Ball",
+                            "type": "Registered Nurse",
+                            "score": 2
+                        },
+                        {
+                            "name": "Lavar Ball",
+                            "type": "Nurse Practitioner",
+                            "score": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
