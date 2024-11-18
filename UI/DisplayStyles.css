@@ -150,6 +150,7 @@
 .schedule table {
     width: 50%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 .schedule th, .schedule td {
@@ -159,12 +160,12 @@
 }
 
 .pediatric {
-    background-color: red;
+    background-color: #a52a2a;
     color: white;
 }
 
 .oncology {
-    background-color: blue;
+    background-color: #003366;
     color: white;
 }
 
@@ -182,4 +183,8 @@
 
 .shift-row {
     height: 150px;
+}
+
+.shift-col {
+    width: 125px;
 }
