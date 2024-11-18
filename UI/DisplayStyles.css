@@ -159,6 +159,27 @@
     text-align: center;
 }
 
+.color-1 { background-color: #FF5733; }
+.color-2 { background-color: #33FF57; }
+.color-3 { background-color: #5733FF; }
+.color-4 { background-color: #FFC300; }
+.color-5 { background-color: #DAF7A6; }
+.color-6 { background-color: #C70039; }
+.color-7 { background-color: #900C3F; }
+.color-8 { background-color: #581845; }
+.color-9 { background-color: #FF7F50; }
+.color-10 { background-color: #4682B4; }
+.color-11 { background-color: #7FFF00; }
+.color-12 { background-color: #FF1493; }
+.color-13 { background-color: #00CED1; }
+.color-14 { background-color: #8B0000; }
+.color-15 { background-color: #FFD700; }
+.color-16 { background-color: #40E0D0; }
+.color-17 { background-color: #EE82EE; }
+.color-18 { background-color: #ADFF2F; }
+.color-19 { background-color: #6495ED; }
+.color-20 { background-color: #FF4500; }
+
 .pediatric {
     background-color: #a52a2a;
     color: white;
