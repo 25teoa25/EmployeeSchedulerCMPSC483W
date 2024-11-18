@@ -45,51 +45,60 @@ function fillTabs () {
                 </tbody>
             </table>
         </div>`;
+        loadDepartmentData(department, departmentID);
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    fillTabs();
-
-    arrDepartments.forEach(department => {
-        const tableBody = document.getElementById(`${department.toLowerCase()}Schedule-shift-table-body`);
-        if (tableBody) {
-            console.log(`Filling table for ${department}`);
-            
-            fetch('nurses.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch the JSON file');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    let row1 = document.createElement('tr');
-                    row1.innerHTML = `<th class="shift-row">Shift 1 <br> 7am-3pm</th>`;
-                    
-                    data.Shift1.forEach(shift => {
-                        let cell = document.createElement('td');
-                        shift.departments.forEach(departmentJSON => {
-                            if (departmentJSON.name == department) {
-                                departmentJSON.nurses.forEach(nurse =>
-                                    cell.innerHTML += `<p>${nurse.name} (${nurse.type})</p>`
-                                )
-                            }
-                        })
-
-                        row1.appendChild(cell);
-                    });
-
-                    tableBody.appendChild(row1);
-                })
-                .catch(error => {
-                    console.error('Error loading JSON:', error);
-                });
-        } else {
-            console.error(`Element with ID #${department.toLowerCase()}Schedule-shift-table-body not found.`);
+function loadDepartmentData(department, departmentID) {
+    setTimeout(() => {
+        const tableBody = document.getElementById(`${departmentID}-shift-table-body`);
+        if (!tableBody) {
+            console.error(`Table body for ${departmentID} is null.`);
+            return;
         }
-    });
-});
+
+        fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the JSON file');
+                }
+                return response.json();
+            })
+            .then(data => {
+                let row1 = null;
+                for (let shift of data) {
+
+                    // Create a row for the specific shifts
+                    if (shift["1shift"] == 1) {
+                        row1 = document.createElement('tr');
+                        row1.innerHTML = `<th class="shift-row">Shift #1 <br> 7am-3pm</th>`;
+                    } else if (shift["1shift"] == 15) {
+                        row1 = document.createElement('tr');
+                        row1.innerHTML = `<th class="shift-row">Shift #2 <br> 3pm-11pm</th>`;
+                    } else if (shift["1shift"] == 29) {
+                        row1 = document.createElement('tr');
+                        row1.innerHTML = `<th class="shift-row">Shift #3 <br> 11pm-7am</th>`;
+                    }
+
+                    let cell = document.createElement('td');
+                    for (let nurse of shift.nurses) {
+                        console.log(`Nurse: ${nurse.name}`);
+                        if (nurse.department === department) {
+                            cell.innerHTML += `<p>${nurse.name} (${nurse.nurseType}) <br> (${nurse.department}) (${shift["1shift"]})</p>`;
+                        }
+                    }
+
+                    if (row1) {
+                        row1.appendChild(cell);
+                        tableBody.appendChild(row1);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error loading JSON:', error);
+            });
+    }, 100); // Wait for DOM updates
+}
 
 function switchTab (tabSelected) {
     //Change header at top of page
