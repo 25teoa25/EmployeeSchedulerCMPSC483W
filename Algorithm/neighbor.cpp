@@ -78,8 +78,8 @@ int structure1(ShiftSchedule schedule, const string &department, int currPref, s
     int shift2 = shift1 + 1;
 
     // Generate 1 random nurse per shift
-    Nurse &nurse1 = getRandomAssignedNurse(schedule, shift1);
-    Nurse &nurse2 = getRandomAssignedNurse(schedule, shift2);
+    Nurse &nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
+    Nurse &nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
 
     // If the selected nurse is not of the correct type return
     if (nurse1.nurseType != nurseType || nurse2.nurseType != nurseType)
@@ -120,7 +120,7 @@ int structure2(ShiftSchedule schedule, const string &department, int currPref, s
     int shift = ranDay * 3 + ranShift;
 
     // Generate 2 nurses, 1) works a long shift 2) does not work either shift
-    Nurse &nurse1 = getRandomAssignedNurse(schedule, shift);
+    Nurse &nurse1 = getRandomNurseFromShift(schedule, shift, nurseType);
     Nurse &nurse2 = getRandomNurse(department, nurseType);
 
     if (nurse1.nurseType != nurse2.nurseType)
@@ -167,10 +167,10 @@ int structure3(ShiftSchedule schedule, const string &department, int currPref, s
     int shift3 = day2 * 3 + ranShift1;
     int shift4 = day2 * 3 + ranShift2;
 
-    Nurse &nurse1 = getRandomAssignedNurse(schedule, shift1);
-    Nurse &nurse2 = getRandomAssignedNurse(schedule, shift2);
-    Nurse &nurse3 = getRandomAssignedNurse(schedule, shift3);
-    Nurse &nurse4 = getRandomAssignedNurse(schedule, shift4);
+    Nurse &nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
+    Nurse &nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
+    Nurse &nurse3 = getRandomNurseFromShift(schedule, shift3, nurseType);
+    Nurse &nurse4 = getRandomNurseFromShift(schedule, shift4, nurseType);
 
     // UPDATE: Need to ensure all nurses are of the saame type
 
@@ -209,10 +209,10 @@ int structure4(ShiftSchedule schedule, const string &department, int currPref, s
     int shift3 = day2 * 3 + ranShift1;
     int shift4 = day2 * 3 + ranShift2;
 
-    Nurse &nurse1 = getRandomAssignedNurse(schedule, shift1);
-    Nurse &nurse2 = getRandomAssignedNurse(schedule, shift2);
-    Nurse &nurse3 = getRandomAssignedNurse(schedule, shift3);
-    Nurse &nurse4 = getRandomAssignedNurse(schedule, shift4);
+    Nurse &nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
+    Nurse &nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
+    Nurse &nurse3 = getRandomNurseFromShift(schedule, shift3, nurseType);
+    Nurse &nurse4 = getRandomNurseFromShift(schedule, shift4, nurseType);
 
     int newPref = currPref - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift2] - nurse2.shiftPreferences[shift2] + nurse2.shiftPreferences[shift1] - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift4] - nurse4.shiftPreferences[shift4] + nurse4.shiftPreferences[shift3];
 
@@ -258,10 +258,10 @@ int structure6(ShiftSchedule schedule, const string &department, int currPref, s
     int shift3 = day2 * 3 + ranShift1;
     int shift4 = day2 * 3 + ranShift2;
 
-    Nurse &nurse1 = getRandomAssignedNurse(schedule, shift1);
-    Nurse &nurse2 = getRandomAssignedNurse(schedule, shift2);
-    Nurse &nurse3 = getRandomAssignedNurse(schedule, shift3);
-    Nurse &nurse4 = getRandomAssignedNurse(schedule, shift4);
+    Nurse &nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
+    Nurse &nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
+    Nurse &nurse3 = getRandomNurseFromShift(schedule, shift3, nurseType);
+    Nurse &nurse4 = getRandomNurseFromShift(schedule, shift4, nurseType);
 
     int newPref = currPref - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift3] - nurse2.shiftPreferences[shift2] + nurse2.shiftPreferences[shift1] - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift4] - nurse4.shiftPreferences[shift4] + nurse4.shiftPreferences[shift2];
 
@@ -313,9 +313,9 @@ int structure8(ShiftSchedule schedule, const string &department, int currPref, s
     int shift2 = day * 3 + 1;
     int shift3 = day * 3 + 2;
 
-    Nurse &nurse1 = getRandomAssignedNurse(schedule, shift1);
-    Nurse &nurse2 = getRandomAssignedNurse(schedule, shift2);
-    Nurse &nurse3 = getRandomAssignedNurse(schedule, shift3);
+    Nurse &nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
+    Nurse &nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
+    Nurse &nurse3 = getRandomNurseFromShift(schedule, shift3, nurseType);
 
     int newPref = currPref - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift2] - nurse2.shiftPreferences[shift2] + nurse2.shiftPreferences[shift3] - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift1];
 
