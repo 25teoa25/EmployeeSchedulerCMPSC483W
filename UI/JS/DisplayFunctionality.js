@@ -3,7 +3,24 @@ let currentTab = "Overall";
     Need some kind of function that reads in the JSON file (or whatever other input) and makes list of all departments
     Can store list of departments as array then change tabs and tabSelected's to elements of that array
 */
-let arrDepartments = ["Overall", "Oncology", "Pediatric", "Surgery"];
+let arrDepartments = fillDepartments();
+
+function fillDepartments () {
+    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the JSON file');
+                }
+                return response.json();
+            })
+            .then(data => {
+                let departments = [];
+                let i = 0;
+                for (let shift of data) {
+                    for (let nurse of shift.nurses) {
+
+}
+
 function fillTabs () {
     console.log(arrDepartments);
     for (let department of arrDepartments) {
