@@ -9,6 +9,26 @@ function hover() {
     popup.classList.toggle("show");
   }
 
+function fillDepartments () {
+    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the JSON file');
+                }
+                return response.json();
+            })
+            .then(data => {
+                let departments = [];
+                let i = 0;
+                for (let shift of data) {
+                    for (let nurse of shift.nurses) {
+                        for (let dept of departments) {
+                            if (nurse.department == dept) {
+                                
+                            }
+                        }
+}
+
 let arrDepartments = ["Overall", "Oncology", "Pediatric", "Surgery"];
 function fillTabs () {
     console.log(arrDepartments);
