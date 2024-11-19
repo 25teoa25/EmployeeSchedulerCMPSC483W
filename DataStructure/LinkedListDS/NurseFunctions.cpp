@@ -3,6 +3,7 @@
 #include <iostream>
 #include "json.hpp"
 #include <fstream>
+#include <random> // For generating random numbers
 using json = nlohmann::json;
 
 /**
@@ -177,4 +178,45 @@ void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filen
     } else {
         std::cerr << "Error opening file for writing: " << filename << std::endl;
     }
+}
+
+/**
+ * @brief Randomly selects a nurse from a specified shift and nurse type.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurse objects for all shifts.
+ * @param shift The shift number (1-based index).
+ * @param nurseType The type of nurse to filter (e.g., "RN", "LPN").
+ * @return Nurse A randomly selected nurse of the specified type from the given shift.
+ *         Returns a fake nurse if no matching nurse is found.
+ */
+Nurse getRandomNurseFromShift(const ShiftSchedule& schedule, int shift, const std::string& nurseType) {
+    if (shift < 1 || shift > schedule.size()) {
+        std::cerr << "Error: Invalid shift number provided. Must be between 1 and " << schedule.size() << ".\n";
+        return fakeNurse; // Return the global fakeNurse as a placeholder
+    }
+
+    // Get the nurses assigned to the given shift
+    const auto& shiftNurses = schedule[shift - 1];
+
+    // Filter nurses based on the provided nurse type
+    std::vector<Nurse> matchingNurses;
+    for (const auto& nurse : shiftNurses) {
+        if (nurse.nurseType == nurseType) {
+            matchingNurses.push_back(nurse);
+        }
+    }
+
+    // Check if there are no matching nurses
+    if (matchingNurses.empty()) {
+        std::cerr << "No nurses of type " << nurseType << " found for shift " << shift << ".\n";
+        return fakeNurse; // Return the fakeNurse as a placeholder
+    }
+
+    // Randomly select a nurse from the matching nurses
+    std::random_device rd; // Seed for random number generator
+    std::mt19937 gen(rd()); // Mersenne Twister engine
+    std::uniform_int_distribution<> dist(0, matchingNurses.size() - 1);
+
+    int randomIndex = dist(gen);
+    return matchingNurses[randomIndex];
 }

@@ -19,6 +19,7 @@ struct Nurse {
     std::string nurseType;   ///< Type of nurse (e.g., "RN", "LPN")
     std::string department;  ///< Department of the nurse (e.g., "Oncology")
     std::vector<int> shiftPreferences; ///< Stores preferences for 42 shifts (0, 1, 2)
+    std::vector<int> scheduledShifts; ///< Stores what shifts a nurse is scheduled for
 
     // Equality operator to compare nurses by nurseNumber for removal
     bool operator==(const Nurse& other) const {
