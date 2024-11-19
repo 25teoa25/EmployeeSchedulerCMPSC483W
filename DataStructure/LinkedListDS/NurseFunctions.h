@@ -34,9 +34,48 @@ Nurse getRandomNurseFromShift(const ShiftSchedule& schedule, int shift, const st
 
 void printShiftSchedule(const ShiftSchedule& schedule);
 
+/**
+ * @brief Removes a nurse from a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector where nurses are assigned to shifts.
+ * @param shift The shift number (1-based index) from which the nurse will be removed.
+ * @param nurse The Nurse object to be removed from the specified shift.
+ * 
+ * This function removes the provided Nurse object from the shift specified in the schedule.
+ * It validates that the shift number is within the valid range (1-42) and that the nurse exists.
+ */
 void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse);
 
+/**
+ * @brief Adds a nurse to a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector where nurses are assigned to shifts.
+ * @param shift The shift number (1-based index) where the nurse will be added.
+ * @param nurse The Nurse object to be added to the specified shift.
+ * 
+ * This function appends the provided Nurse object to the shift specified in the schedule.
+ * It validates that the shift number is within the valid range (1-42).
+ */
 void add(ShiftSchedule& schedule, int shift, const Nurse& nurse);
 
+/**
+ * @brief Converts the entire shift schedule to JSON format and writes it to a file.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurses assigned to each shift.
+ * @param filename The name of the output JSON file.
+ * 
+ * This function creates a JSON object representing the schedule of all shifts. Each shift
+ * includes its shift number and the list of nurses assigned to it. If no nurses are assigned
+ * to a shift, it records that information as well. The JSON is printed to the console and saved
+ * to the specified file.
+ */
 void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filename);
 #endif // NURSE_FUNCTIONS_H
+
+/**
+ * @brief Prints all nurses assigned to a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurses for all shifts.
+ * @param shift The 1-based index of the shift to display (e.g., 1 for the first shift).
+ */
+void printNursesForShift(const ShiftSchedule& schedule, int shift);

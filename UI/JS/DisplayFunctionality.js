@@ -97,7 +97,7 @@ function loadDepartmentData(department, departmentID) {
             .catch(error => {
                 console.error('Error loading JSON:', error);
             });
-    }, 100); // Wait for DOM updates
+    }, 100);
 }
 
 function switchTab (tabSelected) {

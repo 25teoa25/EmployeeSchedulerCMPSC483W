@@ -87,7 +87,16 @@ void nurseToJSON(const Nurse& nurse, const std::string& filename) {
     }
 }
 
-// Add a nurse to a specific shift
+/**
+ * @brief Adds a nurse to a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector where nurses are assigned to shifts.
+ * @param shift The shift number (1-based index) where the nurse will be added.
+ * @param nurse The Nurse object to be added to the specified shift.
+ * 
+ * This function appends the provided Nurse object to the shift specified in the schedule.
+ * It validates that the shift number is within the valid range (1-42).
+ */
 void add(ShiftSchedule& schedule, int shift, const Nurse& nurse) {
     if (shift < 1 || shift > 42) {
         std::cerr << "Error: Shift number must be between 1 and 42.\n";
@@ -96,7 +105,16 @@ void add(ShiftSchedule& schedule, int shift, const Nurse& nurse) {
     schedule[shift - 1].push_back(nurse);  // Add nurse to the appropriate shift
 }
 
-// Remove a nurse from a specific shift
+/**
+ * @brief Removes a nurse from a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector where nurses are assigned to shifts.
+ * @param shift The shift number (1-based index) from which the nurse will be removed.
+ * @param nurse The Nurse object to be removed from the specified shift.
+ * 
+ * This function removes the provided Nurse object from the shift specified in the schedule.
+ * It validates that the shift number is within the valid range (1-42) and that the nurse exists.
+ */
 void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse) {
     if (shift < 1 || shift > 42) {
         std::cerr << "Error: Shift number must be between 1 and 42.\n";
@@ -134,7 +152,17 @@ void printShiftSchedule(const ShiftSchedule& schedule) {
     std::cout << std::endl;
 }
 
-// Assume that ShiftSchedule and Nurse are defined properly
+/**
+ * @brief Converts the entire shift schedule to JSON format and writes it to a file.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurses assigned to each shift.
+ * @param filename The name of the output JSON file.
+ * 
+ * This function creates a JSON object representing the schedule of all shifts. Each shift
+ * includes its shift number and the list of nurses assigned to it. If no nurses are assigned
+ * to a shift, it records that information as well. The JSON is printed to the console and saved
+ * to the specified file.
+ */
 void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filename) {
     nlohmann::json jsonOutput = nlohmann::json::array();  // Create a JSON array to hold all shifts
 
@@ -219,4 +247,32 @@ Nurse getRandomNurseFromShift(const ShiftSchedule& schedule, int shift, const st
 
     int randomIndex = dist(gen);
     return matchingNurses[randomIndex];
+}
+
+/**
+ * @brief Prints all nurses assigned to a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurses for all shifts.
+ * @param shift The 1-based index of the shift to display (e.g., 1 for the first shift).
+ */
+void printNursesForShift(const ShiftSchedule& schedule, int shift) {
+    if (shift < 1 || shift > schedule.size()) {
+        std::cerr << "Error: Shift index out of bounds. Valid range is 1 to " << schedule.size() << ".\n";
+        return;
+    }
+
+    const auto& shiftNurses = schedule[shift - 1]; // Convert to 0-based index
+    std::cout << "Nurses assigned to Shift " << shift << ":\n";
+
+    if (shiftNurses.empty()) {
+        std::cout << "  No nurses assigned.\n";
+        return;
+    }
+
+    for (const auto& nurse : shiftNurses) {
+        std::cout << "  Nurse ID: " << nurse.nurseNumber
+                  << ", Name: " << nurse.fullName
+                  << ", Department: " << nurse.department
+                  << ", Type: " << nurse.nurseType << '\n';
+    }
 }
