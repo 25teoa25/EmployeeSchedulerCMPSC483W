@@ -1,0 +1,34 @@
+{
+    "shifts1": [
+        { "day": "Monday", "pediatric": true, "oncology": true },
+        { "day": "Tuesday", "pediatric": true, "oncology": true },
+        { "day": "Wednesday", "pediatric": true, "oncology": true },
+        { "day": "Thursday", "pediatric": true, "oncology": true },
+        { "day": "Friday", "pediatric": true, "oncology": true },
+        { "day": "Saturday", "pediatric": true, "oncology": true },
+        { "day": "Sunday", "pediatric": true, "oncology": true },
+        { "day": "Monday", "pediatric": true, "oncology": true },
+        { "day": "Tuesday", "pediatric": true, "oncology": true },
+        { "day": "Wednesday", "pediatric": true, "oncology": true },
+        { "day": "Thursday", "pediatric": true, "oncology": true },
+        { "day": "Friday", "pediatric": true, "oncology": true },
+        { "day": "Saturday", "pediatric": true, "oncology": true },
+        { "day": "Sunday", "pediatric": true, "oncology": true }
+    ],
+    "shifts2": [
+        { "day": "Monday", "pediatric": true, "oncology": true },
+        { "day": "Tuesday", "pediatric": true, "oncology": true },
+        { "day": "Wednesday", "pediatric": true, "oncology": true },
+        { "day": "Thursday", "pediatric": true, "oncology": true },
+        { "day": "Friday", "pediatric": true, "oncology": true },
+        { "day": "Saturday", "pediatric": true, "oncology": true },
+        { "day": "Sunday", "pediatric": true, "oncology": true },
+        { "day": "Monday", "pediatric": true, "oncology": true },
+        { "day": "Tuesday", "pediatric": true, "oncology": true },
+        { "day": "Wednesday", "pediatric": true, "oncology": true },
+        { "day": "Thursday", "pediatric": true, "oncology": true },
+        { "day": "Friday", "pediatric": true, "oncology": true },
+        { "day": "Saturday", "pediatric": true, "oncology": true },
+        { "day": "Sunday", "pediatric": true, "oncology": true }
+    ]
+}

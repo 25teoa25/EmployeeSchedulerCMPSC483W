@@ -36,10 +36,10 @@ int main() {
 
      //brute force code
     // Example debug print statement to check the list of Registered Nurses in Oncology
-    std::cout << "Registered Nurses in Oncology:\n";
+    /*std::cout << "Registered Nurses in Oncology:\n";
     for (const auto& nurse : departmentNursesMap["Oncology"]["RN"]) {
         std::cout << "  " << nurse.fullName << " (" << nurse.nurseType << ")\n";
-    }
+    }*/
     
     // Create sortedConstraintsMap with std::map for sorted keys
     std::map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> sortedConstraintsMap(
@@ -53,14 +53,10 @@ int main() {
     for (const auto& shiftPair : sortedConstraintsMap) {
         int shift = shiftPair.first;
         std::cout << shift << std::endl;
-        //ShiftSchedule shiftSchedule(42);
 
         // Iterate over each department in the current shift
         for (const auto& deptPair : shiftPair.second) {
             const std::string& department = deptPair.first;
-            std::cout << "Department1:" << department << std::endl;
-            //ShiftSchedule shiftSchedule(42);
-            // Map to store assigned nurses for the current department in this shift
             std::map<std::string, std::vector<std::string>> assignedNurses;
 
         // Iterate over each nurse type in the current department
@@ -86,32 +82,51 @@ int main() {
                 modifiedNurseType = "LPN";
             }
                 int nursesNeeded = typePair.second;
-                //std::cout << ":::" << modifiedNurseType << ":::" << nursesNeeded << std::endl;
 
                 // Get the list of available nurses for the department and type
                 auto& availableNurses = departmentNursesMap[department][modifiedNurseType];
-                std::cout << department << nurseType << std::endl;
+                //std::cout << department << nurseType << std::endl;
 
                 // Assign nurses up to the required count (nursesNeeded)
                 int assignedCount = 0;
+
+                // First, prioritize nurses with shiftPreferences[shift] = 2
                 for (const auto& nurse : availableNurses) {
                     if (assignedCount >= nursesNeeded) break;
-                    add(shiftSchedule, shift, nurse); // Add nurse to shift schedule
-                    
-                    //std::cout << "HERE" << nurse.nurseNumber << std::endl;
-                    assignedCount++;
-                }  
+    
+                    if (nurse.shiftPreferences[shift-1] == 2) {
+                        add(shiftSchedule, shift, nurse); // Add nurse to shift schedule
+                        assignedCount++;
+                    }
+                }
+
+                // Next, add nurses with shiftPreferences[shift] = 1 if needed
+                if (assignedCount < nursesNeeded) {
+                for (const auto& nurse : availableNurses) {
+                    if (assignedCount >= nursesNeeded) break;
+
+                    if (nurse.shiftPreferences[shift-1] == 1) {
+                        add(shiftSchedule, shift, nurse); // Add nurse to shift schedule
+                        assignedCount++;
+                    }
+                }
+            }
+
+                // If there are still not enough nurses, output an error message
+                if (assignedCount < nursesNeeded) {
+                    std::cerr << "Error: Not enough nurses available for shift " << shift-1 << ". Needed: " 
+                    << nursesNeeded << ", Assigned: " << assignedCount << std::endl;
+                }
+                
 
             }
         
     
         
         }
-        //printShiftSchedule(shiftSchedule);
-        std::cout << "ENDING" << counter << std::endl;
         counter++;
     }
-    printShiftSchedule(shiftSchedule);
+    //printShiftSchedule(shiftSchedule);
 
    
             

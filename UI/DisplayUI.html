@@ -3,13 +3,20 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content = "width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="DisplayStyles.css">
-    <script src = "DisplayFunctionality.js"></script>
+    <script src = "JS\DisplayFunctionality.js"></script>
+    <script type = "text/javascript">
+        window.onload = startupFunction;
+        function startupFunction() {
+            fillTabs();
+            switchTab("Overall");
+        };
+    </script>
 </head>
 <html>
-    <div class = "tabs">
-        <button onClick="switchTab('Overall')">Overall</button>
-        <button onClick="switchTab('Pediatric')">Pediatric</button>
-        <button onClick="switchTab('Oncology')">Oncology</button>
+    <div class = "tabs" id = "tabs">
+        <!-- <button onClick="switchTab('Overall')">Overall</button> <-->
+        <!-- <button onClick="switchTab('Pediatric')">Pediatric</button> <-->
+        <!-- <button onClick="switchTab('Oncology')">Oncology</button> <-->
     </div>
 
     <h1 id="tabHeader">Overall Schedule</h1>
@@ -31,49 +38,17 @@
             <Text class = "summary-info">- Blah blah information</Text>
         </div>
     </div>
-<head>
-    <link rel="stylesheet" href="DisplayStyles.css">
-</head>
 <body>
     <h1>Week of (9/30)</h1>
     <div class="left-side-container">
-        <div class="table-container">
-            <div class="schedule">
+        <div class="table-container" id="table-container">
+            <!-- Leave the overall tab as that will always be there-->
+            <!-- <div class="schedule" id="overallSchedule">
                 <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Monday (9/30)</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
-                            <th>Sunday</th>
-                            <th>Monday (10/7)</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
-                            <th>Sunday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th class="shift-row">Shift 1 (7am-3pm)</th>
-                            <td>Oncology</td>
-                            <td>Pediatric</td>
-                        </tr>
-                        <tr>
-                            <th class="shift-row">Shift 2 (3pm-11pm)</th>
-                        </tr>
-                        <tr>
-                            <th class="shift-row">Shift 3 (11pm-7am)</th>
-                        </tr>
+                    <tbody id="shift-table-body">
                     </tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>

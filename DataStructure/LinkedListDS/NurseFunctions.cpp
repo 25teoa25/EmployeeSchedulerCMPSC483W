@@ -116,7 +116,7 @@ void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse) {
 void printShiftSchedule(const ShiftSchedule& schedule) {
     for (size_t i = 0; i < schedule.size(); ++i) {
         const auto& shiftNurses = schedule[i];
-        std::cout << "Shift " << i + 1 << ":\n";
+        std::cout << "Shift " << i  << ":\n";
         
         if (shiftNurses.empty()) {
             std::cout << "  No nurses assigned.\n";
@@ -125,7 +125,8 @@ void printShiftSchedule(const ShiftSchedule& schedule) {
                 std::cout << "  Nurse ID: " << nurse.nurseNumber
                           << ", Name: " << nurse.fullName
                           << ", Dept: " << nurse.department
-                            << ", Type: " << nurse.nurseType << '\n';
+                            << ", Type: " << nurse.nurseType 
+                            << ", Score:" <<nurse.shiftPreferences[i+1] <<'\n';
             }
         }
     }
@@ -142,7 +143,7 @@ void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filen
         nlohmann::json shiftJson;  // Create a JSON object for each shift
 
         // Assign the shift number first
-        shiftJson["shift"] = i + 1;
+        shiftJson["1shift"] = i + 1;
 
         // Check if nurses are assigned to this shift
         if (shiftNurses.empty()) {

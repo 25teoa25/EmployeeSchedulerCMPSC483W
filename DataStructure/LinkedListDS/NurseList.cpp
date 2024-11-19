@@ -11,4 +11,11 @@ std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurs
 
 std::unordered_map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> constraintsMap;
 
+Nurse fakeNurse = {
+    "Fake Nurse",        // fullName
+    -1,               // nurseNumber
+    "RN",              // nurseType
+    "Oncology",        // department
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+};
 
