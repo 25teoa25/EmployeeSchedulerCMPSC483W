@@ -36,9 +36,9 @@ def generate_sorted_nurse_schedule_no_index_csv(departments, nurse_types, shifts
 #departments = ["Oncology", "Pediatric", "Surgery,"]
 departments = ['Oncology', 'Surgery', 'Pediatric', 'Family', 'Labor', 'Forensic', 'Critical Care', 'Mental Health', 'Midwife']
 nurse_types = [
-    "Nurse Type: Registered Nurse",
-    "Nurse Type: Licensed Practical Nurse",
-    "Nurse Type: Nurse Assistant"
+    "RN",
+    "LPN",
+    "NA"
 ]
 
 # Generate the nurse schedule
