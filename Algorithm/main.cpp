@@ -1,6 +1,6 @@
 //to run this file right now:
 //make sure to change the path of the constraints, nurse list files, and any files in the compilation statement
-//g++ -std=c++11 main.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/CSVParser.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseList.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseFunctions.cpp -o Testfile
+//g++ -std=c++11 main.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/Algorithm/neighbor.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/CSVParser.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseList.cpp /Users/saadyarao/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/NurseFunctions.cpp -o Testfile
 //then: ./Testfile
 
 #include <iostream>
@@ -13,7 +13,7 @@
 #include "../DataStructure/LinkedListDS/NurseFunctions.h"
 #include "../DataStructure/LinkedListDS/CSVParser.h"
 #include "../DataStructure/LinkedListDS/NurseList.h"
-//#include "neighbor.h"
+#include "neighbor.h"
 //#include "json.hpp"
 //using json = nlohmann::json;
 using namespace std;
@@ -206,8 +206,16 @@ int main() {
                     simpleAssignment(shiftSchedule, department, nurseType, morningShiftNumber, dm); // Assign nurses to morning shift without optimizing preference
                     simpleAssignment(shiftSchedule, department, nurseType, eveningShiftNumber, de); // Assign nurses to night shift without optimizing preference
                 }
-
             }
+
+            satisfactionScore = structure1(shiftSchedule, department, satisfactionScore, nurseType);
+            satisfactionScore = structure2(shiftSchedule, department, satisfactionScore, nurseType);
+            satisfactionScore = structure3(shiftSchedule, department, satisfactionScore, nurseType);
+            satisfactionScore = structure4(shiftSchedule, department, satisfactionScore, nurseType);
+            satisfactionScore = structure5(shiftSchedule, department, satisfactionScore, nurseType);
+            satisfactionScore = structure6(shiftSchedule, department, satisfactionScore, nurseType);
+            satisfactionScore = structure7(shiftSchedule, department, satisfactionScore, nurseType);
+            satisfactionScore = structure8(shiftSchedule, department, satisfactionScore, nurseType);
         }
     }
 

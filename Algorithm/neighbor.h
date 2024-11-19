@@ -9,6 +9,8 @@
 #include <random>
 #include <algorithm>
 
+using namespace std;
+
 // Declare external reference to departmentNursesMap
 extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;
 

@@ -1,5 +1,5 @@
+#include <iostream>
 #include "neighbor.h"
-#include "../DataStructure/LinkedListDS/NurseFunctions.h"
 
 using namespace std;
 
@@ -85,7 +85,7 @@ int structure1(ShiftSchedule schedule, const string &department, int currPref, c
     // If the selected nurse is not of the correct type return
     if (nurse1.nurseType != nurseType || nurse2.nurseType != nurseType)
     {
-        return;
+        return currPref;
     }
 
     // If nurse1 can take the long shift
@@ -103,6 +103,7 @@ int structure1(ShiftSchedule schedule, const string &department, int currPref, c
         remove(schedule, shift1, nurse1);
         return currPref - nurse1.shiftPreferences[shift1] + nurse2.shiftPreferences[shift1];
     }
+    return currPref;
 }
 
 /*
@@ -127,7 +128,7 @@ int structure2(ShiftSchedule schedule, const string &department, int currPref, s
     if (nurse1.nurseType != nurse2.nurseType)
     {
         // Update to verify nurse1 works a long shift
-        return;
+        return currPref;
     }
 
     int newPref1 = currPref - nurse1.shiftPreferences[shift + 1] + nurse2.shiftPreferences[shift + 1];
@@ -148,7 +149,7 @@ int structure2(ShiftSchedule schedule, const string &department, int currPref, s
         return newPref2;
     }
 
-    return;
+    return currPref;
 }
 
 /*
@@ -191,6 +192,7 @@ int structure3(ShiftSchedule schedule, const string &department, int currPref, s
         remove(schedule, shift4, nurse4);
         return newPref;
     }
+    return currPref;
 }
 
 /*
@@ -230,6 +232,7 @@ int structure4(ShiftSchedule schedule, const string &department, int currPref, s
         remove(schedule, shift4, nurse4);
         return newPref;
     }
+    return currPref;
 }
 
 /*
@@ -279,6 +282,7 @@ int structure6(ShiftSchedule schedule, const string &department, int currPref, s
         remove(schedule, shift4, nurse4);
         return newPref;
     }
+    return currPref;
 }
 
 /*
@@ -299,6 +303,7 @@ int structure7(ShiftSchedule schedule, const string &department, int currPref, s
         add(schedule, shiftIndex, nurse); // Schedule the nurse
         return newPref;
     }
+    return currPref;
 }
 
 /*
@@ -331,4 +336,5 @@ int structure8(ShiftSchedule schedule, const string &department, int currPref, s
         remove(schedule, shift3, nurse3);
         return newPref;
     }
+    return currPref;
 }
