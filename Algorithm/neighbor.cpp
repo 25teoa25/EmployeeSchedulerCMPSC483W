@@ -39,15 +39,6 @@ Nurse &getRandomNurse(const string &department, const string &type)
     return nurses[dis(gen)];
 }
 
-// Helper function to get a random assigned nurse
-Nurse &getRandomAssignedNurse(ShiftSchedule schedule, int shift)
-{
-    std::uniform_int_distribution<> dis(0, schedule[shift].size() - 1);
-    // Not sure how schedule stores nurses
-    // UPDATE? : to find nurses of a specific type?
-    return schedule[shift][dis(gen)];
-}
-
 /* To my knowledge, these structures only run on nurses of the same type in the same department.
 In order to check if the change is feasible, it must improve nurse happiness and also not
 break any of the listed constraints. */
@@ -73,11 +64,15 @@ bool feasible(int currPref, int newPref)
 int structure1(ShiftSchedule schedule, const string &department, int currPref, const string nurseType)
 {
     // Generate a random shift
+    cout << '1' << endl;
     int day = getRandomDay();
     int shift = getRandomShift();
     int shift1 = day * 3 + shift;
     int shift2 = shift1 + 1;
 
+    if (shift2 > 42 || shift1 < 1){
+        return currPref;
+    }
     // Generate 1 random nurse per shift
     Nurse nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
     Nurse nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
@@ -117,15 +112,20 @@ int structure1(ShiftSchedule schedule, const string &department, int currPref, c
 int structure2(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
     // Generate a random shift
+    cout << '2' << endl;
     int ranDay = getRandomDay();
     int ranShift = getRandomShift();
     int shift = ranDay * 3 + ranShift;
+
+    if (shift > 41 || shift < 1){
+        return currPref;
+    }
 
     // Generate 2 nurses, 1) works a long shift 2) does not work either shift
     Nurse nurse1 = getRandomNurseFromShift(schedule, shift, nurseType);
     Nurse &nurse2 = getRandomNurse(department, nurseType);
 
-    if (nurse1.nurseType != nurse2.nurseType)
+    if (nurse1.nurseType != nurse2.nurseType || shift == 42)
     {
         // Update to verify nurse1 works a long shift
         return currPref;
@@ -159,6 +159,7 @@ int structure2(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure3(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
+    cout << '3' << endl;
     int day1 = getRandomDay();
     int day2 = getRandomDay();
     int ranShift1 = getRandomShift();
@@ -169,10 +170,18 @@ int structure3(ShiftSchedule schedule, const string &department, int currPref, s
     int shift3 = day2 * 3 + ranShift1;
     int shift4 = day2 * 3 + ranShift2;
 
+    if (shift1 > 42 || shift2 > 42 || shift3 > 42 || shift4 > 42 || shift1 < 1 || shift2 < 1 || shift3 < 1 || shift4 < 1){
+        return currPref;
+    }
+
     Nurse nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
     Nurse nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
     Nurse nurse3 = getRandomNurseFromShift(schedule, shift3, nurseType);
     Nurse nurse4 = getRandomNurseFromShift(schedule, shift4, nurseType);
+
+    if (nurse1.nurseNumber == -1 || nurse2.nurseNumber == -1 || nurse3.nurseNumber == -1 || nurse4.nurseNumber == -1){
+        return currPref;
+    }
 
     // UPDATE: Need to ensure all nurses are of the saame type
 
@@ -202,6 +211,7 @@ int structure3(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure4(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
+    cout << '4' << endl;
     int day1 = getRandomDay();
     int day2 = getRandomDay();
     int ranShift1 = getRandomShift();
@@ -212,10 +222,18 @@ int structure4(ShiftSchedule schedule, const string &department, int currPref, s
     int shift3 = day2 * 3 + ranShift1;
     int shift4 = day2 * 3 + ranShift2;
 
+    if (shift1 > 42 || shift2 > 42 || shift3 > 42 || shift4 > 42 || shift1 < 1 || shift2 < 1 || shift3 < 1 || shift4 < 1){
+        return currPref;
+    }
+
     Nurse nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
     Nurse nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
     Nurse nurse3 = getRandomNurseFromShift(schedule, shift3, nurseType);
     Nurse nurse4 = getRandomNurseFromShift(schedule, shift4, nurseType);
+
+    if (nurse1.nurseNumber == -1 || nurse2.nurseNumber == -1 || nurse3.nurseNumber == -1 || nurse4.nurseNumber == -1){
+        return currPref;
+    }
 
     int newPref = currPref - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift2] - nurse2.shiftPreferences[shift2] + nurse2.shiftPreferences[shift1] - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift4] - nurse4.shiftPreferences[shift4] + nurse4.shiftPreferences[shift3];
 
@@ -252,6 +270,7 @@ int structure5(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure6(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
+    cout << '6' << endl;
     int day1 = getRandomDay();
     int day2 = getRandomDay();
     int ranShift1 = getRandomShift();
@@ -266,6 +285,10 @@ int structure6(ShiftSchedule schedule, const string &department, int currPref, s
     Nurse nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);
     Nurse nurse3 = getRandomNurseFromShift(schedule, shift3, nurseType);
     Nurse nurse4 = getRandomNurseFromShift(schedule, shift4, nurseType);
+
+    if (shift1 > 42 || shift2 > 42 || shift3 > 42 || shift4 > 42 || shift1 < 1 || shift2 < 1 || shift3 < 1 || shift4 < 1){
+        return currPref;
+    }
 
     int newPref = currPref - nurse1.shiftPreferences[shift1] + nurse1.shiftPreferences[shift3] - nurse2.shiftPreferences[shift2] + nurse2.shiftPreferences[shift1] - nurse3.shiftPreferences[shift3] + nurse3.shiftPreferences[shift4] - nurse4.shiftPreferences[shift4] + nurse4.shiftPreferences[shift2];
 
@@ -291,12 +314,17 @@ int structure6(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure7(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
+    cout << '7' << endl;
     int day = getRandomDay();
     int shift = getRandomShift();
     Nurse &nurse = getRandomNurse(department, nurseType);
 
     int shiftIndex = day * 3 + shift;
     int newPref = currPref + nurse.shiftPreferences[shiftIndex];
+
+    if (shiftIndex > 42 || shiftIndex < 1) {
+        return currPref;
+    }
 
     if (feasible(currPref, newPref))
     {                                     // I dont think this newPref check is needed, cause it will always be same or greater
@@ -313,11 +341,16 @@ int structure7(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure8(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
+    cout << '8' << endl;
     int day = getRandomDay();
 
     int shift1 = day * 3;
     int shift2 = day * 3 + 1;
     int shift3 = day * 3 + 2;
+
+    if (shift1 > 40 || shift1 < 1) {
+        return currPref;
+    }
 
     Nurse nurse1 = getRandomNurseFromShift(schedule, shift1, nurseType);
     Nurse nurse2 = getRandomNurseFromShift(schedule, shift2, nurseType);

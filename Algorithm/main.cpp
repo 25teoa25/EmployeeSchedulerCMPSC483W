@@ -21,6 +21,8 @@ using namespace std;
 // Global satisfaction score variable
 int satisfactionScore = 0;
 
+int numberAssigned = 0;
+
 // Function to randomly generate a number from 1 to 3 (morning, evening, night)
 int generateRandomShift() {
     static random_device rd;
@@ -33,6 +35,9 @@ int generateRandomShift() {
 void simpleAssignment(vector<vector<Nurse>>& shiftSchedule, 
                       const string& department, const string& nurseType, 
                       int shift, int& demandRemaining) {
+    
+    // The amount of nurses examined in the vector
+    int nurseListCounter = 0;
 
     // Iterate through the nurses for the given department and nurse type
     for (auto& nurse : departmentNursesMap[department][nurseType]) {
@@ -66,11 +71,17 @@ void simpleAssignment(vector<vector<Nurse>>& shiftSchedule,
                 // Update the satisfaction score based on the nurse's preference
                 satisfactionScore += nurse.shiftPreferences[shift];
 
+                numberAssigned++;
+
                 // If the demand has been fulfilled, exit loop
                 if (demandRemaining <= 0) {
                     break;
                 }
             }
+        }
+        nurseListCounter++;
+        if (nurseListCounter > departmentNursesMap[department][nurseType].size()){
+            break;
         }
     }
 }
@@ -79,6 +90,7 @@ void simpleAssignment(vector<vector<Nurse>>& shiftSchedule,
 void optimizePreferenceAssignment(vector<vector<Nurse>>& shiftSchedule, 
                                    const string& department, const string& nurseType, 
                                    int shift, int& demandRemaining) {
+
     bool assignedAny = false;
 
     // Loop through the nurses for the given department and nurse type
@@ -112,7 +124,7 @@ void optimizePreferenceAssignment(vector<vector<Nurse>>& shiftSchedule,
 
                 // Update the satisfaction score based on the nurse's preference
                 satisfactionScore += nurse.shiftPreferences[shift];
-
+                
                 // We have assigned at least one nurse
                 assignedAny = true;
 
@@ -207,9 +219,11 @@ int main() {
                     simpleAssignment(shiftSchedule, department, nurseType, eveningShiftNumber, de); // Assign nurses to night shift without optimizing preference
                 }
             }
-
+            
+            // cout << "Satisfaction before: " << satisfactionScore << endl;
             satisfactionScore = structure1(shiftSchedule, department, satisfactionScore, nurseType);
-            satisfactionScore = structure2(shiftSchedule, department, satisfactionScore, nurseType);
+            // cout << "Satisfaction after: " << satisfactionScore << endl;
+            // satisfactionScore = structure2(shiftSchedule, department, satisfactionScore, nurseType);
             satisfactionScore = structure3(shiftSchedule, department, satisfactionScore, nurseType);
             satisfactionScore = structure4(shiftSchedule, department, satisfactionScore, nurseType);
             satisfactionScore = structure5(shiftSchedule, department, satisfactionScore, nurseType);
@@ -219,10 +233,11 @@ int main() {
         }
     }
 
-    printShiftSchedule(shiftSchedule);
-    string filename = "shift_schedule.json";
-    shiftScheduleToJSON(shiftSchedule, filename);
+    // printShiftSchedule(shiftSchedule);
+    // string filename = "shift_schedule.json";
+    // shiftScheduleToJSON(shiftSchedule, filename);
     cout << "Satisfaction score of current schedule: " << satisfactionScore << endl;
+    cout << "Number assigned: " << numberAssigned * 2 << endl;
 
     return 0;
 }
