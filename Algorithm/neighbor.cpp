@@ -1,4 +1,5 @@
 #include "neighbor.h"
+#include "../DataStructure/LinkedListDS/NurseFunctions.h"
 
 using namespace std;
 
