@@ -64,7 +64,7 @@ bool feasible(int currPref, int newPref)
 int structure1(ShiftSchedule schedule, const string &department, int currPref, const string nurseType)
 {
     // Generate a random shift
-    cout << '1' << endl;
+    // cout << '1' << endl;
     int day = getRandomDay();
     int shift = getRandomShift();
     int shift1 = day * 3 + shift;
@@ -118,7 +118,7 @@ int structure1(ShiftSchedule schedule, const string &department, int currPref, c
 int structure2(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
     // Generate a random shift
-    cout << '2' << endl;
+    // cout << '2' << endl;
     int ranDay = getRandomDay();
     int ranShift = getRandomShift();
     int shift = ranDay * 3 + ranShift;
@@ -236,7 +236,7 @@ int structure3(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure4(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
-    cout << '4' << endl;
+    // cout << '4' << endl;
     int day1 = getRandomDay();
     int day2 = getRandomDay();
     int ranShift1 = getRandomShift();
@@ -308,7 +308,7 @@ int structure5(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure6(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
-    cout << '6' << endl;
+    // cout << '6' << endl;
     int day1 = getRandomDay();
     int day2 = getRandomDay();
     int ranShift1 = getRandomShift();
@@ -364,7 +364,7 @@ int structure6(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure7(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
-    cout << '7' << endl;
+    // cout << '7' << endl;
     int day = getRandomDay();
     int shift = getRandomShift();
     Nurse &nurse = getRandomNurse(department, nurseType);
@@ -397,7 +397,7 @@ int structure7(ShiftSchedule schedule, const string &department, int currPref, s
 */
 int structure8(ShiftSchedule schedule, const string &department, int currPref, string nurseType)
 {
-    cout << '8' << endl;
+    // cout << '8' << endl;
     int day = getRandomDay();
 
     int shift1 = day * 3;
