@@ -14,7 +14,11 @@ function fillDepartments () {
                 return response.json();
             })
             .then(data => {
+                let departments = [];
+                let i = 0;
                 for (let shift of data) {
+                    for (let nurse of shift.nurses) {
+
 }
 
 function fillTabs () {
