@@ -1,0 +1,123 @@
+\doxysection{Nurse Struct Reference}
+\hypertarget{struct_nurse}{}\label{struct_nurse}\index{Nurse@{Nurse}}
+
+
+A structure that stores information about a nurse, including their name, ID number, pay, and work shifts.  
+
+
+
+
+{\ttfamily \#include $<$Nurse\+List.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_nurse_a8b430389cf1cf4454a158fdf050d7598}{Nurse}} (const string \&\mbox{\hyperlink{struct_nurse_acfee469334d18ce15376c853c6208918}{nurse\+Name}}, int number, const string \&\mbox{\hyperlink{struct_nurse_ab42b7b503ad15f9e7be44703bc8f2508}{nurse\+Type}}, const string \&\mbox{\hyperlink{struct_nurse_a674cd8f79d150a5e6cce9ac73c9ba798}{nurse\+Department}}, const vector$<$ string $>$ \&\mbox{\hyperlink{struct_nurse_ad60bfca6daff3d347d6ec22fe2de5ca3}{nurse\+Shifts}})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{struct_nurse}{Nurse} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{struct_nurse_acfee469334d18ce15376c853c6208918}{nurse\+Name}}
+\item 
+int \mbox{\hyperlink{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9}{nurse\+Number}}
+\item 
+string \mbox{\hyperlink{struct_nurse_ab42b7b503ad15f9e7be44703bc8f2508}{nurse\+Type}}
+\item 
+string \mbox{\hyperlink{struct_nurse_a674cd8f79d150a5e6cce9ac73c9ba798}{nurse\+Department}}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{struct_nurse_ad60bfca6daff3d347d6ec22fe2de5ca3}{nurse\+Shifts}}
+\item 
+\mbox{\hyperlink{struct_nurse}{Nurse}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_nurse_ae4e147a43bdd0b143aeabaf5615f55ac}{next}}
+\item 
+\mbox{\hyperlink{struct_nurse}{Nurse}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_nurse_a80aa13fc84a69184c81d199120a94f0f}{prev}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A structure that stores information about a nurse, including their name, ID number, pay, and work shifts. 
+
+The \doxylink{struct_nurse}{Nurse} structure holds details about a nurse and is used in the doubly linked list for storing nurse records. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_nurse_a8b430389cf1cf4454a158fdf050d7598}\index{Nurse@{Nurse}!Nurse@{Nurse}}
+\index{Nurse@{Nurse}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{Nurse()}{Nurse()}}
+{\footnotesize\ttfamily \label{struct_nurse_a8b430389cf1cf4454a158fdf050d7598} 
+Nurse\+::\+Nurse (\begin{DoxyParamCaption}\item[{const string \&}]{nurse\+Name}{, }\item[{int}]{number}{, }\item[{const string \&}]{nurse\+Type}{, }\item[{const string \&}]{nurse\+Department}{, }\item[{const vector$<$ string $>$ \&}]{nurse\+Shifts}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{struct_nurse}{Nurse} object. 
+
+Constructs a \doxylink{struct_nurse}{Nurse} object with the given name, number, pay, and shift data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nurse\+Name} & The nurse\textquotesingle{}s name. \\
+\hline
+{\em number} & The nurse\textquotesingle{}s unique ID number. \\
+\hline
+{\em nurse\+Type} & \\
+\hline
+{\em nurse\+Dept} & \\
+\hline
+{\em nurse\+Name} & The name of the nurse. \\
+\hline
+{\em number} & The unique identifier for the nurse. \\
+\hline
+{\em nurse\+Pay} & The pay of the nurse (hourly or annual). \\
+\hline
+{\em nurse\+Shifts} & The shifts assigned to the nurse in a vector of strings. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_nurse_ae4e147a43bdd0b143aeabaf5615f55ac}\index{Nurse@{Nurse}!next@{next}}
+\index{next@{next}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily \label{struct_nurse_ae4e147a43bdd0b143aeabaf5615f55ac} 
+\mbox{\hyperlink{struct_nurse}{Nurse}}\texorpdfstring{$\ast$}{*} Nurse\+::next}
+
+Pointer to the next nurse in the linked list. \Hypertarget{struct_nurse_a674cd8f79d150a5e6cce9ac73c9ba798}\index{Nurse@{Nurse}!nurseDepartment@{nurseDepartment}}
+\index{nurseDepartment@{nurseDepartment}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{nurseDepartment}{nurseDepartment}}
+{\footnotesize\ttfamily \label{struct_nurse_a674cd8f79d150a5e6cce9ac73c9ba798} 
+string Nurse\+::nurse\+Department}
+
+\doxylink{struct_nurse}{Nurse}\textquotesingle{}s dept. \Hypertarget{struct_nurse_acfee469334d18ce15376c853c6208918}\index{Nurse@{Nurse}!nurseName@{nurseName}}
+\index{nurseName@{nurseName}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{nurseName}{nurseName}}
+{\footnotesize\ttfamily \label{struct_nurse_acfee469334d18ce15376c853c6208918} 
+string Nurse\+::nurse\+Name}
+
+\doxylink{struct_nurse}{Nurse}\textquotesingle{}s name. \Hypertarget{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9}\index{Nurse@{Nurse}!nurseNumber@{nurseNumber}}
+\index{nurseNumber@{nurseNumber}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{nurseNumber}{nurseNumber}}
+{\footnotesize\ttfamily \label{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9} 
+int Nurse\+::nurse\+Number}
+
+Unique nurse identifier (e.\+g., employee number). \Hypertarget{struct_nurse_ad60bfca6daff3d347d6ec22fe2de5ca3}\index{Nurse@{Nurse}!nurseShifts@{nurseShifts}}
+\index{nurseShifts@{nurseShifts}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{nurseShifts}{nurseShifts}}
+{\footnotesize\ttfamily \label{struct_nurse_ad60bfca6daff3d347d6ec22fe2de5ca3} 
+vector$<$ string $>$ Nurse\+::nurse\+Shifts}
+
+A vector containing the nurse\textquotesingle{}s assigned shifts (e.\+g., 42 shifts). \Hypertarget{struct_nurse_ab42b7b503ad15f9e7be44703bc8f2508}\index{Nurse@{Nurse}!nurseType@{nurseType}}
+\index{nurseType@{nurseType}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{nurseType}{nurseType}}
+{\footnotesize\ttfamily \label{struct_nurse_ab42b7b503ad15f9e7be44703bc8f2508} 
+string Nurse\+::nurse\+Type}
+
+\doxylink{struct_nurse}{Nurse}\textquotesingle{}s type. \Hypertarget{struct_nurse_a80aa13fc84a69184c81d199120a94f0f}\index{Nurse@{Nurse}!prev@{prev}}
+\index{prev@{prev}!Nurse@{Nurse}}
+\doxysubsubsection{\texorpdfstring{prev}{prev}}
+{\footnotesize\ttfamily \label{struct_nurse_a80aa13fc84a69184c81d199120a94f0f} 
+\mbox{\hyperlink{struct_nurse}{Nurse}}\texorpdfstring{$\ast$}{*} Nurse\+::prev}
+
+Pointer to the previous nurse in the linked list. 
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Nurse\+List.\+h\item 
+Nurse\+List.\+cpp\end{DoxyCompactItemize}

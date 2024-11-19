@@ -1,67 +1,107 @@
-// CSVParser.cpp
 #include "CSVParser.h"
+#include "NurseList.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <stdexcept>
 
-/**
- * @brief Reads a CSV file and populates nurse data into linked lists for each nurse type.
- * 
- * @param filename The name of the CSV file to read.
- * @param nurse_lists A reference to an unordered_map where the key is the nurse type (e.g., "RN", "LPN") and the value is a NurseList containing nurses of that type.
- * 
- * This function opens the CSV file, skips the header line, and processes each subsequent line to extract nurse details such as name, number, type, pay, and assigned shifts.
- * The parsed data is then added to the appropriate NurseList in the unordered_map based on the nurse type.
- */
-void readCSV( const std::string& filename , std::unordered_map<std::string , NurseList>& nurse_lists ) {
+// Helper function to trim leading and trailing whitespace
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(" \t\n\r");
+    if (first == std::string::npos) return ""; // Empty or whitespace-only string
+    size_t last = str.find_last_not_of(" \t\n\r");
+    return str.substr(first, (last - first + 1));
+}
 
-    // Open the CSV file
-    std::ifstream file( filename );
-
-    // Check if the file was successfully opened
-    if ( !file.is_open() ) {
-
-        std::cerr << "Error: Could not open file " << filename << std::endl;
+// Function to parse nurse data from the CSV file
+void parseNursesCSV(const std::string& fileName) {
+    std::ifstream file(fileName);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open file " << fileName << std::endl;
         return;
-
     }
 
     std::string line;
-    getline( file , line );  // Skip header line
+    std::getline(file, line); // Skip header
 
-    // Read each line from the CSV
-    while ( getline( file , line ) ) {
+    while (std::getline(file, line)) {
+        if (line.empty()) continue; // Skip empty lines
 
-        std::stringstream ss( line ); // Create a stringstream to parse the line
-        std::string name, type;
-        int number;
-        double pay;
-        std::vector< std::string > shifts( 42 );  // Initialize vector to hold 42 shifts
+        std::istringstream ss(line);
+        Nurse nurse;
+        std::string token;
+        int shiftCount = 0;
 
-        // Parse the nurse's name (up to the first comma)
-        getline( ss , name , ',' );
+        try {
+            std::getline(ss, nurse.fullName, ',');
+            std::getline(ss, token, ',');
+            nurse.nurseNumber = std::stoi(token); // Convert nurse number
+            std::getline(ss, nurse.nurseType, ',');
+            std::getline(ss, nurse.department, ',');
 
-        // Parse the nurse's number and skip the comma
-        ss >> number;
-        ss.ignore();
+            while (std::getline(ss, token, ',') && shiftCount < 42) {
+                nurse.shiftPreferences.push_back(std::stoi(token)); // Convert shift preferences
+                shiftCount++;
+            }
 
-        // Parse the nurse's type (e.g., "RN", "LPN")
-        getline( ss , type , ',' );
+            departmentNursesMap[nurse.department][nurse.nurseType].push_back(nurse);
 
-        // Parse the nurse's pay and skip the comma
-        ss >> pay;
-        ss.ignore();
-
-        // Read the 42 shifts
-        for ( int i = 0; i < 42; ++i ) {
-
-            getline( ss , shifts[i] , ',' );
-
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Invalid data: " << line << " - Skipping this entry." << std::endl;
         }
-
-        // Add to the appropriate nurse list based on type
-        nurse_lists[type].addNurse( name , number , pay , shifts );
     }
 
     file.close();
+}
+
+/**
+ * @brief Parses a CSV file with dynamic nurse types and populates the constraintsMap.
+ * 
+ * @param fileName The name of the CSV file to parse.
+ */
+void parseConstraintsCSV(const std::string& fileName) {
+    std::ifstream file(fileName);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open the file " << fileName << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::vector<std::string> nurseTypes;
+
+    // Read the header row to extract dynamic nurse types
+    std::getline(file, line);
+    std::stringstream headerStream(line);
+    std::string column;
+
+    // Skip "Department" and "Shift (1 - 42)" columns, extract nurse types dynamically
+    std::getline(headerStream, column, ','); // Skip "Department"
+    std::getline(headerStream, column, ','); // Skip "Shift (1 - 42)"
+    while (std::getline(headerStream, column, ',')) {
+        nurseTypes.push_back(column);
+    }
+
+    // Parse the remaining rows to populate the constraints map
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string department;
+        int shift, nurseCount;
+
+        // Extract the department and shift number
+        std::getline(ss, department, ',');
+        ss >> shift;
+        ss.ignore(); // Ignore the comma
+
+        // Extract nurse counts for each dynamic nurse type
+        for (const auto& nurseType : nurseTypes) {
+            ss >> nurseCount;
+            ss.ignore(); // Ignore the comma
+
+            // Insert the value into the constraintsMap
+            constraintsMap[shift][department][nurseType] = nurseCount;
+        }
+    }
+
+    file.close();
+    std::cout << "CSV parsing completed, constraintsMap populated." << std::endl;
 }
