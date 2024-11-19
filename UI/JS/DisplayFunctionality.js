@@ -18,7 +18,11 @@ function fillDepartments () {
                 let i = 0;
                 for (let shift of data) {
                     for (let nurse of shift.nurses) {
-
+                        for (let dept of departments) {
+                            if (nurse.department == dept) {
+                                
+                            }
+                        }
 }
 
 function fillTabs () {
