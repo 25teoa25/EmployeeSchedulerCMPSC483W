@@ -276,3 +276,32 @@ void printNursesForShift(const ShiftSchedule& schedule, int shift) {
                   << ", Type: " << nurse.nurseType << '\n';
     }
 }
+
+/**
+ * @brief Compares three satisfaction scores and outputs the highest.
+ * 
+ * @param scoreGeneticAlgorithm Satisfaction score for Genetic Algorithm.
+ * @param scoreBruteForce Satisfaction score for Brute Force.
+ * @param scoreLinearProgramming Satisfaction score for Linear Programming.
+ * 
+ * This function compares the three provided satisfaction scores and prints the method
+ * with the highest score along with the score value.
+ */
+void returnBestSatisfactionScores(double scoreGeneticAlgorithm, double scoreBruteForce, double scoreLinearProgramming) {
+    double highestScore = scoreGeneticAlgorithm;
+    std::string bestMethod = "Genetic Algorithm";
+
+    if (scoreBruteForce > highestScore) {
+        highestScore = scoreBruteForce;
+        bestMethod = "Brute Force";
+    }
+
+    if (scoreLinearProgramming > highestScore) {
+        highestScore = scoreLinearProgramming;
+        bestMethod = "Linear Programming";
+    }
+
+    // Output the highest score and its corresponding method
+    std::cout << "The highest satisfaction score is " << highestScore
+              << " achieved by " << bestMethod << "." << std::endl;
+}
