@@ -13,6 +13,7 @@ function applyColorsToElements(baseClass, colorBaseClass, totalColors) {
     //it can assign each class with department in the base of it name a color from the assorted array.
   const elements = document.querySelectorAll(`.${baseClass}`);
 
+
   // Iterate over the elements
   elements.forEach((element, index) => {
 
