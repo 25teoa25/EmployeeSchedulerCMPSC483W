@@ -1,32 +1,68 @@
 let currentTab = "Overall";
+const basicDistinctColors = [
+    "Red",
+    "Orange",
+    "Yellow",
+    "Green",
+    "Blue",
+    "Purple",
+    "Cyan",
+    "Magenta",
+    "Brown",
+    "Pink",
+    "Lime",
+    "Teal",
+    "Navy",
+    "Gold",
+];
+let arrDepartments = [];
 /*
     Need some kind of function that reads in the JSON file (or whatever other input) and makes list of all departments
     Can store list of departments as array then change tabs and tabSelected's to elements of that array
 */
-let arrDepartments = fillDepartments();
+async function fillDepartments() {
+    try {
+        const response = await fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json');
+        if (!response.ok) {
+            throw new Error('Failed to fetch the JSON file');
+        }
+        const data = await response.json();
 
-function fillDepartments () {
-    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch the JSON file');
+        let departmentsfill = ["Overall"];
+        let typesfill = [];
+        for (let shift of data) {
+            for (let nurse of shift.nurses) {
+                if (!departmentsfill.includes(nurse.department)) {
+                    departmentsfill.push(nurse.department);
                 }
-                return response.json();
-            })
-            .then(data => {
-                let departments = [];
-                let i = 0;
-                for (let shift of data) {
-                    for (let nurse of shift.nurses) {
-                        for (let dept of departments) {
-                            if (nurse.department == dept) {
-                                
-                            }
-                        }
+                if (!typesfill.includes(nurse.nurseType)) {
+                    typesfill.push(nurse.nurseType);
+                }
+            }
+        }
+
+        return { departmentsfill, typesfill };
+    } catch (error) {
+        console.error('Error fetching departments:', error);
+        return [];
+    }
 }
 
-function fillTabs () {
-    console.log(arrDepartments);
+
+async function fillTabs () {
+    const { departmentsfill, typesfill } = await fillDepartments();
+    arrDepartments = departmentsfill;
+    let departmentColors = {};
+    let typeColors = {};
+    arrDepartments.forEach((department, index) => {
+        const color = basicDistinctColors[index % basicDistinctColors.length]; // Cycle through the color array
+        departmentColors[department] = color;
+    });
+    typesfill.forEach((type, index) => {
+        const color = basicDistinctColors[index % basicDistinctColors.length]; // Cycle through the color array
+        typeColors[type] = color;
+    });
+    console.log("Array Departments:", arrDepartments);
     for (let department of arrDepartments) {
         console.log('Inserting tab:' + department);
         // Fill tab header with all departments
@@ -46,7 +82,7 @@ function fillTabs () {
                 <thead>
                     <tr class="shift-row">
                         <th class="shift-col"></th>
-                        <th class="shift-col">${department} Monday (9/30)</th>
+                        <th class="shift-col">Monday (9/30)</th>
                         <th class="shift-col">Tuesday</th>
                         <th class="shift-col">Wednesday</th>
                         <th class="shift-col">Thursday</th>
@@ -66,11 +102,11 @@ function fillTabs () {
                 </tbody>
             </table>
         </div>`;
-        loadDepartmentData(department, departmentID);
+        loadDepartmentData(department, departmentID, departmentColors, typeColors);
     }
 }
 
-function loadDepartmentData(department, departmentID) {
+function loadDepartmentData(department, departmentID, departmentColors, typeColors) {
     setTimeout(() => {
         const tableBody = document.getElementById(`${departmentID}-shift-table-body`);
         if (!tableBody) {
@@ -86,32 +122,66 @@ function loadDepartmentData(department, departmentID) {
                 return response.json();
             })
             .then(data => {
-                let row1 = null;
-                for (let shift of data) {
-
-                    // Create a row for the specific shifts
-                    if (shift["1shift"] == 1) {
-                        row1 = document.createElement('tr');
-                        row1.innerHTML = `<th class="shift-row">Shift #1 <br> 7am-3pm</th>`;
-                    } else if (shift["1shift"] == 15) {
-                        row1 = document.createElement('tr');
-                        row1.innerHTML = `<th class="shift-row">Shift #2 <br> 3pm-11pm</th>`;
-                    } else if (shift["1shift"] == 29) {
-                        row1 = document.createElement('tr');
-                        row1.innerHTML = `<th class="shift-row">Shift #3 <br> 11pm-7am</th>`;
-                    }
-
-                    let cell = document.createElement('td');
-                    for (let nurse of shift.nurses) {
-                        console.log(`Nurse: ${nurse.name}`);
-                        if (nurse.department === department) {
-                            cell.innerHTML += `<p>${nurse.name} (${nurse.nurseType}) <br> (${nurse.department}) (${shift["1shift"]})</p>`;
+                if (department == "Overall") {
+                    let row1 = null;
+                    for (let shift of data) {
+                        let departmentPerShift = [];
+                        // Create a row for the specific shifts
+                        if (shift["1shift"] == 1) {
+                            row1 = document.createElement('tr');
+                            row1.innerHTML = `<th class="shift-row">Shift #1 <br> 7am-3pm</th>`;
+                        } else if (shift["1shift"] == 15) {
+                            row1 = document.createElement('tr');
+                            row1.innerHTML = `<th class="shift-row">Shift #2 <br> 3pm-11pm</th>`;
+                        } else if (shift["1shift"] == 29) {
+                            row1 = document.createElement('tr');
+                            row1.innerHTML = `<th class="shift-row">Shift #3 <br> 11pm-7am</th>`;
+                        }
+                        let cell = document.createElement('td');
+                        for (let nurse of shift.nurses) {
+                            if (!departmentPerShift.includes(nurse.department)) {
+                                departmentPerShift.push(nurse.department);
+                            }
+                        }
+                        departmentPerShift.sort((a, b) => a.localeCompare(b));
+                        for (let dept of departmentPerShift) {
+                            let color = departmentColors[dept];
+                            cell.innerHTML += `<p style="background-color: ${color}">${dept}</p>`;
+                        }
+                        if (row1) {
+                            row1.appendChild(cell);
+                            tableBody.appendChild(row1);
                         }
                     }
+                }
+                else {
+                    let row1 = null;
+                    for (let shift of data) {
 
-                    if (row1) {
-                        row1.appendChild(cell);
-                        tableBody.appendChild(row1);
+                        // Create a row for the specific shifts
+                        if (shift["1shift"] == 1) {
+                            row1 = document.createElement('tr');
+                            row1.innerHTML = `<th class="shift-row">Shift #1 <br> 7am-3pm</th>`;
+                        } else if (shift["1shift"] == 15) {
+                            row1 = document.createElement('tr');
+                            row1.innerHTML = `<th class="shift-row">Shift #2 <br> 3pm-11pm</th>`;
+                        } else if (shift["1shift"] == 29) {
+                            row1 = document.createElement('tr');
+                            row1.innerHTML = `<th class="shift-row">Shift #3 <br> 11pm-7am</th>`;
+                        }
+
+                        let cell = document.createElement('td');
+                        for (let nurse of shift.nurses) {
+                            if (nurse.department === department) {
+                                let color = typeColors[nurse.nurseType];
+                                cell.innerHTML += `<p style="background-color: ${color}">${nurse.name}</p>`;
+                            }
+                        }
+
+                        if (row1) {
+                            row1.appendChild(cell);
+                            tableBody.appendChild(row1);
+                        }
                     }
                 }
             })
@@ -157,6 +227,11 @@ function switchTab (tabSelected) {
     else {
         console.log('Switching to overall')
     }*/
+}
+
+async function startupFunction() {
+    await fillTabs(); // Wait until tabs are created
+    switchTab("Overall"); // Switch to the default tab
 }
 
 function myFunction() {
