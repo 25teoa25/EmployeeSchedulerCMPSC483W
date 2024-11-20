@@ -40,14 +40,12 @@ async function fillDepartments() {
                 }
             }
         }
-
         return { departmentsfill, typesfill };
     } catch (error) {
         console.error('Error fetching departments:', error);
         return [];
     }
 }
-
 
 async function fillTabs () {
     const { departmentsfill, typesfill } = await fillDepartments();
