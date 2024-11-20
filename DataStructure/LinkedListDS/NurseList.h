@@ -1,77 +1,50 @@
-// NurseList.h
 #ifndef NURSE_LIST_H
 #define NURSE_LIST_H
 
-#include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
+#include <algorithm>  // For std::remove
+#include <iostream>
+#include <unordered_map>
 
 /**
- * @struct Nurse
- * @brief A structure that stores information about a nurse, including their name, ID number, pay, and work shifts.
+ * @brief Structure representing a nurse's data.
  * 
- * The Nurse structure holds details about a nurse and is used in the doubly linked list for storing nurse records.
+ * This structure holds information about a nurse, including their full name, 
+ * nurse number, type, department, and shift preferences.
  */
 struct Nurse {
+    std::string fullName;    ///< Full name of the nurse
+    int nurseNumber;         ///< Unique identifier for the nurse
+    std::string nurseType;   ///< Type of nurse (e.g., "RN", "LPN")
+    std::string department;  ///< Department of the nurse (e.g., "Oncology")
+    std::vector<int> shiftPreferences; ///< Stores preferences for 42 shifts (0, 1, 2)
+    std::vector<int> scheduledShifts; ///< Stores what shifts a nurse is scheduled for
 
-    std::string nurseName; /**< Nurse's name. */
-    int nurseNumber; /**< Unique nurse identifier (e.g., employee number). */
-    double nursePay; /**< Hourly or annual salary of the nurse. */
-    std::vector< std::string > nurseShifts;  /**< A vector containing the nurse's assigned shifts (e.g., 42 shifts). */
-    Nurse* next; /**< Pointer to the next nurse in the linked list. */
-    Nurse* prev; /**< Pointer to the previous nurse in the linked list. */
-
-    /**
-     * @brief Constructs a Nurse object.
-     * 
-     * @param nurseName The nurse's name.
-     * @param number The nurse's unique ID number.
-     * @param nursePay The nurse's hourly or annual pay.
-     * @param nurseShifts A vector of shifts assigned to the nurse.
-     */
-    Nurse( const std::string& nurseName , int number , double nursePay , const std::vector< std::string >& nurseShifts );
+    // Equality operator to compare nurses by nurseNumber for removal
+    bool operator==(const Nurse& other) const {
+        return nurseNumber == other.nurseNumber;
+    }
 
 };
 
-/**
- * @class NurseList
- * @brief A doubly linked list class for storing and managing a collection of nurses.
- * 
- * The NurseList class allows adding nurses to a doubly linked list and displaying the list.
- */
-class NurseList {
-public:
-    /**
-     * @brief Constructs an empty NurseList object.
-     * 
-     * Initializes an empty doubly linked list where both head and tail pointers are set to nullptr.
-     */
-    NurseList();
+// Fake nurse for a shift unable to be scheduled
+// Declare a global instance of Nurse
+extern Nurse fakeNurse;
+    
+// Alias for the shift schedule: Vector of 42 vectors of Nurses
+using ShiftSchedule = std::vector<std::vector<Nurse>>;
 
-    /**
-     * @brief Adds a new nurse to the list.
-     * 
-     * @param nurseName The nurse's name.
-     * @param number The nurse's unique ID number.
-     * @param nursePay The nurse's hourly or annual pay.
-     * @param nurseShifts A vector of shifts assigned to the nurse.
-     * 
-     * The new nurse is added to the end of the doubly linked list.
-     */
-    void addNurse( const std::string& nurseName , int number , double nursePay , const std::vector< std::string >& nurseShifts );
+void add(ShiftSchedule& schedule, int shift, const Nurse& nurse);
+void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse);
 
-    /**
-     * @brief Displays all nurses in the list.
-     * 
-     * This function traverses the list and prints out details of each nurse.
-     */
-    void display() const;
+// Global variables
+extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;
+extern std::unordered_map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> constraintsMap;
 
-private:
-
-    Nurse* head; /**< Pointer to the first nurse in the linked list. */
-    Nurse* tail; /**< Pointer to the last nurse in the linked list. */
-
-};
+// Satisfaction scores for different algorithms
+extern double satisfactionScoreGeneticAlgorithm; ///< Satisfaction score for Genetic Algorithm
+extern double satisfactionScoreBruteForce;       ///< Satisfaction score for Brute Force
+extern double satisfactionScoreLinearProgramming; ///< Satisfaction score for Linear Programming
 
 #endif // NURSE_LIST_H

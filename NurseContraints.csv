@@ -1,0 +1,379 @@
+Department,Shift (1 - 42),Nurse Type: Registered Nurse,Nurse Type: Licensed Practical Nurse,Nurse Type: Nurse Assistant
+Oncology,1,89,36,15
+Surgery,1,79,63,16
+Pediatric,1,82,99,47
+Family,1,46,56,70
+Labor,1,94,56,53
+Forensic,1,94,99,45
+Critical Care,1,85,10,51
+Mental Health,1,42,24,26
+Midwife,1,46,77,47
+Midwife,2,56,1,19
+Mental Health,2,42,97,19
+Critical Care,2,17,1,90
+Forensic,2,26,56,32
+Surgery,2,86,2,28
+Family,2,65,50,69
+Pediatric,2,5,14,87
+Oncology,2,98,98,1
+Labor,2,31,1,96
+Forensic,3,66,82,25
+Midwife,3,31,98,46
+Mental Health,3,10,29,11
+Labor,3,46,67,66
+Critical Care,3,38,5,70
+Pediatric,3,13,98,95
+Family,3,94,86,17
+Surgery,3,48,11,2
+Oncology,3,30,17,58
+Mental Health,4,73,2,46
+Critical Care,4,66,48,100
+Forensic,4,34,47,70
+Labor,4,72,2,87
+Midwife,4,35,6,88
+Pediatric,4,86,22,89
+Surgery,4,18,38,2
+Oncology,4,27,64,23
+Family,4,96,10,13
+Midwife,5,72,64,29
+Mental Health,5,71,29,94
+Critical Care,5,60,91,67
+Forensic,5,31,86,20
+Labor,5,86,64,43
+Pediatric,5,36,90,59
+Surgery,5,95,41,35
+Oncology,5,66,14,1
+Family,5,26,4,72
+Critical Care,6,19,6,84
+Midwife,6,39,90,40
+Mental Health,6,79,81,58
+Forensic,6,8,46,14
+Surgery,6,36,60,83
+Family,6,61,62,63
+Pediatric,6,10,63,72
+Labor,6,54,99,8
+Oncology,6,100,81,7
+Midwife,7,31,30,22
+Mental Health,7,64,67,35
+Critical Care,7,91,73,73
+Forensic,7,20,57,89
+Labor,7,4,74,64
+Family,7,40,65,5
+Pediatric,7,39,4,13
+Surgery,7,57,20,90
+Oncology,7,96,59,51
+Mental Health,8,57,31,42
+Critical Care,8,36,82,66
+Forensic,8,81,11,31
+Labor,8,9,40,12
+Midwife,8,44,95,4
+Pediatric,8,13,8,77
+Surgery,8,33,79,50
+Oncology,8,17,44,73
+Family,8,12,92,79
+Mental Health,9,12,100,21
+Critical Care,9,11,79,57
+Forensic,9,25,40,35
+Labor,9,35,100,76
+Midwife,9,48,10,19
+Pediatric,9,61,7,33
+Surgery,9,58,35,91
+Oncology,9,4,66,54
+Family,9,90,10,96
+Midwife,10,36,6,67
+Mental Health,10,73,76,58
+Critical Care,10,35,57,95
+Forensic,10,85,13,53
+Labor,10,67,95,22
+Pediatric,10,66,57,45
+Surgery,10,4,82,11
+Oncology,10,75,86,18
+Family,10,70,4,61
+Critical Care,11,44,20,6
+Midwife,11,4,13,7
+Mental Health,11,74,46,54
+Forensic,11,55,96,94
+Surgery,11,58,31,10
+Family,11,79,40,58
+Oncology,11,31,38,70
+Labor,11,89,31,82
+Pediatric,11,70,71,20
+Oncology,12,12,57,28
+Surgery,12,29,55,44
+Pediatric,12,63,13,38
+Family,12,64,5,88
+Labor,12,66,84,98
+Forensic,12,11,52,98
+Critical Care,12,79,22,26
+Mental Health,12,30,71,52
+Midwife,12,48,97,27
+Mental Health,13,21,80,55
+Critical Care,13,82,18,9
+Forensic,13,77,21,77
+Labor,13,100,60,29
+Midwife,13,58,57,92
+Pediatric,13,67,40,97
+Surgery,13,28,35,14
+Oncology,13,16,39,74
+Family,13,63,70,99
+Mental Health,14,91,92,16
+Critical Care,14,87,63,45
+Forensic,14,92,2,92
+Labor,14,74,73,34
+Midwife,14,84,37,17
+Pediatric,14,28,34,49
+Family,14,100,85,25
+Surgery,14,45,70,42
+Oncology,14,100,16,77
+Oncology,15,77,82,21
+Surgery,15,61,71,57
+Pediatric,15,74,72,32
+Family,15,74,33,50
+Forensic,15,5,87,87
+Critical Care,15,13,47,60
+Mental Health,15,63,92,19
+Midwife,15,30,10,85
+Labor,15,38,45,87
+Forensic,16,41,25,74
+Midwife,16,57,53,60
+Mental Health,16,97,60,89
+Critical Care,16,30,68,72
+Labor,16,24,13,49
+Pediatric,16,23,53,58
+Surgery,16,90,31,24
+Oncology,16,43,15,14
+Family,16,64,18,82
+Midwife,17,88,56,13
+Mental Health,17,5,90,79
+Critical Care,17,94,37,4
+Forensic,17,9,22,21
+Labor,17,38,71,70
+Family,17,15,85,70
+Pediatric,17,23,43,60
+Surgery,17,59,47,73
+Oncology,17,2,75,2
+Mental Health,18,89,93,66
+Critical Care,18,76,45,55
+Forensic,18,14,30,46
+Labor,18,93,2,95
+Midwife,18,32,20,37
+Pediatric,18,58,54,43
+Surgery,18,99,41,77
+Oncology,18,28,12,13
+Family,18,75,8,95
+Mental Health,19,61,8,52
+Critical Care,19,16,83,6
+Forensic,19,33,49,38
+Labor,19,74,65,98
+Midwife,19,39,18,44
+Pediatric,19,97,49,2
+Surgery,19,11,74,73
+Oncology,19,45,44,98
+Family,19,72,94,35
+Midwife,20,31,13,49
+Mental Health,20,8,98,81
+Critical Care,20,58,75,27
+Forensic,20,56,78,59
+Labor,20,59,2,42
+Pediatric,20,34,36,84
+Surgery,20,73,50,58
+Oncology,20,7,14,10
+Family,20,28,18,63
+Forensic,21,14,80,52
+Mental Health,21,70,87,48
+Critical Care,21,85,38,85
+Labor,21,27,36,70
+Midwife,21,20,24,78
+Pediatric,21,28,66,43
+Surgery,21,96,35,13
+Oncology,21,55,40,35
+Family,21,50,85,23
+Midwife,22,24,8,46
+Mental Health,22,60,81,73
+Critical Care,22,20,73,69
+Forensic,22,62,86,84
+Labor,22,16,53,61
+Family,22,94,99,80
+Pediatric,22,3,59,37
+Surgery,22,100,32,69
+Oncology,22,22,12,39
+Mental Health,23,8,40,94
+Critical Care,23,34,62,27
+Forensic,23,13,73,34
+Labor,23,53,49,68
+Midwife,23,61,86,83
+Pediatric,23,88,7,1
+Surgery,23,29,100,20
+Oncology,23,23,18,5
+Family,23,78,93,8
+Mental Health,24,69,87,82
+Critical Care,24,36,2,64
+Forensic,24,60,4,60
+Labor,24,72,73,81
+Midwife,24,60,9,93
+Pediatric,24,91,27,17
+Surgery,24,34,99,72
+Oncology,24,17,50,15
+Family,24,68,49,41
+Midwife,25,56,32,96
+Mental Health,25,69,3,51
+Critical Care,25,33,66,52
+Forensic,25,78,88,83
+Labor,25,85,75,65
+Pediatric,25,31,52,82
+Surgery,25,84,61,83
+Oncology,25,11,39,55
+Family,25,59,77,10
+Forensic,26,39,62,13
+Mental Health,26,36,88,84
+Critical Care,26,97,69,79
+Labor,26,27,6,36
+Midwife,26,17,40,90
+Pediatric,26,73,71,12
+Oncology,26,22,90,97
+Family,26,24,8,13
+Surgery,26,24,31,66
+Midwife,27,100,1,66
+Oncology,27,57,97,9
+Surgery,27,47,72,32
+Pediatric,27,12,38,94
+Family,27,37,82,24
+Labor,27,46,85,49
+Forensic,27,49,68,34
+Critical Care,27,35,79,31
+Mental Health,27,16,19,91
+Midwife,28,21,45,49
+Mental Health,28,35,69,72
+Critical Care,28,4,8,15
+Forensic,28,72,61,62
+Surgery,28,1,83,97
+Family,28,84,73,10
+Pediatric,28,59,2,97
+Oncology,28,53,69,64
+Labor,28,1,59,59
+Forensic,29,68,6,26
+Mental Health,29,39,26,81
+Critical Care,29,91,76,1
+Midwife,29,23,30,80
+Labor,29,40,76,40
+Pediatric,29,75,99,39
+Surgery,29,93,81,12
+Oncology,29,76,46,15
+Family,29,53,22,69
+Mental Health,30,84,87,12
+Critical Care,30,44,95,26
+Forensic,30,63,48,55
+Labor,30,61,25,21
+Midwife,30,55,6,62
+Pediatric,30,93,97,8
+Surgery,30,48,76,32
+Oncology,30,88,50,98
+Family,30,48,87,14
+Midwife,31,44,20,94
+Mental Health,31,70,61,61
+Critical Care,31,69,53,10
+Forensic,31,22,18,58
+Labor,31,43,84,12
+Pediatric,31,76,33,83
+Surgery,31,18,84,57
+Oncology,31,4,90,21
+Family,31,32,78,22
+Midwife,32,90,40,33
+Mental Health,32,52,27,94
+Critical Care,32,84,100,72
+Forensic,32,17,11,30
+Pediatric,32,81,3,27
+Family,32,96,17,23
+Surgery,32,39,72,62
+Oncology,32,29,20,41
+Labor,32,86,58,33
+Midwife,33,1,6,96
+Mental Health,33,47,64,38
+Critical Care,33,78,22,72
+Forensic,33,22,5,99
+Labor,33,18,68,32
+Family,33,22,87,69
+Pediatric,33,58,37,83
+Surgery,33,11,27,85
+Oncology,33,66,41,77
+Mental Health,34,59,28,16
+Critical Care,34,20,86,32
+Forensic,34,55,53,33
+Labor,34,1,63,53
+Midwife,34,27,9,89
+Pediatric,34,38,90,52
+Surgery,34,45,38,78
+Oncology,34,48,37,87
+Family,34,78,3,89
+Mental Health,35,92,35,85
+Critical Care,35,4,66,77
+Forensic,35,22,51,99
+Labor,35,4,8,72
+Midwife,35,92,93,30
+Pediatric,35,83,32,33
+Surgery,35,14,21,10
+Oncology,35,98,17,82
+Family,35,52,87,72
+Midwife,36,33,40,9
+Mental Health,36,27,15,80
+Critical Care,36,2,10,49
+Forensic,36,53,35,8
+Labor,36,25,71,94
+Pediatric,36,100,91,41
+Surgery,36,51,39,42
+Oncology,36,55,89,33
+Family,36,7,52,47
+Forensic,37,97,26,75
+Mental Health,37,26,38,44
+Midwife,37,47,83,14
+Labor,37,81,43,29
+Critical Care,37,22,6,69
+Pediatric,37,97,22,75
+Surgery,37,65,66,89
+Oncology,37,70,82,73
+Family,37,46,92,57
+Mental Health,38,24,69,76
+Critical Care,38,76,1,75
+Forensic,38,62,82,97
+Labor,38,3,49,26
+Midwife,38,13,49,75
+Pediatric,38,35,51,55
+Surgery,38,13,75,63
+Oncology,38,96,90,60
+Family,38,71,28,79
+Midwife,39,30,21,69
+Mental Health,39,41,37,75
+Critical Care,39,13,47,37
+Forensic,39,3,10,30
+Labor,39,18,97,22
+Pediatric,39,66,98,52
+Surgery,39,69,18,94
+Oncology,39,85,66,63
+Family,39,71,39,3
+Midwife,40,60,16,47
+Mental Health,40,29,6,70
+Critical Care,40,16,40,92
+Forensic,40,61,37,23
+Pediatric,40,15,33,59
+Family,40,63,28,9
+Surgery,40,96,18,79
+Oncology,40,54,83,17
+Labor,40,92,98,37
+Midwife,41,81,32,63
+Mental Health,41,61,54,68
+Forensic,41,70,94,69
+Labor,41,71,87,9
+Critical Care,41,17,21,95
+Pediatric,41,4,33,89
+Surgery,41,85,96,96
+Oncology,41,88,25,46
+Family,41,21,71,4
+Mental Health,42,68,98,56
+Oncology,42,36,89,41
+Surgery,42,16,73,87
+Pediatric,42,73,55,94
+Family,42,11,52,27
+Labor,42,59,5,59
+Forensic,42,18,63,17
+Critical Care,42,34,59,88
+Midwife,42,30,66,59
