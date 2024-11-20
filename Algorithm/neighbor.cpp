@@ -70,7 +70,7 @@ int structure1(ShiftSchedule schedule, const string &department, int currPref, c
     int shift1 = day * 3 + shift;
     int shift2 = shift1 + 1;
 
-    if (shift2 > 42 || shift1 < 1)
+    if (shift2 > 41 || shift1 < 0)
     {
         return currPref;
     }
@@ -132,7 +132,7 @@ int structure2(ShiftSchedule schedule, const string &department, int currPref, s
     Nurse nurse1 = getRandomNurseFromShift(schedule, shift, nurseType);
     Nurse &nurse2 = getRandomNurse(department, nurseType);
 
-    if (nurse1.nurseType != nurse2.nurseType || shift == 42)
+    if (nurse1.nurseType != nurse2.nurseType || shift == 41)
     {
         // Update to verify nurse1 works a long shift
         return currPref;
@@ -187,8 +187,8 @@ int structure3(ShiftSchedule schedule, const string &department, int currPref, s
     int shift3 = day2 * 3 + ranShift1;
     int shift4 = day2 * 3 + ranShift2;
 
-    // Edge case if a shift outside [1,42]
-    if (shift1 > 42 || shift2 > 42 || shift3 > 42 || shift4 > 42 || shift1 < 1 || shift2 < 1 || shift3 < 1 || shift4 < 1)
+    // Edge case if a shift outside [0,41]
+    if (shift1 > 41 || shift2 > 41 || shift3 > 41 || shift4 > 41 || shift1 < 0 || shift2 < 0 || shift3 < 0 || shift4 < 0)
     {
         return currPref;
     }
@@ -253,7 +253,7 @@ int structure4(ShiftSchedule schedule, const string &department, int currPref, s
     int shift3 = day2 * 3 + ranShift1;
     int shift4 = day2 * 3 + ranShift2;
 
-    if (shift1 > 42 || shift2 > 42 || shift3 > 42 || shift4 > 42 || shift1 < 1 || shift2 < 1 || shift3 < 1 || shift4 < 1)
+    if (shift1 > 41 || shift2 > 41 || shift3 > 41 || shift4 > 41 || shift1 < 0 || shift2 < 0 || shift3 < 0 || shift4 < 0)
     {
         return currPref;
     }
@@ -335,7 +335,7 @@ int structure6(ShiftSchedule schedule, const string &department, int currPref, s
         return currPref;
     }
 
-    if (shift1 > 42 || shift2 > 42 || shift3 > 42 || shift4 > 42 || shift1 < 1 || shift2 < 1 || shift3 < 1 || shift4 < 1)
+    if (shift1 > 41 || shift2 > 41 || shift3 > 41 || shift4 > 41 || shift1 < 0 || shift2 < 0 || shift3 < 0 || shift4 < 0)
     {
         return currPref;
     }
@@ -377,7 +377,7 @@ int structure7(ShiftSchedule schedule, const string &department, int currPref, s
     int shiftIndex = day * 3 + shift;
     int newPref = currPref + nurse.shiftPreferences[shiftIndex];
 
-    if (shiftIndex > 42 || shiftIndex < 1)
+    if (shiftIndex > 41 || shiftIndex < 0)
     {
         return currPref;
     }

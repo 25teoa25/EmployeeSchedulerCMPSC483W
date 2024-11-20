@@ -205,14 +205,16 @@ int main() {
             }
             
             // Run each of the neighborhood structures on each nurse type in each department
-            satisfactionScoreLP = structure1(shiftSchedule, department, satisfactionScoreLP, nurseType);
-            satisfactionScoreLP = structure2(shiftSchedule, department, satisfactionScoreLP, nurseType);
-            satisfactionScoreLP = structure3(shiftSchedule, department, satisfactionScoreLP, nurseType);
-            satisfactionScoreLP = structure4(shiftSchedule, department, satisfactionScoreLP, nurseType);
-            satisfactionScoreLP = structure5(shiftSchedule, department, satisfactionScoreLP, nurseType);
-            satisfactionScoreLP = structure6(shiftSchedule, department, satisfactionScoreLP, nurseType);
-            satisfactionScoreLP = structure7(shiftSchedule, department, satisfactionScoreLP, nurseType);
-            satisfactionScoreLP = structure8(shiftSchedule, department, satisfactionScoreLP, nurseType);
+            for (int count = 0; count <= 99; ++count) {
+                satisfactionScoreLP = structure1(shiftSchedule, department, satisfactionScoreLP, nurseType);
+                satisfactionScoreLP = structure2(shiftSchedule, department, satisfactionScoreLP, nurseType);
+                satisfactionScoreLP = structure3(shiftSchedule, department, satisfactionScoreLP, nurseType);
+                satisfactionScoreLP = structure4(shiftSchedule, department, satisfactionScoreLP, nurseType);
+                satisfactionScoreLP = structure5(shiftSchedule, department, satisfactionScoreLP, nurseType);
+                satisfactionScoreLP = structure6(shiftSchedule, department, satisfactionScoreLP, nurseType);
+                satisfactionScoreLP = structure7(shiftSchedule, department, satisfactionScoreLP, nurseType);
+                satisfactionScoreLP = structure8(shiftSchedule, department, satisfactionScoreLP, nurseType);
+            }
         }
     }
 
