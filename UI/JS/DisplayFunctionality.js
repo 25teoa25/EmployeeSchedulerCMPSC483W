@@ -14,7 +14,7 @@ function fillTabs () {
     // Create a table for each department (hide by default)
     for (let department of arrDepartments) {
         console.log('Creating table: ' + department);
-        let departmentID = department.toLowerCase();
+        let departmentID = department.toLowerCase().replace(/\s+/g, "");
         departmentID = departmentID.concat("Schedule");
         let container = document.getElementById("table-container");
         console.log(container);
@@ -100,13 +100,132 @@ function loadDepartmentData(department, departmentID) {
     }, 100); // Wait for DOM updates
 }
 
+function searchNurse() {
+    //Take value from search field
+    var nurseSearched = document.getElementById("search-field").value;
+    console.log('Searching for nurse: ' + nurseSearched);
+    //Go back through JSON file
+    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the JSON file');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var nurseFound = false;
+                var nurseName;
+                var nurseType;
+                //Loop through each nurse of each shift (all elements in JSON)
+                var shiftsWorked = []
+                for (let shift of data) {
+                    for (let nurse of shift.nurses) {
+                        //If match found return nurse info
+                        if (nurse.name.toLowerCase() == nurseSearched.toLowerCase()) {
+                            console.log('Name: ' + nurse.name + " Type: " + nurse.nurseType);
+                            nurseName = nurse.name;
+                            nurseType = nurse.nurseType;
+                            nurseFound = true;
+                            //Switch department tab to department nurse is in
+                            var department = nurse.department;
+                            switchTab(department);
+                            shiftsWorked.push(shift["1shift"]);
+                            console.log(shiftsWorked);
+                        }
+
+                    }
+                }
+                if (nurseFound == false) {
+                    console.log("Not found");
+                    document.getElementById("above-search").innerHTML = `<p class="search-error">NURSE NOT FOUND</p>`;
+                }
+                else {
+                    document.getElementById("above-search").innerHTML =
+                    `<p style = "font-weight: bold; text-decoration: underline;">${nurseName}: ${nurseType}</p>
+                    <div class = "search-table-container" id = "search-table-container" style = "display: flex; justify-content: flex-start; margin: 20px 0; width: 45%; min-width: 200px;">
+                        <table id = "search-table-1">
+                            <tbody>
+                                <tr>
+                                    <th>Week 1</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table id = "search-table-2">
+                            <tbody>
+                                <tr>
+                                    <th>Week 2</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>`;
+                    //Loop through all shifts and place in correct row of correct table
+                    for (let shift of shiftsWorked) {
+                        var shiftNum;
+                        //Shift 1 of a day
+                        if (shift % 3 == 1) {
+                            shiftNum = '1';
+                        }
+                        //Shift 2 of a day
+                        if (shift % 3 == 2) {
+                            shiftNum = '2';
+                        }
+                        //Shift 3 of a day
+                        if (shift % 3 == 0) {
+                            shiftNum = '3';
+                        }
+                        //Determine the day of the week the shift is part of 
+                        var shiftDay;
+                        if ((shift <= 3 && shift >= 1) || (shift <= 24 && shift >= 22)) {
+                            shiftDay = 'Monday';
+                        }
+                        else if ((shift <= 6 && shift >= 4) || (shift <= 27 && shift >= 25)) {
+                            shiftDay = 'Tuesday';
+                        }
+                        else if ((shift <= 9 && shift >= 7) || (shift <= 30 && shift >= 28)) {
+                            shiftDay = 'Wednesday';
+                        }
+                        else if ((shift <= 12 && shift >= 10) || (shift <= 33 && shift >= 31)) {
+                            shiftDay = 'Thursday';
+                        }
+                        else if ((shift <= 15 && shift >= 13) || (shift <= 35 && shift >= 33)) {
+                            shiftDay = 'Friday';
+                        }
+                        else if ((shift <= 18 && shift >= 16) || (shift <= 38 && shift >= 36)) {
+                            shiftDay = 'Saturday';
+                        }
+                        else if ((shift <= 21 && shift >= 19) || (shift <= 42 && shift >= 39)) {
+                            shiftDay = 'Sunday';
+                        }
+                        else {
+                            shiftDay = shift;
+                        }
+                        //Determine which week (and table) the shift should go in
+                        var tableID;
+                        if (shift <= 21) {
+                            tableID = "search-table-1";
+                        }
+                        else {
+                            tableID = "search-table-2";
+                        }
+                        document.getElementById(tableID).innerHTML += 
+                        `<tr>
+                            <td style = "font-size: 12px;">${shiftDay} Shift ${shiftNum}</td>
+                        </tr>`;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error loading JSON:', error);
+            });
+}
+
 function switchTab (tabSelected) {
     //Change header at top of page
     currentTab = tabSelected;
     document.getElementById('tabHeader').innerHTML = `${currentTab} Schedule`;
     //Switch table
     for (let department of arrDepartments) {
-        let oldTabID = department.toLowerCase();
+        let oldTabID = department.toLowerCase().replace(/\s+/g, "");
         oldTabID = oldTabID.concat("Schedule");
         console.log(oldTabID);
         let oldTab = document.getElementById(oldTabID);
