@@ -20,3 +20,4 @@ Nurse fakeNurse = {
     {}
 };
 
+int satisfactionScoreLinearProgramming = 0;

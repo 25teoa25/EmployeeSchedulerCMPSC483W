@@ -33,7 +33,7 @@ int main() {
     string filename = "/Users/rstack/Documents/CMPSC483W/EmployeeSchedulerCMPSC483W/DataStructure/PrototypeV2/5Day_Constraints.csv";
 
     // Read the CSV and populate the data structure
-    loadConstraints(filename, nurse_map);
+    loadConstraints(filename, nurse_map); //populates nurse_map where key is a tuple (dept, shift num, ype of nurse) : how many needed
     displayNurseMap(nurse_map);
 
     // Hard-coded to fit five day schedule

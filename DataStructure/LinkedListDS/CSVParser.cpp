@@ -39,6 +39,9 @@ void parseNursesCSV(const std::string& fileName) {
             std::getline(ss, nurse.nurseType, ',');
             std::getline(ss, nurse.department, ',');
 
+            // Initialize scheduledShifts vector to size 42 with all values set to 0
+            nurse.scheduledShifts = std::vector<int>(42, 0);
+
             while (std::getline(ss, token, ',') && shiftCount < 42) {
                 nurse.shiftPreferences.push_back(std::stoi(token)); // Convert shift preferences
                 shiftCount++;
