@@ -10,9 +10,9 @@ const basicDistinctColors = [
     "Magenta",
     "Brown",
     "Pink",
+    "Navy",
     "Lime",
     "Teal",
-    "Navy",
     "Gold",
 ];
 let arrDepartments = [];
@@ -57,7 +57,7 @@ async function fillTabs () {
         departmentColors[department] = color;
     });
     typesfill.forEach((type, index) => {
-        const color = basicDistinctColors[index % basicDistinctColors.length]; // Cycle through the color array
+        const color = basicDistinctColors[basicDistinctColors.length - 1 - (index % basicDistinctColors.length)]; // Reverse color assignment
         typeColors[type] = color;
     });
     console.log("Array Departments:", arrDepartments);
@@ -66,6 +66,7 @@ async function fillTabs () {
         // Fill tab header with all departments
         document.getElementById("tabs").innerHTML += `<button onClick="switchTab('${department}')">${department}</button>`;
     }
+    createKey(typeColors);
     // Create a table for each department (hide by default)
     for (let department of arrDepartments) {
         console.log('Creating table: ' + department);
@@ -78,7 +79,7 @@ async function fillTabs () {
         `<div class="schedule" id="${departmentID}" hidden>
             <table>
                 <thead>
-                    <tr class="shift-row">
+                    <tr class="days">
                         <th class="shift-col"></th>
                         <th class="shift-col">Monday (9/30)</th>
                         <th class="shift-col">Tuesday</th>
@@ -136,16 +137,42 @@ function loadDepartmentData(department, departmentID, departmentColors, typeColo
                             row1.innerHTML = `<th class="shift-row">Shift #3 <br> 11pm-7am</th>`;
                         }
                         let cell = document.createElement('td');
+                        let score = 0;
+                        let nurseNum = 0;
+                        let invalid = false;
                         for (let nurse of shift.nurses) {
                             if (!departmentPerShift.includes(nurse.department)) {
                                 departmentPerShift.push(nurse.department);
                             }
+                            if (nurse.nurseID == -1) {
+                                invalid = true;
+                            }
+                            score += nurse.score;
+                            nurseNum += 1;
                         }
                         departmentPerShift.sort((a, b) => a.localeCompare(b));
                         for (let dept of departmentPerShift) {
                             let color = departmentColors[dept];
                             cell.innerHTML += `<p style="background-color: ${color}">${dept}</p>`;
                         }
+
+                        if (nurseNum > 0) {
+                            score = score / nurseNum;
+                        
+                            if (score > 1.5) {
+                                cell.innerHTML += `<p style="font-size: 2em;">😊</p>`;
+                            } else if (score >= 0.75 && score <= 1.5) {
+                                cell.innerHTML += `<p style="font-size: 2em;">😐</p>`;
+                            } else {
+                                cell.innerHTML += `<p style="font-size: 2em;">☹️</p>`;
+                            }
+                            if (invalid) {
+                                cell.innerHTML += `<p style="font-size: 2em;">❌</p>`;
+                            }
+                        } else {
+                            console.log(`No nurses found for department ${department}.`);
+                        }
+
                         if (row1) {
                             row1.appendChild(cell);
                             tableBody.appendChild(row1);
@@ -169,11 +196,35 @@ function loadDepartmentData(department, departmentID, departmentColors, typeColo
                         }
 
                         let cell = document.createElement('td');
+                        let score = 0;
+                        let nurseNum = 0;
+                        let invalid = false;
                         for (let nurse of shift.nurses) {
                             if (nurse.department === department) {
                                 let color = typeColors[nurse.nurseType];
                                 cell.innerHTML += `<p style="background-color: ${color}">${nurse.name}</p>`;
+                                score += nurse.score;
+                                nurseNum += 1;
+                                if (nurse.nurseID == -1) {
+                                    invalid = true;
+                                }
                             }
+                        }
+                        if (nurseNum > 0) {
+                            score = score / nurseNum;
+                        
+                            if (score > 1.5) {
+                                cell.innerHTML += `<p style="font-size: 2em;">😊</p>`;
+                            } else if (score >= 0.75 && score <= 1.5) {
+                                cell.innerHTML += `<p style="font-size: 2em;">😐</p>`;
+                            } else {
+                                cell.innerHTML += `<p style="font-size: 2em;">☹️</p>`;
+                            }
+                            if (invalid) {
+                                cell.innerHTML += `<p style="font-size: 2em;">❌</p>`;
+                            }
+                        } else {
+                            console.log(`No nurses found for department ${department}.`);
                         }
 
                         if (row1) {
@@ -188,6 +239,100 @@ function loadDepartmentData(department, departmentID, departmentColors, typeColo
             });
     }, 100);
 }
+
+function createKey(typeColors) {
+    // Check if the key already exists
+    if (document.querySelector(".key-container")) return;
+
+    // Select the main table container where the key will be added
+    const tableContainer = document.getElementById("table-container");
+
+    // Create the key container
+    const keyContainer = document.createElement("div");
+    keyContainer.className = "key-container";
+    keyContainer.style.marginBottom = "10px";
+    keyContainer.style.padding = "10px";
+    keyContainer.style.border = "1px solid #ccc";
+    keyContainer.style.borderRadius = "5px";
+    keyContainer.style.backgroundColor = "#f9f9f9";
+    keyContainer.style.textAlign = "left";
+
+    // Add a header for the key
+    const keyHeader = document.createElement("h2");
+    keyHeader.style.marginBottom = "10px";
+    keyHeader.textContent = "Key:";
+    keyContainer.appendChild(keyHeader);
+
+    // Create a horizontal wrapper for the key items
+    const keyWrapper = document.createElement("div");
+    keyWrapper.style.display = "flex";
+    keyWrapper.style.flexWrap = "wrap";
+    keyWrapper.style.gap = "15px";
+
+    // Add nurse types to the key
+    Object.entries(typeColors).forEach(([type, color]) => {
+        const keyItem = document.createElement("div");
+        keyItem.style.display = "flex";
+        keyItem.style.alignItems = "center";
+
+        // Add color box
+        const colorBox = document.createElement("span");
+        colorBox.style.backgroundColor = color;
+        colorBox.style.width = "20px";
+        colorBox.style.height = "20px";
+        colorBox.style.display = "inline-block";
+        colorBox.style.marginRight = "5px";
+
+        // Add label
+        const label = document.createElement("span");
+        label.textContent = type;
+
+        // Append color box and label to the key item
+        keyItem.appendChild(colorBox);
+        keyItem.appendChild(label);
+
+        // Append key item to wrapper
+        keyWrapper.appendChild(keyItem);
+    });
+
+    // Add satisfaction scores to the key
+    const satisfactionScores = [
+        { emoji: "😊", meaning: "High Satisfaction" },
+        { emoji: "😐", meaning: "Neutral Satisfaction" },
+        { emoji: "☹️", meaning: "Low Satisfaction" },
+        { emoji: "❌", meaning: "Invalid Shift" },
+    ];
+
+    satisfactionScores.forEach((score) => {
+        const keyItem = document.createElement("div");
+        keyItem.style.display = "flex";
+        keyItem.style.alignItems = "center";
+
+        // Add emoji
+        const emojiSpan = document.createElement("span");
+        emojiSpan.textContent = score.emoji;
+        emojiSpan.style.fontSize = "1.5em";
+        emojiSpan.style.marginRight = "5px";
+
+        // Add label
+        const label = document.createElement("span");
+        label.textContent = score.meaning;
+
+        // Append emoji and label to the key item
+        keyItem.appendChild(emojiSpan);
+        keyItem.appendChild(label);
+
+        // Append key item to wrapper
+        keyWrapper.appendChild(keyItem);
+    });
+
+    // Append the wrapper to the key container
+    keyContainer.appendChild(keyWrapper);
+
+    // Insert the key container above the table container
+    tableContainer.insertAdjacentElement("beforebegin", keyContainer);
+}
+
 
 function switchTab (tabSelected) {
     //Change header at top of page
