@@ -278,30 +278,44 @@ void printNursesForShift(const ShiftSchedule& schedule, int shift) {
 }
 
 /**
- * @brief Compares three satisfaction scores and outputs the highest.
+ * @brief Compares three satisfaction scores and outputs the highest, including associated shift schedules.
  * 
  * @param scoreGeneticAlgorithm Satisfaction score for Genetic Algorithm.
+ * @param scheduleGeneticAlgorithm ShiftSchedule for Genetic Algorithm.
  * @param scoreBruteForce Satisfaction score for Brute Force.
+ * @param scheduleBruteForce ShiftSchedule for Brute Force.
  * @param scoreLinearProgramming Satisfaction score for Linear Programming.
+ * @param scheduleLinearProgramming ShiftSchedule for Linear Programming.
  * 
  * This function compares the three provided satisfaction scores and prints the method
- * with the highest score along with the score value.
+ * with the highest score along with the score value. It also prints the associated schedule.
  */
-void returnBestSatisfactionScores(double scoreGeneticAlgorithm, double scoreBruteForce, double scoreLinearProgramming) {
+void returnBestSatisfactionScores(
+    double scoreGeneticAlgorithm, const ShiftSchedule& scheduleGeneticAlgorithm,
+    double scoreBruteForce, const ShiftSchedule& scheduleBruteForce,
+    double scoreLinearProgramming, const ShiftSchedule& scheduleLinearProgramming
+) {
     double highestScore = scoreGeneticAlgorithm;
     std::string bestMethod = "Genetic Algorithm";
+    const ShiftSchedule* bestSchedule = &scheduleGeneticAlgorithm; // Use a pointer to avoid reassignment issues
 
     if (scoreBruteForce > highestScore) {
         highestScore = scoreBruteForce;
         bestMethod = "Brute Force";
+        bestSchedule = &scheduleBruteForce;
     }
 
     if (scoreLinearProgramming > highestScore) {
         highestScore = scoreLinearProgramming;
         bestMethod = "Linear Programming";
+        bestSchedule = &scheduleLinearProgramming;
     }
 
     // Output the highest score and its corresponding method
     std::cout << "The highest satisfaction score is " << highestScore
               << " achieved by " << bestMethod << "." << std::endl;
+
+    // Convert the ShiftSchedule to JSON
+    std::string filename = "shift_schedule.json";
+    shiftScheduleToJSON(*bestSchedule, filename); // Dereference the pointer to pass the actual schedule
 }

@@ -81,13 +81,20 @@ void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filen
 void printNursesForShift(const ShiftSchedule& schedule, int shift);
 
 /**
- * @brief Compares three satisfaction scores and outputs the highest.
+ * @brief Compares three satisfaction scores and outputs the highest, including associated shift schedules.
  * 
  * @param scoreGeneticAlgorithm Satisfaction score for Genetic Algorithm.
+ * @param scheduleGeneticAlgorithm ShiftSchedule for Genetic Algorithm.
  * @param scoreBruteForce Satisfaction score for Brute Force.
+ * @param scheduleBruteForce ShiftSchedule for Brute Force.
  * @param scoreLinearProgramming Satisfaction score for Linear Programming.
+ * @param scheduleLinearProgramming ShiftSchedule for Linear Programming.
  * 
  * This function compares the three provided satisfaction scores and prints the method
- * with the highest score along with the score value.
+ * with the highest score along with the score value. It also prints the associated schedule.
  */
-void returnBestSatisfactionScores(double scoreGeneticAlgorithm, double scoreBruteForce, double scoreLinearProgramming);
+void returnBestSatisfactionScores(
+    double scoreGeneticAlgorithm, const ShiftSchedule& scheduleGeneticAlgorithm,
+    double scoreBruteForce, const ShiftSchedule& scheduleBruteForce,
+    double scoreLinearProgramming, const ShiftSchedule& scheduleLinearProgramming
+);
