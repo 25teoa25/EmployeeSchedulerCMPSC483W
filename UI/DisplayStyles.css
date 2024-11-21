@@ -134,5 +134,10 @@
 }
 
 .shift-col {
-    width: 125px;
+    width: 175px;
 }
+
+.days {
+    height: 50px;
+}
+
