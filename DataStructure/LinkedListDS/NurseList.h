@@ -43,8 +43,8 @@ extern std::unordered_map<std::string, std::unordered_map<std::string, std::vect
 extern std::unordered_map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> constraintsMap;
 
 // Satisfaction scores for different algorithms
-extern double satisfactionScoreGeneticAlgorithm; ///< Satisfaction score for Genetic Algorithm
-extern double satisfactionScoreBruteForce;       ///< Satisfaction score for Brute Force
+extern int satisfactionScoreGeneticAlgorithm; ///< Satisfaction score for Genetic Algorithm
+extern int satisfactionScoreBruteForce;       ///< Satisfaction score for Brute Force
 extern int satisfactionScoreLinearProgramming; ///< Satisfaction score for Linear Programming
 
 #endif // NURSE_LIST_H
