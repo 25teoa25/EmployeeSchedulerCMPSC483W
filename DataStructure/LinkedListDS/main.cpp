@@ -131,8 +131,8 @@ int main() {
    
             
     // Convert the ShiftSchedule to JSON
-    //std::string filename = "shift_schedule.json";
-    //shiftScheduleToJSON(shiftSchedule, filename);
+    std::string filename = "shift_schedule.json";
+    shiftScheduleToJSON(shiftSchedule, filename);
 
     // Print the JSON
     //std::cout << jsonOutput.dump(4) << std::endl;
