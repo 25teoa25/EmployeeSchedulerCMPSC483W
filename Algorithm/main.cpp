@@ -150,18 +150,6 @@ int main() {
     map<int, unordered_map<string, unordered_map<string, int>>> sortedConstraintsMap(
         constraintsMap.begin(), constraintsMap.end());
 
-    // Print constraints map
-    // for (const auto& shiftPair : sortedConstraintsMap) {
-    //     cout << "Shift: " << shiftPair.first << endl;
-    //     for (const auto& deptPair : shiftPair.second) {
-    //         cout << "  Department: " << deptPair.first << endl;
-    //         for (const auto& typePair : deptPair.second) {
-    //             cout << typePair.first
-    //                       << ", Required: " << typePair.second << endl;
-    //         }
-    //     }
-    // }
-
     // ShiftSchedule shiftSchedule(42); // Final local shift schedule to be outputted
 
     // Iterate over all departments in departmentNursesMap
