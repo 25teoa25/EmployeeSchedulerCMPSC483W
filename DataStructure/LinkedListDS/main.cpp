@@ -7,9 +7,13 @@ using json = nlohmann::json;
 
 int main() {
     // Parse the nurse CSV file to populate the data structure
+
+    // CHANGE THIS TO YOUR DIRECTORY
     parseNursesCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
 
     // Parse the constraints CSV file
+
+    // CHANGE THIS TO YOUR DIRECTORY
     parseConstraintsCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/NurseContraints.csv");
 
     // Print out the constraints

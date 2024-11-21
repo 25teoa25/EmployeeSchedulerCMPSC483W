@@ -4,7 +4,7 @@ import webbrowser
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 # Configuration
-PROJECT_DIRECTORY = "/Users/alexteo/EmployeeSchedulerCMPSC483W"  # Root project directory
+PROJECT_DIRECTORY = "/Users/alexteo/EmployeeSchedulerCMPSC483W"  # Root project directory, !!!CHANGE THIS!!!
 BACKEND_DIRECTORY = os.path.join(PROJECT_DIRECTORY, "DataStructure/LinkedListDS")  # Back-end directory
 BACKEND_BUILD_COMMAND = "g++ -std=c++11 main.cpp NurseList.cpp CSVParser.cpp NurseFunctions.cpp -o nurse_list_program"
 BACKEND_EXECUTABLE = "./nurse_list_program"
