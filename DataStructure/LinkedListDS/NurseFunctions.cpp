@@ -315,7 +315,7 @@ void returnBestSatisfactionScores(
     std::cout << "The highest satisfaction score is " << highestScore
               << " achieved by " << bestMethod << "." << std::endl;
 
-    // Convert the ShiftSchedule to JSON
+    // Convert the best ShiftSchedule to JSON
     std::string filename = "shift_schedule.json";
     shiftScheduleToJSON(*bestSchedule, filename); // Dereference the pointer to pass the actual schedule
 }
