@@ -70,7 +70,7 @@ async function fillTabs () {
     // Create a table for each department (hide by default)
     for (let department of arrDepartments) {
         console.log('Creating table: ' + department);
-        let departmentID = department.toLowerCase().replace(/\s+/g, "");
+        let departmentID = department.toLowerCase();
         departmentID = departmentID.concat("Schedule");
         let container = document.getElementById("table-container");
         console.log(container);
@@ -475,7 +475,7 @@ function switchTab (tabSelected) {
     document.getElementById('tabHeader').innerHTML = `${currentTab} Schedule`;
     //Switch table
     for (let department of arrDepartments) {
-        let oldTabID = department.toLowerCase().replace(/\s+/g, "");
+        let oldTabID = department.toLowerCase();
         oldTabID = oldTabID.concat("Schedule");
         console.log(oldTabID);
         let oldTab = document.getElementById(oldTabID);
