@@ -311,11 +311,11 @@ void returnBestSatisfactionScores(
         bestSchedule = &scheduleLinearProgramming;
     }
 
-    // Output the highest score and its corresponding method
-    std::cout << "The highest satisfaction score is " << highestScore
-              << " achieved by " << bestMethod << "." << std::endl;
-
     // Convert the best ShiftSchedule to JSON
     std::string filename = "shift_schedule.json";
     shiftScheduleToJSON(*bestSchedule, filename); // Dereference the pointer to pass the actual schedule
+
+    // Output the highest score and its corresponding method
+    std::cout << "The highest satisfaction score is " << highestScore
+              << " achieved by " << bestMethod << "." << std::endl;
 }

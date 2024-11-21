@@ -212,6 +212,10 @@ int main() {
     cout << "Sat score of LP: " << satisfactionScoreLinearProgramming << endl;
     // ------------------------------------------------------------------------------------------
 
+     // Convert the ShiftSchedule to JSON
+    std::string filename2 = "shift_schedule_LP.json";
+    shiftScheduleToJSON(shiftScheduleLP, filename2);
         
     return 0;
+
 }
