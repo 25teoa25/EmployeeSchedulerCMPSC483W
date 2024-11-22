@@ -248,3 +248,60 @@ Nurse getRandomNurseFromShift(const ShiftSchedule& schedule, int shift, const st
     int randomIndex = dist(gen);
     return matchingNurses[randomIndex];
 }
+
+/**
+ * @brief Prints all nurses assigned to a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurses for all shifts.
+ * @param shift The 1-based index of the shift to display (e.g., 1 for the first shift).
+ */
+void printNursesForShift(const ShiftSchedule& schedule, int shift) {
+    if (shift < 1 || shift > schedule.size()) {
+        std::cerr << "Error: Shift index out of bounds. Valid range is 1 to " << schedule.size() << ".\n";
+        return;
+    }
+
+    const auto& shiftNurses = schedule[shift - 1]; // Convert to 0-based index
+    std::cout << "Nurses assigned to Shift " << shift << ":\n";
+
+    if (shiftNurses.empty()) {
+        std::cout << "  No nurses assigned.\n";
+        return;
+    }
+
+    for (const auto& nurse : shiftNurses) {
+        std::cout << "  Nurse ID: " << nurse.nurseNumber
+                  << ", Name: " << nurse.fullName
+                  << ", Department: " << nurse.department
+                  << ", Type: " << nurse.nurseType << '\n';
+    }
+}
+
+/**
+ * @brief Compares three satisfaction scores and outputs the highest.
+ * 
+ * @param scoreGeneticAlgorithm Satisfaction score for Genetic Algorithm.
+ * @param scoreBruteForce Satisfaction score for Brute Force.
+ * @param scoreLinearProgramming Satisfaction score for Linear Programming.
+ * 
+ * This function compares the three provided satisfaction scores and prints the method
+ * with the highest score along with the score value.
+ */
+void returnBestSatisfactionScores(double scoreGeneticAlgorithm, double scoreBruteForce, double scoreLinearProgramming) {
+    double highestScore = scoreGeneticAlgorithm;
+    std::string bestMethod = "Genetic Algorithm";
+
+    if (scoreBruteForce > highestScore) {
+        highestScore = scoreBruteForce;
+        bestMethod = "Brute Force";
+    }
+
+    if (scoreLinearProgramming > highestScore) {
+        highestScore = scoreLinearProgramming;
+        bestMethod = "Linear Programming";
+    }
+
+    // Output the highest score and its corresponding method
+    std::cout << "The highest satisfaction score is " << highestScore
+              << " achieved by " << bestMethod << "." << std::endl;
+}

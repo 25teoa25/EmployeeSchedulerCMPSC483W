@@ -71,3 +71,23 @@ void add(ShiftSchedule& schedule, int shift, const Nurse& nurse);
  */
 void shiftScheduleToJSON(const ShiftSchedule& schedule, const std::string& filename);
 #endif // NURSE_FUNCTIONS_H
+
+/**
+ * @brief Prints all nurses assigned to a specific shift in the schedule.
+ * 
+ * @param schedule The ShiftSchedule vector containing nurses for all shifts.
+ * @param shift The 1-based index of the shift to display (e.g., 1 for the first shift).
+ */
+void printNursesForShift(const ShiftSchedule& schedule, int shift);
+
+/**
+ * @brief Compares three satisfaction scores and outputs the highest.
+ * 
+ * @param scoreGeneticAlgorithm Satisfaction score for Genetic Algorithm.
+ * @param scoreBruteForce Satisfaction score for Brute Force.
+ * @param scoreLinearProgramming Satisfaction score for Linear Programming.
+ * 
+ * This function compares the three provided satisfaction scores and prints the method
+ * with the highest score along with the score value.
+ */
+void returnBestSatisfactionScores(double scoreGeneticAlgorithm, double scoreBruteForce, double scoreLinearProgramming);

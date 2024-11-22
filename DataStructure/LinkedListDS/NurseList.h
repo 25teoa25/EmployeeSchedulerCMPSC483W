@@ -42,4 +42,9 @@ void remove(ShiftSchedule& schedule, int shift, const Nurse& nurse);
 extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;
 extern std::unordered_map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> constraintsMap;
 
+// Satisfaction scores for different algorithms
+extern double satisfactionScoreGeneticAlgorithm; ///< Satisfaction score for Genetic Algorithm
+extern double satisfactionScoreBruteForce;       ///< Satisfaction score for Brute Force
+extern double satisfactionScoreLinearProgramming; ///< Satisfaction score for Linear Programming
+
 #endif // NURSE_LIST_H
