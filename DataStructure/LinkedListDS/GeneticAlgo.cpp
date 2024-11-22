@@ -1,548 +1,252 @@
+#include "GeneticAlgorithm.h"
+#include "NurseList.h"
+#include "NurseFunctions.h"
 #include <vector>
-#include <string>
-#include <map>
-#include <set>
-#include <random>
 #include <algorithm>
+#include <random>
+#include <unordered_set>
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <memory>
-#include <ctime>
-#include <numeric>
-#include <limits>
-#include <stdexcept>
 
-// Structures to hold data
-struct Nurse {
-    int id;
-    std::string name;
-    std::string nurseType;
-    std::string department;
-    std::vector<int> preferences;
+// Extern variables from NurseList.cpp
+extern std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Nurse>>> departmentNursesMap;
+extern std::unordered_map<int, std::unordered_map<std::string, std::unordered_map<std::string, int>>> constraintsMap;
+extern int satisfactionScoreGeneticAlgorithm;
 
-    Nurse(int _id, const std::string& _name, const std::string& _type, 
-          const std::string& _dept, const std::vector<int>& _prefs)
-        : id(_id), name(_name), nurseType(_type), department(_dept), preferences(_prefs) {}
-};
+// Function prototypes
+ShiftSchedule generateInitialSchedule(std::mt19937& gen);
+double evaluateFitness(const ShiftSchedule& schedule);
+ShiftSchedule tournamentSelection(const std::vector<ShiftSchedule>& population, const std::vector<double>& fitnesses, std::mt19937& gen);
+void crossover(const ShiftSchedule& parent1, const ShiftSchedule& parent2, ShiftSchedule& child1, ShiftSchedule& child2, std::mt19937& gen);
+void mutate(ShiftSchedule& schedule, std::mt19937& gen);
 
-struct ShiftConstraint {
-    std::string department;
-    int shift;
-    int rnCount;
-    int lpnCount;
-    int naCount;
+ShiftSchedule geneticAlgorithm() {
+    // Parameters
+    const int populationSize = 50;
+    const int numGenerations = 100;
+    const double crossoverRate = 0.7;
+    const double mutationRate = 0.1;
 
-    ShiftConstraint(const std::string& _dept, int _shift, int _rn, int _lpn, int _na)
-        : department(_dept), shift(_shift), rnCount(_rn), lpnCount(_lpn), naCount(_na) {}
-};
+    // Initialize random number generator
+    std::random_device rd;
+    std::mt19937 gen(rd());
 
-class Schedule {
-public:
-    std::vector<Nurse>& nurses;
-    std::map<int, std::map<std::string, std::vector<int>>> assignments; // shift -> department -> nurse IDs
-    std::map<int, std::set<int>> nurseShiftAssignments;  // shift -> set of nurse IDs
-    double fitness;
-    int totalSatisfactionScore;  // Changed from satisfactionScore
-
-    Schedule(std::vector<Nurse>& _nurses) 
-        : nurses(_nurses), fitness(0.0), totalSatisfactionScore(0) {}
-    
-    Schedule(const Schedule& other) 
-        : nurses(other.nurses), 
-          assignments(other.assignments), 
-          fitness(other.fitness), 
-          totalSatisfactionScore(other.totalSatisfactionScore),
-          nurseShiftAssignments(other.nurseShiftAssignments) {}
-    
-    Schedule& operator=(const Schedule& other) {
-        if (this != &other) {
-            assignments = other.assignments;
-            fitness = other.fitness;
-            totalSatisfactionScore = other.totalSatisfactionScore;
-            nurseShiftAssignments = other.nurseShiftAssignments;
-        }
-        return *this;
+    // Generate initial population
+    std::vector<ShiftSchedule> population;
+    for (int i = 0; i < populationSize; ++i) {
+        ShiftSchedule schedule = generateInitialSchedule(gen);
+        population.push_back(schedule);
     }
 
-    bool isNurseAssignedToShift(int nurseId, int shift) const {
-        auto it = nurseShiftAssignments.find(shift);
-        return it != nurseShiftAssignments.end() && it->second.count(nurseId) > 0;
-    }
-
-    void addNurseAssignment(int nurseId, int shift) {
-        nurseShiftAssignments[shift].insert(nurseId);
-    }
-
-    void clearAssignments() {
-        nurseShiftAssignments.clear();
-    }
-};
-
-class NurseScheduler {
-private:
-    std::vector<Nurse>& nurses;
-    std::vector<ShiftConstraint>& constraints;
-    int populationSize;
-    int generations;
-    std::map<std::string, std::vector<int>> nurseTypeMap;
-    std::mt19937 rng;
-    const double MUTATION_RATE = 0.1;
-    const int TOURNAMENT_SIZE = 5;
-
-    void createNurseTypeMap() {
-        for (const auto& nurse : nurses) {
-            nurseTypeMap[nurse.nurseType].push_back(nurse.id);
-        }
-    }
-
-    double calculateFitness(Schedule* schedule) {
-        double fitness = 0.0;
-        int violations = 0;
-        schedule->totalSatisfactionScore = 0;  // Reset total satisfaction score
-        schedule->clearAssignments();
-
-        for (int shift = 1; shift <= 42; shift++) {
-            std::set<int> nursesInShift;
-            
-            for (const auto& constraint : constraints) {
-                if (constraint.shift == shift) {
-                    const auto& deptAssignments = schedule->assignments[shift][constraint.department];
-                    
-                    int rnCount = 0, lpnCount = 0, naCount = 0;
-                    for (int nurseId : deptAssignments) {
-                        if (nursesInShift.count(nurseId) > 0) {
-                            violations += 1000;
-                            continue;
-                        }
-                        nursesInShift.insert(nurseId);
-                        schedule->addNurseAssignment(nurseId, shift);
-
-                        const auto& nurse = nurses[nurseId-1];
-                        if (nurse.nurseType == "RN") rnCount++;
-                        else if (nurse.nurseType == "LPN") lpnCount++;
-                        else if (nurse.nurseType == "NA") naCount++;
-
-                        int preference = nurse.preferences[shift-1];
-                        schedule->totalSatisfactionScore += preference;  // Direct preference addition
-                        
-                        // For fitness calculation (separate from satisfaction score)
-                        switch(preference) {
-                            case 0: fitness += 100.0; break;
-                            case 1: fitness += 10.0; break;
-                            case 2: fitness += 1.0; break;
-                        }
-                    }
-
-                    violations += std::abs(rnCount - constraint.rnCount) * 500;
-                    violations += std::abs(lpnCount - constraint.lpnCount) * 500;
-                    violations += std::abs(naCount - constraint.naCount) * 500;
-                }
-            }
+    // Main GA loop
+    for (int generation = 0; generation < numGenerations; ++generation) {
+        // Evaluate fitness
+        std::vector<double> fitnesses;
+        for (const auto& schedule : population) {
+            double fitness = evaluateFitness(schedule);
+            fitnesses.push_back(fitness);
         }
 
-        return fitness - violations;
-    }
+        // Selection and reproduction
+        std::vector<ShiftSchedule> newPopulation;
+        for (int i = 0; i < populationSize / 2; ++i) {
+            // Select parents
+            ShiftSchedule parent1 = tournamentSelection(population, fitnesses, gen);
+            ShiftSchedule parent2 = tournamentSelection(population, fitnesses, gen);
 
-    std::unique_ptr<Schedule> createValidSchedule() {
-        auto schedule = std::make_unique<Schedule>(nurses);
-        
-        for (int shift = 1; shift <= 42; shift++) {
-            for (auto& constraint : constraints) {
-                if (constraint.shift == shift) {
-                    std::vector<int> shiftNurses;
-                    
-                    // Helper function to get available nurses of a specific type
-                    auto getAvailableNurses = [&](const std::string& nurseType, int count) {
-                        std::vector<int> available;
-                        std::vector<int> preferredNurses;
-                        std::vector<int> neutralNurses;
-                        std::vector<int> unwillingNurses;
-                        
-                        for (int nurseId : nurseTypeMap[nurseType]) {
-                            if (nurses[nurseId-1].department == constraint.department && 
-                                !schedule->isNurseAssignedToShift(nurseId, shift)) {
-                                
-                                int preference = nurses[nurseId-1].preferences[shift-1];
-                                if (preference == 0)
-                                    preferredNurses.push_back(nurseId);
-                                else if (preference == 1)
-                                    neutralNurses.push_back(nurseId);
-                                else
-                                    unwillingNurses.push_back(nurseId);
-                            }
-                        }
-                        
-                        std::shuffle(preferredNurses.begin(), preferredNurses.end(), rng);
-                        std::shuffle(neutralNurses.begin(), neutralNurses.end(), rng);
-                        std::shuffle(unwillingNurses.begin(), unwillingNurses.end(), rng);
-                        
-                        available.insert(available.end(), preferredNurses.begin(), preferredNurses.end());
-                        available.insert(available.end(), neutralNurses.begin(), neutralNurses.end());
-                        available.insert(available.end(), unwillingNurses.begin(), unwillingNurses.end());
-                        
-                        return available;
-                    };
-
-                    // Assign nurses based on type
-                    auto assignNurses = [&](const std::string& nurseType, int count) {
-                        auto available = getAvailableNurses(nurseType, count);
-                        for (int i = 0; i < std::min(count, (int)available.size()); i++) {
-                            int nurseId = available[i];
-                            shiftNurses.push_back(nurseId);
-                            schedule->addNurseAssignment(nurseId, shift);
-                            int preference = nurses[nurseId-1].preferences[shift-1];
-                            schedule->totalSatisfactionScore += preference;  // Add preference directly
-                        }
-                    };
-
-                    assignNurses("RN", constraint.rnCount);
-                    assignNurses("LPN", constraint.lpnCount);
-                    assignNurses("NA", constraint.naCount);
-
-                    schedule->assignments[shift][constraint.department] = shiftNurses;
-                }
-            }
-        }
-        
-        return schedule;
-    }
-
-    std::vector<std::unique_ptr<Schedule>> createInitialPopulation() {
-        std::vector<std::unique_ptr<Schedule>> population;
-        for (int i = 0; i < populationSize; i++) {
-            auto schedule = createValidSchedule();
-            schedule->fitness = calculateFitness(schedule.get());
-            population.push_back(std::move(schedule));
-        }
-        return population;
-    }
-
-    std::pair<Schedule*, Schedule*> selectParents(const std::vector<std::unique_ptr<Schedule>>& population) {
-        std::vector<int> indices(population.size());
-        std::iota(indices.begin(), indices.end(), 0);
-        
-        auto selectParent = [&]() -> Schedule* {
-            std::shuffle(indices.begin(), indices.end(), rng);
-            Schedule* parent = nullptr;
-            double bestFitness = -std::numeric_limits<double>::infinity();
-            
-            for (int i = 0; i < TOURNAMENT_SIZE; i++) {
-                if (population[indices[i]]->fitness > bestFitness) {
-                    bestFitness = population[indices[i]]->fitness;
-                    parent = population[indices[i]].get();
-                }
-            }
-            return parent;
-        };
-
-        return {selectParent(), selectParent()};
-    }
-
-    std::unique_ptr<Schedule> crossover(Schedule* parent1, Schedule* parent2) {
-        auto child = std::make_unique<Schedule>(nurses);
-        std::uniform_int_distribution<int> dist(1, 42);
-        int crossoverPoint = dist(rng);
-
-        for (int shift = 1; shift <= crossoverPoint; shift++) {
-            for (const auto& dept : parent1->assignments[shift]) {
-                child->assignments[shift][dept.first] = dept.second;
-            }
-        }
-
-        for (int shift = crossoverPoint + 1; shift <= 42; shift++) {
-            for (const auto& dept : parent2->assignments[shift]) {
-                child->assignments[shift][dept.first] = dept.second;
-            }
-        }
-
-        return child;
-    }
-
-    void mutate(Schedule* schedule) {
-        std::uniform_real_distribution<double> dist(0.0, 1.0);
-        
-        for (int shift = 1; shift <= 42; shift++) {
-            for (auto& constraint : constraints) {
-                if (constraint.shift == shift && dist(rng) < MUTATION_RATE) {
-                    std::vector<std::string> nurseTypes = {"RN", "LPN", "NA"};
-                    std::string selectedType = nurseTypes[std::uniform_int_distribution<int>(0, 2)(rng)];
-
-                    std::vector<int> availableNurses;
-                    for (int nurseId : nurseTypeMap[selectedType]) {
-                        if (nurses[nurseId-1].department == constraint.department && 
-                            !schedule->isNurseAssignedToShift(nurseId, shift)) {
-                            availableNurses.push_back(nurseId);
-                        }
-                    }
-
-                    if (!availableNurses.empty() && schedule->assignments[shift].count(constraint.department) > 0) {
-                        auto& currentNurses = schedule->assignments[shift][constraint.department];
-                        for (size_t i = 0; i < currentNurses.size(); i++) {
-                            if (nurses[currentNurses[i]-1].nurseType == selectedType) {
-                                int newNurse = availableNurses[std::uniform_int_distribution<int>(
-                                    0, availableNurses.size()-1)(rng)];
-                                currentNurses[i] = newNurse;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-public:
-    NurseScheduler(std::vector<Nurse>& _nurses, std::vector<ShiftConstraint>& _constraints,
-                   int _populationSize = 200, int _generations = 200)
-        : nurses(_nurses), constraints(_constraints),
-          populationSize(_populationSize), generations(_generations) {
-        rng.seed(std::time(nullptr));
-        createNurseTypeMap();
-    }
-
-    Schedule* run() {
-        auto population = createInitialPopulation();
-        
-        std::unique_ptr<Schedule> bestSchedule = std::make_unique<Schedule>(nurses);
-        bestSchedule->fitness = -std::numeric_limits<double>::infinity();
-
-        for (int gen = 0; gen < generations; gen++) {
-            std::vector<std::unique_ptr<Schedule>> newPopulation;
-
-            while (newPopulation.size() < static_cast<size_t>(populationSize)) {
-                auto parents = selectParents(population);
-                auto child = crossover(parents.first, parents.second);
-                mutate(child.get());
-                child->fitness = calculateFitness(child.get());
-
-                if (child->fitness > bestSchedule->fitness) {
-                    bestSchedule = std::make_unique<Schedule>(*child);
-                }
-
-                newPopulation.push_back(std::move(child));
+            // Crossover
+            ShiftSchedule child1 = parent1;
+            ShiftSchedule child2 = parent2;
+            std::uniform_real_distribution<> dis(0.0, 1.0);
+            if (dis(gen) < crossoverRate) {
+                crossover(parent1, parent2, child1, child2, gen);
             }
 
-            population = std::move(newPopulation);
-
-            if (gen % 10 == 0) {
-                double bestFitness = -std::numeric_limits<double>::infinity();
-                for (const auto& schedule : population) {
-                    bestFitness = std::max(bestFitness, schedule->fitness);
-                }
-                std::cout << "Generation " << gen << ": Best Fitness = " << bestFitness << std::endl;
+            // Mutation
+            if (dis(gen) < mutationRate) {
+                mutate(child1, gen);
             }
+            if (dis(gen) < mutationRate) {
+                mutate(child2, gen);
+            }
+
+            // Add children to new population
+            newPopulation.push_back(child1);
+            newPopulation.push_back(child2);
         }
 
-        return bestSchedule.release();
-    }
-};
+        // Replace old population with new population
+        population = newPopulation;
 
-// Helper functions to parse CSV data
-std::vector<Nurse> parseNurseData(const std::string& filename) {
-    std::vector<Nurse> nurses;
-    std::ifstream file(filename);
-    std::string line;
-    
-    std::getline(file, line); // Skip header
-    
-    while (std::getline(file, line)) {
-        std::stringstream ss(line);
-        std::string item;
-        std::vector<std::string> row;
-        
-        while (std::getline(ss, item, ',')) {
-            row.push_back(item);
-        }
-        
-        std::vector<int> preferences;
-        for (size_t i = 4; i < row.size(); i++) {
-            preferences.push_back(std::stoi(row[i]));
-        }
-        
-        nurses.emplace_back(std::stoi(row[1]), row[0], row[2], row[3], preferences);
+        // Optional: Print best fitness
+        double bestFitness = *std::max_element(fitnesses.begin(), fitnesses.end());
+        std::cout << "Generation " << generation << ", Best Fitness: " << bestFitness << std::endl;
     }
-    
-    return nurses;
+
+    // After GA loop, return the best schedule
+    // Evaluate final fitnesses
+    std::vector<double> finalFitnesses;
+    for (const auto& schedule : population) {
+        double fitness = evaluateFitness(schedule);
+        finalFitnesses.push_back(fitness);
+    }
+
+    // Find the schedule with the highest fitness
+    auto maxIter = std::max_element(finalFitnesses.begin(), finalFitnesses.end());
+    int bestIndex = std::distance(finalFitnesses.begin(), maxIter);
+    satisfactionScoreGeneticAlgorithm = static_cast<int>(*maxIter);
+
+    return population[bestIndex];
 }
 
-std::vector<ShiftConstraint> parseConstraintData(const std::string& filename) {
-    std::vector<ShiftConstraint> constraints;
-    std::ifstream file(filename);
-    std::string line;
-    
-    std::getline(file, line); // Skip header
-    
-    while (std::getline(file, line)) {
-        std::stringstream ss(line);
-        std::string item;
-        std::vector<std::string> row;
-        
-        while (std::getline(ss, item, ',')) {
-            row.push_back(item);
+ShiftSchedule generateInitialSchedule(std::mt19937& gen) {
+    ShiftSchedule schedule(42);
+
+    // For each shift
+    for (int shift = 1; shift <= 42; ++shift) {
+        // For each department in constraintsMap[shift]
+        for (const auto& deptPair : constraintsMap[shift]) {
+            const std::string& department = deptPair.first;
+            // For each nurse type in constraintsMap[shift][department]
+            for (const auto& typePair : deptPair.second) {
+                std::string nurseType = typePair.first;
+                int nursesNeeded = typePair.second;
+
+                // Process nurseType to match keys in departmentNursesMap
+                std::string modifiedNurseType = nurseType;
+                const std::string prefix = "Nurse Type: ";
+
+                if (modifiedNurseType.rfind(prefix, 0) == 0) {
+                    modifiedNurseType = modifiedNurseType.substr(prefix.length());
+                }
+
+                // Map full nurse type names to abbreviations
+                if (modifiedNurseType == "Nurse Assistant"){
+                    modifiedNurseType = "NA";
+                }
+                else if (modifiedNurseType == "Registered Nurse"){
+                    modifiedNurseType = "RN";
+                }
+                else if (modifiedNurseType == "Licensed Practical Nurse"){
+                    modifiedNurseType = "LPN";
+                }
+
+                // Get available nurses of this department and nurse type
+                auto& availableNurses = departmentNursesMap[department][modifiedNurseType];
+
+                // Sort the available nurses based on their preference for the shift
+                std::vector<Nurse> sortedNurses = availableNurses;
+                std::sort(sortedNurses.begin(), sortedNurses.end(),
+                          [shift](const Nurse& a, const Nurse& b) {
+                    // Changed to sort in descending order of preference
+                    return a.shiftPreferences[shift - 1] > b.shiftPreferences[shift - 1];
+                });
+
+                // Assign nursesNeeded nurses
+                for (int i = 0; i < nursesNeeded; ++i) {
+                    if (i < sortedNurses.size()) {
+                        Nurse nurse = sortedNurses[i];
+                        schedule[shift - 1].push_back(nurse);
+                    } else {
+                        // Not enough nurses, add fake nurse
+                        schedule[shift - 1].push_back(fakeNurse);
+                    }
+                }
+            }
         }
-        
-        constraints.emplace_back(row[0], std::stoi(row[1]), std::stoi(row[2]), 
-                               std::stoi(row[3]), std::stoi(row[4]));
     }
-    
-    return constraints;
+    return schedule;
 }
 
-int main() {
-    try {
-        // Create output file
-        std::ofstream outFile("schedule_output.txt");
-        if (!outFile.is_open()) {
-            throw std::runtime_error("Could not create output file");
-        }
+double evaluateFitness(const ShiftSchedule& schedule) {
+    double satisfactionScore = 0.0;
 
-        // Helper function to write to both console and file
-        auto log = [&outFile](const std::string& message) {
-            std::cout << message << std::endl;
-            outFile << message << std::endl;
-        };
+    // For each shift
+    for (int shift = 1; shift <= 42; ++shift) {
+        const auto& shiftNurses = schedule[shift - 1];
+        std::unordered_set<int> nurseIDsInShift; // To check for duplicates
+        // For each nurse in the shift
+        for (const auto& nurse : shiftNurses) {
+            if (nurse.nurseNumber != -1) { // Ignore fake nurses
+                int preference = nurse.shiftPreferences[shift - 1];
+                satisfactionScore += preference;
 
-        log("Starting nurse scheduling program...");
-        
-        // Load data
-        log("Loading nurse data...");
-        auto nurses = parseNurseData("Nurse_List_Department_Included.csv");
-        log("Loaded " + std::to_string(nurses.size()) + " nurses.");
-
-        log("Loading constraint data...");
-        auto constraints = parseConstraintData("NurseConstraints.csv");
-        log("Loaded " + std::to_string(constraints.size()) + " constraints.");
-
-        // Create and run scheduler
-        log("Creating scheduler...");
-        NurseScheduler scheduler(nurses, constraints, 200, 200);
-        
-        log("Running genetic algorithm...");
-        Schedule* bestSchedule = scheduler.run();
-
-        // Print results
-        log("\nBest schedule fitness: " + std::to_string(bestSchedule->fitness));
-        log("Total satisfaction score (lower is better): " + std::to_string(bestSchedule->totalSatisfactionScore));
-
-        // Calculate detailed preference distribution
-        int pref0 = 0, pref1 = 0, pref2 = 0;
-        int totalAssignments = 0;
-        
-        // Print detailed schedule
-        log("\n=== DETAILED SCHEDULE ===");
-        for (int shift = 1; shift <= 42; shift++) {
-            const auto& shiftAssignments = bestSchedule->assignments[shift];
-            std::stringstream ss;
-            ss << "\nShift " << shift << ":\n";
-            
-            for (const auto& deptAssignment : shiftAssignments) {
-                const std::string& department = deptAssignment.first;
-                const std::vector<int>& nurseIds = deptAssignment.second;
-                
-                ss << "Department: " << department << "\n";
-                
-                // Count nurse types in this department
-                int rn = 0, lpn = 0, na = 0;
-                for (int nurseId : nurseIds) {
-                    const auto& nurse = nurses[nurseId-1];
-                    if (nurse.nurseType == "RN") rn++;
-                    else if (nurse.nurseType == "LPN") lpn++;
-                    else if (nurse.nurseType == "NA") na++;
-
-                    // Count preferences
-                    int preference = nurse.preferences[shift-1];
-                    if (preference == 0) pref0++;
-                    else if (preference == 1) pref1++;
-                    else pref2++;
-                    totalAssignments++;
+                // Check if nurse is assigned multiple times in the same shift
+                if (nurseIDsInShift.find(nurse.nurseNumber) != nurseIDsInShift.end()) {
+                    satisfactionScore -= 5; // Penalty for duplicate assignment
+                } else {
+                    nurseIDsInShift.insert(nurse.nurseNumber);
                 }
-                ss << "Nurse counts - RN: " << rn << ", LPN: " << lpn << ", NA: " << na << "\n";
-                
-                // List all nurses in this department
-                ss << "Assigned nurses:\n";
-                for (int nurseId : nurseIds) {
-                    const auto& nurse = nurses[nurseId-1];
-                    ss << "  - " << nurse.name << " (ID: " << nurse.id 
-                       << ", Type: " << nurse.nurseType 
-                       << ", Preference: " << nurse.preferences[shift-1] 
-                       << ")\n";
-                }
-                ss << "\n";
-            }
-            log(ss.str());
-        }
-
-        // Print preference distribution
-        log("\nPreference Distribution:");
-        log("Preference 0 (Preferred): " + std::to_string(pref0) + " assignments (" + 
-            std::to_string(static_cast<double>(pref0) * 100 / totalAssignments) + "%)");
-        log("Preference 1 (Neutral): " + std::to_string(pref1) + " assignments (" + 
-            std::to_string(static_cast<double>(pref1) * 100 / totalAssignments) + "%)");
-        log("Preference 2 (Not Preferred): " + std::to_string(pref2) + " assignments (" + 
-            std::to_string(static_cast<double>(pref2) * 100 / totalAssignments) + "%)");
-
-        // Print department satisfaction scores
-        std::map<std::string, std::pair<double, int>> departmentStats;
-        for (const auto& shiftAssignment : bestSchedule->assignments) {
-            for (const auto& deptAssignment : shiftAssignment.second) {
-                for (int nurseId : deptAssignment.second) {
-                    const auto& nurse = nurses[nurseId-1];
-                    departmentStats[deptAssignment.first].first += nurse.preferences[shiftAssignment.first-1];
-                    departmentStats[deptAssignment.first].second++;
-                }
+            } else {
+                // Penalty for fake nurse
+                satisfactionScore -= 5;
             }
         }
-
-        log("\nDepartment Statistics:");
-        for (const auto& dept : departmentStats) {
-            double avgPreference = dept.second.first / dept.second.second;
-            log(dept.first + ": Average preference = " + std::to_string(avgPreference) + 
-                " (Total assignments: " + std::to_string(dept.second.second) + ")");
-        }
-
-        // Analyze nurse workload distribution
-        std::map<int, int> nurseAssignmentCount;
-        for (const auto& shiftAssignment : bestSchedule->assignments) {
-            for (const auto& deptAssignment : shiftAssignment.second) {
-                for (int nurseId : deptAssignment.second) {
-                    nurseAssignmentCount[nurseId]++;
-                }
-            }
-        }
-
-        std::vector<int> assignmentCounts;
-        for (const auto& count : nurseAssignmentCount) {
-            assignmentCounts.push_back(count.second);
-        }
-        
-        std::sort(assignmentCounts.begin(), assignmentCounts.end());
-        double median = assignmentCounts[assignmentCounts.size() / 2];
-        double mean = std::accumulate(assignmentCounts.begin(), assignmentCounts.end(), 0.0) / 
-                     assignmentCounts.size();
-        
-        log("\nNurse Workload Distribution:");
-        log("Minimum assignments: " + std::to_string(assignmentCounts.front()));
-        log("Maximum assignments: " + std::to_string(assignmentCounts.back()));
-        log("Median assignments: " + std::to_string(median));
-        log("Mean assignments: " + std::to_string(mean));
-
-        // Print final satisfaction score
-        log("\nFINAL SCORES:");
-        log("Total satisfaction score (lower is better): " + std::to_string(bestSchedule->totalSatisfactionScore));
-        log("Average satisfaction per assignment: " + 
-            std::to_string(static_cast<double>(bestSchedule->totalSatisfactionScore) / totalAssignments));
-
-        // Clean up
-        delete bestSchedule;
-        outFile.close();
-        
-        log("\nProgram completed successfully. Results written to schedule_output.txt");
     }
-    catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
+
+    return satisfactionScore;
+}
+
+ShiftSchedule tournamentSelection(const std::vector<ShiftSchedule>& population, const std::vector<double>& fitnesses, std::mt19937& gen) {
+    const int tournamentSize = 3;
+    std::uniform_int_distribution<> dis(0, population.size() - 1);
+
+    int bestIndex = dis(gen);
+    double bestFitness = fitnesses[bestIndex];
+
+    for (int i = 1; i < tournamentSize; ++i) {
+        int idx = dis(gen);
+        if (fitnesses[idx] > bestFitness) {
+            bestIndex = idx;
+            bestFitness = fitnesses[idx];
+        }
     }
-    
-    return 0;
+    return population[bestIndex];
+}
+
+void crossover(const ShiftSchedule& parent1, const ShiftSchedule& parent2, ShiftSchedule& child1, ShiftSchedule& child2, std::mt19937& gen) {
+    // One-point crossover
+    std::uniform_int_distribution<> dis(1, 41); // Positions to crossover between 1 and 41
+    int crossoverPoint = dis(gen);
+
+    for (int i = 0; i < 42; ++i) {
+        if (i < crossoverPoint) {
+            child1[i] = parent1[i];
+            child2[i] = parent2[i];
+        } else {
+            child1[i] = parent2[i];
+            child2[i] = parent1[i];
+        }
+    }
+}
+
+void mutate(ShiftSchedule& schedule, std::mt19937& gen) {
+    // Randomly select a shift
+    std::uniform_int_distribution<> shiftDis(0, 41);
+    int shiftIndex = shiftDis(gen);
+
+    auto& shiftNurses = schedule[shiftIndex];
+
+    if (shiftNurses.empty()) return;
+
+    // Randomly select a nurse in the shift
+    std::uniform_int_distribution<> nurseDis(0, shiftNurses.size() - 1);
+    int nurseIndex = nurseDis(gen);
+
+    Nurse& nurse = shiftNurses[nurseIndex];
+
+    // Remove the nurse
+    shiftNurses.erase(shiftNurses.begin() + nurseIndex);
+
+    // Get list of available nurses of the same department and nurse type
+    std::string department = nurse.department;
+    std::string nurseType = nurse.nurseType;
+
+    auto& availableNurses = departmentNursesMap[department][nurseType];
+
+    // Randomly select a new nurse
+    std::uniform_int_distribution<> availDis(0, availableNurses.size() - 1);
+    Nurse newNurse = availableNurses[availDis(gen)];
+
+    // Add the new nurse to the shift
+    shiftNurses.push_back(newNurse);
 }
