@@ -94,9 +94,9 @@ void printNursesForShift(const ShiftSchedule& schedule, int shift);
  * with the highest score along with the score value. It also prints the associated schedule.
  */
 void returnBestSatisfactionScores(
-    double scoreGeneticAlgorithm, const ShiftSchedule& scheduleGeneticAlgorithm,
-    double scoreBruteForce, const ShiftSchedule& scheduleBruteForce,
-    double scoreLinearProgramming, const ShiftSchedule& scheduleLinearProgramming
+    int scoreGeneticAlgorithm, const ShiftSchedule& scheduleGeneticAlgorithm,
+    int scoreBruteForce, const ShiftSchedule& scheduleBruteForce,
+    int scoreLinearProgramming, const ShiftSchedule& scheduleLinearProgramming
 );
 
 /**

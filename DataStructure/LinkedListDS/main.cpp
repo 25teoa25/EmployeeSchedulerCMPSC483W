@@ -2,6 +2,7 @@
 #include "NurseFunctions.h"
 #include "NurseList.h"
 #include "LinearPgHelper.h"
+#include "GeneticAlgorithm.h"
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -23,7 +24,7 @@ int main() {
     // Parse the constraints CSV file
 
     // CHANGE THIS TO YOUR DIRECTORY
-    parseConstraintsCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/NurseContraints.csv");
+    parseConstraintsCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/NurseConstraints.csv");
 
     // Print out the constraints
     for (const auto& shiftPair : constraintsMap) {
@@ -144,8 +145,8 @@ int main() {
    
             
     // Convert the ShiftSchedule to JSON
-    std::string filename = "shift_schedule.json";
-    shiftScheduleToJSON(shiftSchedule, filename);
+    // std::string filename = "shift_schedule.json";
+    // shiftScheduleToJSON(shiftSchedule, filename);
 
     satisfactionScoreBruteForce = calculateTotalShiftPreferences(shiftSchedule);
 
@@ -213,12 +214,13 @@ int main() {
         }
     }
 
+    satisfactionScoreLinearProgramming = calculateTotalShiftPreferences(shiftScheduleLP);
     cout << "Sat score of LP: " << satisfactionScoreLinearProgramming << endl;
     // ------------------------------------------------------------------------------------------
 
      // Convert the ShiftSchedule to JSON
-    std::string filename2 = "shift_schedule_LP.json";
-    shiftScheduleToJSON(shiftScheduleLP, filename2);
+    // std::string filename2 = "shift_schedule.json";
+    // shiftScheduleToJSON(shiftScheduleLP, filename2);
 
 
 
@@ -228,8 +230,8 @@ int main() {
     ShiftSchedule shiftScheduleGA = geneticAlgorithm();
 
     // Convert the ShiftSchedule to JSON
-    std::string filename3 = "shift_schedule_GA.json";
-    shiftScheduleToJSON(shiftScheduleGA, filename3);
+    // std::string filename3 = "shift_schedule.json";
+    // shiftScheduleToJSON(shiftScheduleGA, filename3);
 
     // Compare the satisfaction scores and select the best schedule
     returnBestSatisfactionScores(
