@@ -270,7 +270,7 @@ function loadDepartmentData(department, departmentID, departmentColors, typeColo
             .catch(error => {
                 console.error('Error loading JSON:', error);
             });
-    }, 100);
+    }, 100); // Wait for DOM updates
 }
 
 function createKey(typeColors) {
@@ -516,3 +516,121 @@ function myFunction() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
   }
+
+function countAllDepartmentsNurses(outputElementID) {
+        fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the JSON file');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const departmentCounts = {};
+                const countedNurses = new Set();
+                let totalNurses = 0;
+    
+                for (let shift of data) {
+                    for (let nurse of shift.nurses) {
+                        if (!countedNurses.has(nurse.name)) {
+                            countedNurses.add(nurse.name);
+                            totalNurses++;
+    
+                            if (nurse.department in departmentCounts) {
+                                departmentCounts[nurse.department] += 1;
+                            } else {
+                                departmentCounts[nurse.department] = 1;
+                            }
+                        }
+                    }
+                }
+    
+                const outputElement = document.getElementById(outputElementID);
+                if (outputElement) {
+                    outputElement.innerHTML = "";
+                    for (let [department, count] of Object.entries(departmentCounts)) {
+                        const line = document.createElement('p');
+                        outputElement.appendChild(line);
+                        line.innerText = `Total nurses in department "${department}": ${count}`;
+                        outputElement.appendChild(line);
+                    }
+    
+                    const totalLine = document.createElement('p');
+                    totalLine.innerText = `Total nurses counted: ${totalNurses}`;
+                    outputElement.appendChild(totalLine);
+                }
+            })
+            
+    }
+    
+function findUnassignedNurses(outputElementID) {
+    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch the JSON file');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const results = [];
+
+            for (let shift of data) {
+                for (let nurse of shift.nurses) {
+                    if (nurse.nurseID === -1) {
+                        results.push({
+                            department: nurse.department,
+                            shift: shift["1shift"]
+                        });
+                    }
+                }
+            }
+
+            const outputElement = document.getElementById(outputElementID);
+            if (outputElement) {
+                outputElement.innerHTML = "";
+                if (results.length > 0) {
+                    results.forEach(item => {
+                        const line = document.createElement('p');
+                        line.innerText = `Department: ${item.department}, Shift: ${item.shift}`;
+                        outputElement.appendChild(line);
+                    });
+                } else {
+                    outputElement.innerText = "None";
+                }
+            }
+        })
+        
+}
+    
+function calculateAverageSatisfaction(outputElementID) {
+    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch the JSON file');
+            }
+            return response.json();
+        })
+        .then(data => {
+            let totalSatisfaction = 0;
+            let totalNurses = 0;
+
+            for (let shift of data) {
+                if (Array.isArray(shift.nurses)) {
+                    for (let nurse of shift.nurses) {
+                        if (nurse.score !== undefined && !isNaN(nurse.score)) {
+                            totalSatisfaction += nurse.score;
+                            totalNurses++;
+                        }
+                    }
+                }
+            }
+
+            const averageSatisfaction = totalNurses > 0 ? totalSatisfaction / totalNurses : 0;
+
+            const outputElement = document.getElementById(outputElementID);
+            if (outputElement) {
+                outputElement.innerText = `${averageSatisfaction.toFixed(2)}`;
+            }
+        })
+    
+}
