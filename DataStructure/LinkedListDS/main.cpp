@@ -219,7 +219,30 @@ int main() {
      // Convert the ShiftSchedule to JSON
     std::string filename2 = "shift_schedule_LP.json";
     shiftScheduleToJSON(shiftScheduleLP, filename2);
-        
-    return 0;
 
+
+
+        
+// -------------------------- Genetic Algorithm Implementation -------------------------------
+    // Implement the genetic algorithm
+    ShiftSchedule shiftScheduleGA = geneticAlgorithm();
+
+    // Convert the ShiftSchedule to JSON
+    std::string filename3 = "shift_schedule_GA.json";
+    shiftScheduleToJSON(shiftScheduleGA, filename3);
+
+    // Compare the satisfaction scores and select the best schedule
+    returnBestSatisfactionScores(
+        satisfactionScoreGeneticAlgorithm, shiftScheduleGA,
+        satisfactionScoreBruteForce, shiftSchedule,
+        satisfactionScoreLinearProgramming, shiftScheduleLP
+    );
+
+        // Print out the satisfaction scores
+    cout << "\nSatisfaction Scores:\n";
+    cout << "Brute Force Method: " << satisfactionScoreBruteForce << endl;
+    cout << "Linear Programming Method: " << satisfactionScoreLinearProgramming << endl;
+    cout << "Genetic Algorithm Method: " << satisfactionScoreGeneticAlgorithm << endl;
+
+    return 0;
 }
