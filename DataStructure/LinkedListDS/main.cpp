@@ -201,16 +201,16 @@ int main() {
             }
             
             // Run each of the neighborhood structures on each nurse type in each department
-            // for (int count = 0; count <= 99; ++count) {
-            //     satisfactionScoreLinearProgramming = structure1(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            //     satisfactionScoreLinearProgramming = structure2(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            //     satisfactionScoreLinearProgramming = structure3(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            //     satisfactionScoreLinearProgramming = structure4(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            //     satisfactionScoreLinearProgramming = structure5(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            //     satisfactionScoreLinearProgramming = structure6(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            //     satisfactionScoreLinearProgramming = structure7(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            //     satisfactionScoreLinearProgramming = structure8(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
-            // }
+            for (int count = 0; count <= 99; ++count) {
+                satisfactionScoreLinearProgramming = structure1(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure2(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure3(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure4(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure5(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure6(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure7(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure8(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+            }
         }
     }
 
