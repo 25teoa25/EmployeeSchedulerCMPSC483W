@@ -20,3 +20,6 @@ Nurse fakeNurse = {
     {}
 };
 
+int satisfactionScoreGeneticAlgorithm = 0;
+int satisfactionScoreBruteForce = 0;
+int satisfactionScoreLinearProgramming = 0;

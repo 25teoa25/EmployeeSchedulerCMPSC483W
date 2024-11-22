@@ -1,21 +1,25 @@
 import os
 import subprocess
-import time
 import webbrowser
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 # Configuration
-PROJECT_DIRECTORY = "path/to/your/project"  # Replace with the root project directory
-BACKEND_BUILD_COMMAND = "g++ -std=c++11 main.cpp NurseList.cpp CSVParser.cpp NurseFunctions.cpp -o nurse_list_program"
+PROJECT_DIRECTORY = "/Users/alexteo/EmployeeSchedulerCMPSC483W"  # Root project directory, !!!CHANGE THIS!!!
+BACKEND_DIRECTORY = os.path.join(PROJECT_DIRECTORY, "DataStructure/LinkedListDS")  # Back-end directory
+# BACKEND_BUILD_COMMAND = "g++ -std=c++11 main.cpp NurseList.cpp CSVParser.cpp LinearPgHelper.cpp NurseFunctions.cpp /EmployeeSchedulerCMPSC483W/Algorithm/neighbor.cpp -o nurse_list_program" 
+BACKEND_BUILD_COMMAND = (
+    f"g++ -std=c++11 main.cpp NurseList.cpp CSVParser.cpp LinearPgHelper.cpp NurseFunctions.cpp "
+    f"{os.path.join(PROJECT_DIRECTORY, 'Algorithm/neighbor.cpp')} -o nurse_list_program"
+)
 BACKEND_EXECUTABLE = "./nurse_list_program"
-FRONTEND_FILE = "DisplayUI.html"
+FRONTEND_FILE = "UI/DisplayUI.html"  # Adjusted to reflect the UI subdirectory
 PORT = 8000
 
 # Step 1: Build the back end
 def build_backend():
     print("Building back-end...")
     try:
-        subprocess.run(BACKEND_BUILD_COMMAND, shell=True, cwd=PROJECT_DIRECTORY, check=True)
+        subprocess.run(BACKEND_BUILD_COMMAND, shell=True, cwd=BACKEND_DIRECTORY, check=True)
         print("Back-end built successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error building back-end: {e}")
@@ -25,7 +29,7 @@ def build_backend():
 def run_backend():
     print("Running back-end...")
     try:
-        subprocess.run(BACKEND_EXECUTABLE, shell=True, cwd=PROJECT_DIRECTORY, check=True)
+        subprocess.run(BACKEND_EXECUTABLE, shell=True, cwd=BACKEND_DIRECTORY, check=True)
         print("Back-end execution completed. JSON output generated.")
     except subprocess.CalledProcessError as e:
         print(f"Error running back-end: {e}")

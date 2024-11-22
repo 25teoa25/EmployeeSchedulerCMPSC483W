@@ -1,15 +1,28 @@
 #include "CSVParser.h"
 #include "NurseFunctions.h"
 #include "NurseList.h"
+#include "LinearPgHelper.h"
 #include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <random>
+#include <algorithm>
+#include <set>
+#include <map>
 #include "json.hpp"
+#include "../../Algorithm/neighbor.h"
 using json = nlohmann::json;
+using namespace std;
 
 int main() {
     // Parse the nurse CSV file to populate the data structure
+
+    // CHANGE THIS TO YOUR DIRECTORY
     parseNursesCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
 
     // Parse the constraints CSV file
+
+    // CHANGE THIS TO YOUR DIRECTORY
     parseConstraintsCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/NurseContraints.csv");
 
     // Print out the constraints
@@ -131,12 +144,78 @@ int main() {
    
             
     // Convert the ShiftSchedule to JSON
-    //std::string filename = "shift_schedule.json";
-    //shiftScheduleToJSON(shiftSchedule, filename);
+    std::string filename = "shift_schedule.json";
+    shiftScheduleToJSON(shiftSchedule, filename);
 
     // Print the JSON
     //std::cout << jsonOutput.dump(4) << std::endl;
 
+    // -------------------------- Linear Programming Implementation -------------------------------
+    // Make sure to put in proper file paths
+
+    ShiftSchedule shiftScheduleLP(42); // LP Shift schedule to be outputted
+
+    // Iterate over all departments in departmentNursesMap
+    for (const auto &departmentEntry : departmentNursesMap) {
+        const string &department = departmentEntry.first; // Department name
+        cout << "Scheduling for department: " << department << endl;
+
+        // Iterate over each nurse type in the current department
+        for (const auto &nurseTypeEntry : departmentEntry.second) {
+            const string &nurseType = nurseTypeEntry.first; // Nurse type (RN, LPN, etc.)
+            auto &nurses = nurseTypeEntry.second;           // List of nurses for this type
+
+            // Iterate over 14 days
+            for (int day = 1; day <= 14; ++day) {
+                // Shifts in focus
+                int morningShiftNumber = (day - 1) * 3;
+                int eveningShiftNumber = (day - 1) * 3 + 1;
+                int nightShiftNumber = (day - 1) * 3 + 2;
+
+                // Assign the demand for each shift (morning, evening, night) for this day
+                int dm = sortedConstraintsMap[morningShiftNumber][department][nurseType]; // Demand for morning shift
+                int de = sortedConstraintsMap[eveningShiftNumber][department][nurseType]; // Demand for evening shift
+                int dn = sortedConstraintsMap[nightShiftNumber][department][nurseType];   // Demand for night shift
+
+                // Generate a random number to decide which shift to focus on (1 = morning, 2 = evening, 3 = night)
+                int randomShift = generateRandomShift();
+
+                if (randomShift == 1) { // Optimize preferences for random morning shift
+                    optimizePreferenceAssignment(shiftScheduleLP, department, nurseType, morningShiftNumber, dm);
+                    simpleAssignment(shiftScheduleLP, department, nurseType, eveningShiftNumber, de); // Assign nurses to evening shift without optimizing preference
+                    simpleAssignment(shiftScheduleLP, department, nurseType, nightShiftNumber, dn);   // Assign nurses to night shift without optimizing preference
+                } else if (randomShift == 2){ // Optimize preferences for random evening shift
+                    optimizePreferenceAssignment(shiftScheduleLP, department, nurseType, eveningShiftNumber, de);
+                    simpleAssignment(shiftScheduleLP, department, nurseType, morningShiftNumber, dm); // Assign nurses to morning shift without optimizing preference
+                    simpleAssignment(shiftScheduleLP, department, nurseType, nightShiftNumber, dn);   // Assign nurses to night shift without optimizing preference
+                } else { // Optimize preferences for random night shift
+                    optimizePreferenceAssignment(shiftScheduleLP, department, nurseType, nightShiftNumber, dn);
+                    simpleAssignment(shiftScheduleLP, department, nurseType, morningShiftNumber, dm); // Assign nurses to morning shift without optimizing preference
+                    simpleAssignment(shiftScheduleLP, department, nurseType, eveningShiftNumber, de); // Assign nurses to night shift without optimizing preference
+                }
+            }
+            
+            // Run each of the neighborhood structures on each nurse type in each department
+            for (int count = 0; count <= 99; ++count) {
+                satisfactionScoreLinearProgramming = structure1(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure2(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure3(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure4(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure5(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure6(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure7(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+                satisfactionScoreLinearProgramming = structure8(shiftScheduleLP, department, satisfactionScoreLinearProgramming, nurseType);
+            }
+        }
+    }
+
+    cout << "Sat score of LP: " << satisfactionScoreLinearProgramming << endl;
+    // ------------------------------------------------------------------------------------------
+
+     // Convert the ShiftSchedule to JSON
+    std::string filename2 = "shift_schedule_LP.json";
+    shiftScheduleToJSON(shiftScheduleLP, filename2);
         
     return 0;
+
 }
