@@ -19,7 +19,7 @@ int main() {
     // Parse the nurse CSV file to populate the data structure
 
     // CHANGE THIS TO YOUR DIRECTORY
-    parseNursesCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/DataStructure/LinkedListDS/Nurse_List_Department_Included.csv");
+    parseNursesCSV("/Users/alexteo/EmployeeSchedulerCMPSC483W/Nurse_List_Department_Included");
 
     // Parse the constraints CSV file
 
