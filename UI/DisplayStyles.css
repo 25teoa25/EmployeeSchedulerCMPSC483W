@@ -1,3 +1,21 @@
+.search-table-header {
+    font-weight: bold;
+}
+.search-table-2 {
+    margin-left: 70px;
+}
+.search-table-container {
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px 0;
+    width: 100%;
+}
+.search-error {
+    color: red;
+    position: relative;
+    left: 30px;
+    font-weight: bold;
+}
 .tabs {
     overflow: hidden;
     border: 1px solid #ccc;
@@ -21,7 +39,7 @@
 .side-info {
     position: absolute;
     right: .25%;
-    top: 150px;
+    top: 100px;
 }
 .search-input {
     position:absolute;
@@ -135,8 +153,14 @@
 }
 
 .shift-col {
-    width: 125px;
+    width: 175px;
 }
+
+.days {
+    height: 50px;
+}
+
+
 
 div[id$="-output"] {
     padding: 10px;
