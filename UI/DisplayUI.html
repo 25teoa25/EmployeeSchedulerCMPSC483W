@@ -3,20 +3,21 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content = "width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="DisplayStyles.css">
-    <script src = "JS\DisplayFunctionality.js"></script>
-    <script type = "text/javascript">
-        window.onload = startupFunction;
-        function startupFunction() {
-            fillTabs();
-            switchTab("Overall");
-        };
+    <script src = "JS\DisplayFunctionality.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            startupFunction();
+        });
     </script>
+    <title>Shift Schedule</title>
 </head>
 <html>
     <h1>Nurse Schedule</h1>
-    <div class="popup" onclick="hover()"> This is going to the be the emoji popup thing. &#128513;
-        <span class="popuptext" id="myPopup">This scheduled shift has a Satisfaction rate of: 75%</span>
-      </div>
+    <div class = "tabs">
+        <button onClick="switchTab('Overall')">Overall</button>
+        <button onClick="switchTab('Pediatric')">Pediatric</button>
+        <button onClick="switchTab('Oncology')">Oncology</button>
+    <h1>Nurse Schedule</h1>
     <div class = "tabs">
         <button onClick="switchTab('Overall')">Overall</button>
         <button onClick="switchTab('Pediatric')">Pediatric</button>
@@ -30,22 +31,46 @@
     <h1 id="tabHeader">Overall Schedule</h1>
     
     <div class = "side-info">
+        <div id = "above-search" class = "above-search">
+
+        </div>
         <div class = "search-box">
-            <text class="search-header">Search by Employee ID:</text>
+            <text class="search-header">Search by Employee Name:</text>
             <br>
-            <input type="text"><br>
-            <button class = "search-button">Search</button>
+            <input type="text" id="search-field"><br>
+            <button class = "search-button" onclick="searchNurse()">Search</button>
         </div>
         <div class = "summary-box">
             <h1 class = "summary-header">Summary of Shifts <br> 9/9/24 - 9/22/24:</h1>
-            <h2 class = "summary-subheaders">Total Nurses Scheduled:</h2>
-            <Text class = "summary-info">- Blah blah information</Text>
-            <h2 class = "summary-subheaders">Inelegible Shifts:</h2>
-            <Text class = "summary-info">- Blah blah information</Text>
-            <h2 class = "summary-subheaders">Satisfaction:</h2>
-            <Text class = "summary-info">- Blah blah information</Text>
+            <div class="output-section">
+                <h2 class="summary-subheaders">Total Nurses Scheduled:</h2>
+                <div id="nurse-count-output">waiting</div>
+            </div>
+            <script>
+                countAllDepartmentsNurses('nurse-count-output');
+            </script>
+        
+            <div class="output-section">
+                <h2 class="summary-subheaders">Ineligible Shifts:</h2>
+                <div id="unassigned-nurses-output">waiting</div>
+            </div>
+            <script>
+                findUnassignedNurses('unassigned-nurses-output');
+            </script>
+        
+            <div class="output-section">
+                <h2 class="summary-subheaders">Satisfaction Score:</h2>
+                <div id="satisfaction-output">waiting</div>
+            </div>
+            <script>
+                calculateAverageSatisfaction('satisfaction-output');
+            </script>
+
+
         </div>
     </div>
+    
+
 <body>
     <h1>Week of (9/30)</h1>
     <div class="left-side-container">
