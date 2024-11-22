@@ -98,3 +98,11 @@ void returnBestSatisfactionScores(
     double scoreBruteForce, const ShiftSchedule& scheduleBruteForce,
     double scoreLinearProgramming, const ShiftSchedule& scheduleLinearProgramming
 );
+
+/**
+ * @brief Calculates the total of all shiftPreferences for all shifts in the schedule.
+ * 
+ * @param shiftSchedule A ShiftSchedule vector containing nurses assigned to each shift.
+ * @return The total sum of all shiftPreferences across all shifts and nurses.
+ */
+int calculateTotalShiftPreferences(const ShiftSchedule& shiftSchedule);

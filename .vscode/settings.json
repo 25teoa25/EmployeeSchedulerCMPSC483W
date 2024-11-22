@@ -79,7 +79,9 @@
     "system_error": "cpp",
     "type_traits": "cpp",
     "utility": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "charconv": "cpp",
+    "span": "cpp"
   },
   "CodeGPT.apiKey": "CodeGPT Plus Beta",
   "C_Cpp_Runner.cCompilerPath": "gcc",

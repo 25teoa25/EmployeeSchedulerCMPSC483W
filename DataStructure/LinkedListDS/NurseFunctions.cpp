@@ -319,3 +319,25 @@ void returnBestSatisfactionScores(
     std::cout << "The highest satisfaction score is " << highestScore
               << " achieved by " << bestMethod << "." << std::endl;
 }
+
+/**
+ * @brief Calculates the total of all shiftPreferences for all shifts in the schedule.
+ * 
+ * @param shiftSchedule A ShiftSchedule vector containing nurses assigned to each shift.
+ * @return The total sum of all shiftPreferences across all shifts and nurses.
+ */
+int calculateTotalShiftPreferences(const ShiftSchedule& shiftSchedule) {
+    int totalPreferences = 0; // Initialize the total preference score
+
+    // Iterate through each shift in the ShiftSchedule
+    for (size_t shiftIndex = 0; shiftIndex < shiftSchedule.size(); ++shiftIndex) {
+        const auto& nurses = shiftSchedule[shiftIndex]; // Get nurses assigned to the current shift
+
+        // Sum up the shiftPreference scores for the current shift
+        for (const auto& nurse : nurses) {
+            totalPreferences += nurse.shiftPreferences[shiftIndex];
+        }
+    }
+
+    return totalPreferences;
+}

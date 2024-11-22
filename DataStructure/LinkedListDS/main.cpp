@@ -147,6 +147,10 @@ int main() {
     std::string filename = "shift_schedule.json";
     shiftScheduleToJSON(shiftSchedule, filename);
 
+    satisfactionScoreBruteForce = calculateTotalShiftPreferences(shiftSchedule);
+
+    cout << "Sat score of Brute Force: " << satisfactionScoreBruteForce << endl;
+
     // Print the JSON
     //std::cout << jsonOutput.dump(4) << std::endl;
 
