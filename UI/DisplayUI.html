@@ -7,21 +7,14 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             startupFunction();
+            countAllDepartmentsNurses('nurse-count-output');
+            findUnassignedNurses('unassigned-nurses-output');
+            calculateAverageSatisfaction('satisfaction-output');
         });
     </script>
     <title>Shift Schedule</title>
 </head>
 <html>
-    <h1>Nurse Schedule</h1>
-    <div class = "tabs">
-        <button onClick="switchTab('Overall')">Overall</button>
-        <button onClick="switchTab('Pediatric')">Pediatric</button>
-        <button onClick="switchTab('Oncology')">Oncology</button>
-    <h1>Nurse Schedule</h1>
-    <div class = "tabs">
-        <button onClick="switchTab('Overall')">Overall</button>
-        <button onClick="switchTab('Pediatric')">Pediatric</button>
-        <button onClick="switchTab('Oncology')">Oncology</button>
     <div class = "tabs" id = "tabs">
         <!-- <button onClick="switchTab('Overall')">Overall</button> <-->
         <!-- <button onClick="switchTab('Pediatric')">Pediatric</button> <-->
@@ -29,7 +22,7 @@
     </div>
 
     <h1 id="tabHeader">Overall Schedule</h1>
-    
+
     <div class = "side-info">
         <div id = "above-search" class = "above-search">
 
@@ -46,27 +39,16 @@
                 <h2 class="summary-subheaders">Total Nurses Scheduled:</h2>
                 <div id="nurse-count-output">waiting</div>
             </div>
-            <script>
-                countAllDepartmentsNurses('nurse-count-output');
-            </script>
         
             <div class="output-section">
                 <h2 class="summary-subheaders">Ineligible Shifts:</h2>
                 <div id="unassigned-nurses-output">waiting</div>
             </div>
-            <script>
-                findUnassignedNurses('unassigned-nurses-output');
-            </script>
         
             <div class="output-section">
-                <h2 class="summary-subheaders">Satisfaction Score:</h2>
+                <h2 class="summary-subheaders">Average Satisfaction Score:</h2>
                 <div id="satisfaction-output">waiting</div>
             </div>
-            <script>
-                calculateAverageSatisfaction('satisfaction-output');
-            </script>
-
-
         </div>
     </div>
     

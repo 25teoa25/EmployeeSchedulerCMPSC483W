@@ -102,7 +102,6 @@ async function fillTabs () {
             </table>
         </div>`;
         loadDepartmentData(department, departmentID, departmentColors, typeColors);
-        loadNurseCount(department);
     }
 }
 
@@ -470,202 +469,6 @@ function searchNurse() {
             });
 }
 
-function createKey(typeColors) {
-    if (document.querySelector(".key-container")) return;
-
-    const tableContainer = document.getElementById("table-container");
-
-    const keyContainer = document.createElement("div");
-    keyContainer.className = "key-container";
-    keyContainer.style.marginBottom = "10px";
-    keyContainer.style.padding = "10px";
-    keyContainer.style.border = "1px solid #ccc";
-    keyContainer.style.borderRadius = "5px";
-    keyContainer.style.backgroundColor = "#f9f9f9";
-    keyContainer.style.textAlign = "left";
-
-    const keyHeader = document.createElement("h2");
-    keyHeader.style.marginBottom = "10px";
-    keyHeader.textContent = "Key:";
-    keyContainer.appendChild(keyHeader);
-
-    const keyWrapper = document.createElement("div");
-    keyWrapper.style.display = "flex";
-    keyWrapper.style.flexWrap = "wrap";
-    keyWrapper.style.gap = "15px";
-
-    Object.entries(typeColors).forEach(([type, color]) => {
-        const keyItem = document.createElement("div");
-        keyItem.style.display = "flex";
-        keyItem.style.alignItems = "center";
-
-        const colorBox = document.createElement("span");
-        colorBox.style.backgroundColor = color;
-        colorBox.style.width = "20px";
-        colorBox.style.height = "20px";
-        colorBox.style.display = "inline-block";
-        colorBox.style.marginRight = "5px";
-
-        const label = document.createElement("span");
-        label.textContent = type;
-
-        keyItem.appendChild(colorBox);
-        keyItem.appendChild(label);
-
-        keyWrapper.appendChild(keyItem);
-    });
-
-    const satisfactionScores = [
-        { emoji: "😊", meaning: "High Satisfaction" },
-        { emoji: "😐", meaning: "Neutral Satisfaction" },
-        { emoji: "☹️", meaning: "Low Satisfaction" },
-        { emoji: "❌", meaning: "Invalid Shift" },
-    ];
-
-    satisfactionScores.forEach((score) => {
-        const keyItem = document.createElement("div");
-        keyItem.style.display = "flex";
-        keyItem.style.alignItems = "center";
-
-        const emojiSpan = document.createElement("span");
-        emojiSpan.textContent = score.emoji;
-        emojiSpan.style.fontSize = "1.5em";
-        emojiSpan.style.marginRight = "5px";
-
-        const label = document.createElement("span");
-        label.textContent = score.meaning;
-
-        keyItem.appendChild(emojiSpan);
-        keyItem.appendChild(label);
-
-        keyWrapper.appendChild(keyItem);
-    });
-
-    keyContainer.appendChild(keyWrapper);
-
-    tableContainer.insertAdjacentElement("beforebegin", keyContainer);
-}
-
-
-function searchNurse() {
-    //Take value from search field
-    var nurseSearched = document.getElementById("search-field").value;
-    console.log('Searching for nurse: ' + nurseSearched);
-    //Go back through JSON file
-    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch the JSON file');
-                }
-                return response.json();
-            })
-            .then(data => {
-                var nurseFound = false;
-                var nurseName;
-                var nurseType;
-                //Loop through each nurse of each shift (all elements in JSON)
-                var shiftsWorked = []
-                for (let shift of data) {
-                    for (let nurse of shift.nurses) {
-                        //If match found return nurse info
-                        if (nurse.name.toLowerCase() == nurseSearched.toLowerCase()) {
-                            console.log('Name: ' + nurse.name + " Type: " + nurse.nurseType);
-                            nurseName = nurse.name;
-                            nurseType = nurse.nurseType;
-                            nurseFound = true;
-                            //Switch department tab to department nurse is in
-                            var department = nurse.department;
-                            switchTab(department);
-                            shiftsWorked.push(shift["1shift"]);
-                            console.log(shiftsWorked);
-                        }
-
-                    }
-                }
-                if (nurseFound == false) {
-                    console.log("Not found");
-                    document.getElementById("above-search").innerHTML = `<p class="search-error">NURSE NOT FOUND</p>`;
-                }
-                else {
-                    document.getElementById("above-search").innerHTML =
-                    `<p style = "font-weight: bold; text-decoration: underline;">${nurseName}: ${nurseType}</p>
-                    <div class = "search-table-container" id = "search-table-container" style = "display: flex; justify-content: flex-start; margin: 20px 0; width: 45%; min-width: 200px;">
-                        <table id = "search-table-1">
-                            <tbody>
-                                <tr>
-                                    <th>Week 1</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table id = "search-table-2">
-                            <tbody>
-                                <tr>
-                                    <th>Week 2</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>`;
-                    //Loop through all shifts and place in correct row of correct table
-                    for (let shift of shiftsWorked) {
-                        var shiftNum;
-                        //Shift 1 of a day
-                        if (shift % 3 == 1) {
-                            shiftNum = '1';
-                        }
-                        //Shift 2 of a day
-                        if (shift % 3 == 2) {
-                            shiftNum = '2';
-                        }
-                        //Shift 3 of a day
-                        if (shift % 3 == 0) {
-                            shiftNum = '3';
-                        }
-                        //Determine the day of the week the shift is part of 
-                        var shiftDay;
-                        if ((shift <= 3 && shift >= 1) || (shift <= 24 && shift >= 22)) {
-                            shiftDay = 'Monday';
-                        }
-                        else if ((shift <= 6 && shift >= 4) || (shift <= 27 && shift >= 25)) {
-                            shiftDay = 'Tuesday';
-                        }
-                        else if ((shift <= 9 && shift >= 7) || (shift <= 30 && shift >= 28)) {
-                            shiftDay = 'Wednesday';
-                        }
-                        else if ((shift <= 12 && shift >= 10) || (shift <= 33 && shift >= 31)) {
-                            shiftDay = 'Thursday';
-                        }
-                        else if ((shift <= 15 && shift >= 13) || (shift <= 35 && shift >= 33)) {
-                            shiftDay = 'Friday';
-                        }
-                        else if ((shift <= 18 && shift >= 16) || (shift <= 38 && shift >= 36)) {
-                            shiftDay = 'Saturday';
-                        }
-                        else if ((shift <= 21 && shift >= 19) || (shift <= 42 && shift >= 39)) {
-                            shiftDay = 'Sunday';
-                        }
-                        else {
-                            shiftDay = shift;
-                        }
-                        //Determine which week (and table) the shift should go in
-                        var tableID;
-                        if (shift <= 21) {
-                            tableID = "search-table-1";
-                        }
-                        else {
-                            tableID = "search-table-2";
-                        }
-                        document.getElementById(tableID).innerHTML += 
-                        `<tr>
-                            <td style = "font-size: 12px;">${shiftDay} Shift ${shiftNum}</td>
-                        </tr>`;
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Error loading JSON:', error);
-            });
-}
-
 function switchTab (tabSelected) {
     //Change header at top of page
     currentTab = tabSelected;
@@ -713,6 +516,7 @@ function myFunction() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
   }
+
 function countAllDepartmentsNurses(outputElementID) {
         fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
             .then(response => {
@@ -759,77 +563,74 @@ function countAllDepartmentsNurses(outputElementID) {
             
     }
     
-    function findUnassignedNurses(outputElementID) {
-        fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch the JSON file');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const results = [];
-    
-                for (let shift of data) {
-                    for (let nurse of shift.nurses) {
-                        if (nurse.nurseID === -1) {
-                            results.push({
-                                department: nurse.department,
-                                shift: shift["1shift"]
-                            });
-                        }
-                    }
-                }
-    
-                const outputElement = document.getElementById(outputElementID);
-                if (outputElement) {
-                    outputElement.innerHTML = "";
-                    if (results.length > 0) {
-                        results.forEach(item => {
-                            const line = document.createElement('p');
-                            line.innerText = `Department: ${item.department}, Shift: ${item.shift}`;
-                            outputElement.appendChild(line);
+function findUnassignedNurses(outputElementID) {
+    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch the JSON file');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const results = [];
+
+            for (let shift of data) {
+                for (let nurse of shift.nurses) {
+                    if (nurse.nurseID === -1) {
+                        results.push({
+                            department: nurse.department,
+                            shift: shift["1shift"]
                         });
-                    } else {
-                        outputElement.innerText = "No unassigned nurses found.";
                     }
                 }
-            })
-            
-    }
-    
-    function calculateAverageSatisfaction(outputElementID) {
-        fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch the JSON file');
+            }
+
+            const outputElement = document.getElementById(outputElementID);
+            if (outputElement) {
+                outputElement.innerHTML = "";
+                if (results.length > 0) {
+                    results.forEach(item => {
+                        const line = document.createElement('p');
+                        line.innerText = `Department: ${item.department}, Shift: ${item.shift}`;
+                        outputElement.appendChild(line);
+                    });
+                } else {
+                    outputElement.innerText = "None";
                 }
-                return response.json();
-            })
-            .then(data => {
-                let totalSatisfaction = 0;
-                let totalNurses = 0;
+            }
+        })
+        
+}
     
-                for (let shift of data) {
-                    if (Array.isArray(shift.nurses)) {
-                        for (let nurse of shift.nurses) {
-                            if (nurse.score !== undefined && !isNaN(nurse.score)) {
-                                totalSatisfaction += nurse.score;
-                                totalNurses++;
-                            }
+function calculateAverageSatisfaction(outputElementID) {
+    fetch('http://localhost:8000/DataStructure/LinkedListDS/shift_schedule.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch the JSON file');
+            }
+            return response.json();
+        })
+        .then(data => {
+            let totalSatisfaction = 0;
+            let totalNurses = 0;
+
+            for (let shift of data) {
+                if (Array.isArray(shift.nurses)) {
+                    for (let nurse of shift.nurses) {
+                        if (nurse.score !== undefined && !isNaN(nurse.score)) {
+                            totalSatisfaction += nurse.score;
+                            totalNurses++;
                         }
                     }
                 }
-    
-                const averageSatisfaction = totalNurses > 0 ? totalSatisfaction / totalNurses : 0;
-    
-                const outputElement = document.getElementById(outputElementID);
-                if (outputElement) {
-                    outputElement.innerText = `Average Satisfaction Score: ${averageSatisfaction.toFixed(2)}`;
-                }
-            })
-        
-    }
-    
+            }
 
+            const averageSatisfaction = totalNurses > 0 ? totalSatisfaction / totalNurses : 0;
 
+            const outputElement = document.getElementById(outputElementID);
+            if (outputElement) {
+                outputElement.innerText = `${averageSatisfaction.toFixed(2)}`;
+            }
+        })
+    
+}
