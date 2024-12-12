@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.13)  13 OCT 2024 13:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.13)  8 DEC 2024 12:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**refman
+**refman.tex
 (./refman.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
+
 (/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/book.cls
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2023/05/17 v1.4n Standard LaTeX document class
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/bk10.clo
 File: bk10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
@@ -26,14 +26,11 @@ File: bk10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/array.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/array.sty
 Rollback for package 'array' requested -> date 2016-10-06.
          Best approximation is the release introduced on 2016-10-06.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/array-2016-10-06.sty
 Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \col@sep=\dimen141
@@ -41,16 +38,13 @@ Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \NC@list=\toks17
 \extratabsurround=\skip50
 \backup@length=\skip51
-))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+)) (/usr/local/texlive/2024/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 package info suppressed
-)
-(./doxygen.sty
+) (./doxygen.sty
 Package: doxygen 
- (/usr/local/texlive/2024/texmf-dist/tex/latex/base/alltt.sty
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/alltt.sty
 Package: alltt 2021/01/29 v2.0g defines alltt environment
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/calc.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count197
 \calc@Bcount=\count198
@@ -62,33 +56,27 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count199
 \calc@Cskip=\skip54
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count266
 \float@exts=\toks18
 \float@box=\box51
 \@float@everytoks=\toks19
 \@floatcapt=\box52
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/verbatim.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks20
 \verbatim@line=\toks21
 \verbatim@in@stream=\read2
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/xcolor/xcolor.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
 Package xcolor Info: Model `RGB' extended on input line 1366.
@@ -98,14 +86,12 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/colortbl/colortbl.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2024/02/20 v1.0g Color table columns (DPC)
 \everycr=\toks22
 \minrowclearance=\skip55
 \rownum=\count267
-)
-(./longtable_doxygen.sty
+) (./longtable_doxygen.sty
 Package: longtable_doxygen 2014/10/28 v4.11 Multi-page Table package (DPC) - fr
 ozen version for doxygen
 \LTleft=\skip56
@@ -126,7 +112,6 @@ ozen version for doxygen
 ) (./tabu_doxygen.sty
 Package: tabu_doxygen 2011/02/26 v2.8 - flexible LaTeX tabulars (FC), frozen ve
 rsion for doxygen
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box57
@@ -156,10 +141,8 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@hleads=\box60
 \tabu@vleads=\box61
 \tabu@cellskip=\skip60
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2024/01/20 4.5c verbatim text (tvz,hv)
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks26
@@ -170,8 +153,7 @@ Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \c@FancyVerbLine=\count281
 \FV@StepNumber=\count282
 \FV@OutFile=\write3
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/tabularx.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
 \TX@col@width=\dimen157
 \TX@old@table=\dimen158
@@ -180,8 +162,7 @@ Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
 \TX@delta=\dimen161
 \TX@cols=\count283
 \TX@ftn=\toks27
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/multicol.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \c@tracingmulticols=\count284
 \mult@box=\box63
@@ -250,15 +231,13 @@ Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \mult@nat@firstbox=\box107
 \colbreak@box=\box108
 \mc@col@check@num=\count293
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/multirow/multirow.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip63
 \multirow@cntb=\count294
 \multirow@dima=\skip64
 \bigstrutjot=\dimen171
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/hanging/hanging.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/hanging/hanging.sty
 Package: hanging 2009/09/02 v1.2b hanging paragraphs and punctuation
 \h@ngcommawd=\skip65
 \h@ngfstopwd=\skip66
@@ -268,49 +247,38 @@ Package: hanging 2009/09/02 v1.2b hanging paragraphs and punctuation
 \h@ngexclwd=\skip70
 \h@ngcolonwd=\skip71
 \h@ngscolonwd=\skip72
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifpdf.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifpdf.sty
 Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/adjustbox/adjustbox.sty
 Package: adjustbox 2022/10/17 v1.3a Adjusting TeX boxes (trim, clip, ...)
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/local
+/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks28
 \XKV@tempa@toks=\toks29
 )
 \XKV@depth=\count295
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/adjustbox/adjcalc.sty
 Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
 -ends (calc, etex, pgfmath)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/adjustbox/trimclip.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/adjustbox/trimclip.sty
 Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
 \Gin@req@height=\dimen172
 \Gin@req@width=\dimen173
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/collectbox/collectbox.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
 \collectedbox=\box109
 )
@@ -319,7 +287,6 @@ Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
 \tc@urx=\dimen176
 \tc@ury=\dimen177
 Package trimclip Info: Using driver 'tc-pdftex.def'.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
@@ -331,14 +298,11 @@ File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 \adjbox@pheight=\dimen183
 \adjbox@pdepth=\dimen184
 \adjbox@ptotalheight=\dimen185
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
 \c@checkoddpage=\count296
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/amssymb.sty
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks30
@@ -347,17 +311,14 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/stackengine/stackengine.sty
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/stackengine/stackengine.sty
 Package: stackengine 2021/07/22 v4.11\ Stacking text and objects in convenient 
 ways
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count297
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/listofitems/listofitems.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/listofitems/listofitems.tex
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/listofitems/listofitems.sty (
+/usr/local/texlive/2024/texmf-dist/tex/generic/listofitems/listofitems.tex
 \loi_cnt_foreach_nest=\count298
 \loi_nestcnt=\count299
 )
@@ -376,8 +337,7 @@ sep char (CT)
 \stackedbox=\box114
 \@centerbox=\box115
 \c@ROWcellindex@=\count301
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/enumitem/enumitem.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip77
 \enit@outerparindent=\dimen186
@@ -385,14 +345,11 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@inbox=\box116
 \enit@count@id=\count302
 \enitdp@description=\count303
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/alphalph/alphalph.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/alphalph/alphalph.sty
 Package: alphalph 2019/12/09 v2.6 Convert numbers to letters (HO)
-
 (/usr/local/texlive/2024/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/ulem/ulem.sty
+)) (/usr/local/texlive/2024/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box117
 \UL@hyphenbox=\box118
 \UL@skip=\skip78
@@ -427,39 +384,29 @@ Package: ulem 2019/11/18
 \c@subsubsubsubsection=\count320
 \c@subsubsubsubsubsection=\count321
 \c@subsubsubsubsubsubsection=\count322
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/inputenc.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks33
 \inpenc@posthook=\toks34
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/makeidx.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2021/10/04 v1.0m Standard LaTeX package
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/textcomp.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/wasysym/wasysym.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/wasysym/wasysym.sty
 Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
 \symwasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
 (Font)                  U/wasy/m/n --> U/wasy/b/n on input line 93.
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifxetex.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifxetex.sty
 Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/helvet.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/helvet.sty
 Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/courier.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/courier.sty
 Package: courier 2020/03/25 PSNFSS-v9.3 (WaS) 
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/geometry/geometry.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-
 (/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
@@ -475,14 +422,12 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen196
 \Gm@layoutvoffset=\dimen197
 \Gm@dimlist=\toks35
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/changepage/changepage.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/changepage/changepage.sty
 Package: changepage 2009/10/20 v1.0c check page and change page layout
 \c@cp@cntr=\count326
 \cp@tempcnt=\count327
 LaTeX Info: Redefining \checkoddpage on input line 59.
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
 
 \f@nch@headwidth=\skip83
@@ -494,15 +439,13 @@ Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
 \f@nch@O@erf=\skip89
 \f@nch@O@olf=\skip90
 \f@nch@O@orf=\skip91
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/natbib/natbib.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip92
 \bibsep=\skip93
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count328
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/tocloft/tocloft.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
 Package tocloft Info: The document has chapter divisions on input line 51.
 \cftparskip=\skip94
@@ -545,49 +488,39 @@ Package tocloft Info: The document has chapter divisions on input line 51.
 \@indexfile=\write4
 \openout4 = `refman.idx'.
 
-
 Writing index file refman.idx
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/newunicodechar/newunicodechar.sty
 Package: newunicodechar 2018/04/08 v1.2 Defining Unicode characters
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-
 (/usr/local/texlive/2024/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/hycolor/hycolor.sty
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/auxhook/auxhook.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/nameref.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
 (/usr/local/texlive/2024/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (/usr/local/texlive/2024/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2024/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count331
@@ -595,14 +528,12 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 \@linkdim=\dimen198
 \Hy@linkcounter=\count332
 \Hy@pagecounter=\count333
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count334
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -615,7 +546,6 @@ Package hyperref Info: Plain pages OFF on input line 4194.
 Package hyperref Info: Backreferencing ON on input line 4197.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4446.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/backref.sty
 Package: backref 2023-11-26 v1.44 Bibliographical back referencing
 
@@ -636,14 +566,12 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 85.
 ))
 \c@Hy@tempcnt=\count335
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4784.
 \XeTeXLinkMargin=\dimen199
-
 (/usr/local/texlive/2024/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 )
@@ -657,7 +585,6 @@ Package hyperref Info: backreferencing ON on input line 6076.
 Package hyperref Info: Link coloring OFF on input line 6083.
 Package hyperref Info: Link coloring with OCG OFF on input line 6088.
 Package hyperref Info: PDF/A mode OFF on input line 6093.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
@@ -667,19 +594,16 @@ package with kernel methods
 \c@Hfootnote=\count339
 )
 Package hyperref Info: Driver: hpdftex.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2024-01-20 v7.01h Hyperref driver for pdfTeX
 \Fld@listcount=\count340
 \c@bookmark@seq@number=\count341
 \Hy@SectionHShift=\skip128
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 187.
-Package hyperref Info: Option `unicode' set `true' on input line 187.
-
+Package hyperref Info: Option `colorlinks' set `true' on input line 188.
+Package hyperref Info: Option `unicode' set `true' on input line 188.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen258
@@ -700,53 +624,47 @@ Package caption Info: changepage package is loaded.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/ltcaption.sty
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/etoc/etoc.sty
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/etoc/etoc.sty
 Package: etoc 2023/10/29 v1.2d Completely customisable TOCs (JFB)
 \Etoc@toctoks=\toks36
 \c@etoc@tocid=\count344
 \etoc@framed@titlebox=\box121
 \etoc@framed@contentsbox=\box122
 )
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 20
-9.
-
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 21
+0.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 209.
-
+(Font)              scaled to size 8.99994pt on input line 210.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count345
 \l__pdf_internal_box=\box123
-)
-(./refman.aux)
+) (./refman.aux)
 \openout1 = `refman.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count346
@@ -764,7 +682,6 @@ LaTeX Font Info:    ... okay on input line 209.
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
@@ -803,8 +720,8 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package backref Info: ** backref set up for natbib ** on input line 209.
-Package hyperref Info: Link coloring ON on input line 209.
+Package backref Info: ** backref set up for natbib ** on input line 210.
+Package hyperref Info: Link coloring ON on input line 210.
 (./refman.out) (./refman.out)
 \@outlinefile=\write5
 \openout5 = `refman.out'.
@@ -812,15 +729,15 @@ Package hyperref Info: Link coloring ON on input line 209.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 \Etoc@tf=\read4
-Package hyperref Info: Option `pageanchor' set `false' on input line 217.
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 217.
+Package hyperref Info: Option `pageanchor' set `false' on input line 218.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 218.
 
-Package hyperref Info: Option `unicode' set `true' on input line 217.
+Package hyperref Info: Option `unicode' set `true' on input line 218.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 12.9599pt on input line 222.
+(Font)              scaled to size 12.9599pt on input line 223.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 224.
- [1
+(Font)              scaled to size 10.79993pt on input line 225.
+[1
 
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
@@ -831,46 +748,43 @@ al/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2
 \openout6 = `refman.toc'.
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 8.99994pt on input line 230.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 230
+(Font)              scaled to size 8.99994pt on input line 231.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 231
 .
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 230
+LaTeX Font Info:    Trying to load font information for U+msb on input line 231
 .
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+wasy on input line 23
-0.
-
+1.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 230.
+(Font)              scaled to size 6.29996pt on input line 231.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 6.29996pt on input line 230.
- [1] [2
+(Font)              scaled to size 6.29996pt on input line 231.
+[1] [2
 
 ]
-Package hyperref Info: Option `pageanchor' set `true' on input line 233.
-
+Package hyperref Info: Option `pageanchor' set `true' on input line 234.
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 18.66588pt on input line 235.
+(Font)              scaled to size 18.66588pt on input line 236.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 18.66588pt on input line 235.
+(Font)              scaled to size 18.66588pt on input line 236.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 22.39185pt on input line 235.
+(Font)              scaled to size 22.39185pt on input line 236.
 (./annotated.tex
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 12.9599pt on input line 1.
 LaTeX Font Info:    Trying to load font information for TS1+phv on input line 3
 .
- (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1phv.fd
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
@@ -888,40 +802,31 @@ Chapter 3.
 (./struct_nurse.tex
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 10
 .
-
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.09995pt on input line 16.
+(Font)              scaled to size 8.09995pt on input line 23.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 16.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 23.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 16.
+(Font)              scaled to size 8.09995pt on input line 23.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 29.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 6.29996pt on input line 29.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 37.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 46.
-LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 47.
-LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 47.
- [5]
-Underfull \hbox (badness 10000) detected at line 58
-[][][]
- []
+(Font)              scaled to size 10.79993pt on input line 41.
+) [5] [6
 
-) [6]
+]
 Chapter 4.
-(./_c_s_v_parser_8h_source.tex) (./_nurse_functions_8h_source.tex)
-(./_nurse_list_8h_source.tex) [7
-
-] [8
-
-] (./refman.ind
+(./_c_s_v_parser_8h_source.tex) (./_nurse_functions_8h_source.tex) (./_nurse_li
+st_8h_source.tex [7]) [8] (./refman.ind
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 22.39185pt on input line 1.
- [9
+[9
+
 
 
 
@@ -930,28 +835,43 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: E1D7A5E62DAF165F2410C128165A3AE7;2131.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `refman.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `refman.out':
+(rerunfilecheck)             Before: E1D7A5E62DAF165F2410C128165A3AE7;2131
+(rerunfilecheck)             After:  14A54065C6E9B4A1307014DA0D1D1216;1664.
  ) 
 Here is how much of TeX's memory you used:
- 17811 strings out of 474116
- 283977 string characters out of 5743681
+ 17770 strings out of 474116
+ 283414 string characters out of 5743681
  1936187 words of memory out of 5000000
- 39812 multiletter control sequences out of 15000+600000
- 608875 words of font info for 89 fonts, out of 8000000 for 9000
+ 39777 multiletter control sequences out of 15000+600000
+ 599659 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 101i,14n,117p,411b,742s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/l
-ocal/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/te
-xlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2
-024/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb></usr/local/texlive/2024/te
-xmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dis
-t/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on refman.pdf (13 pages, 79579 bytes).
+ 101i,12n,117p,327b,548s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{subsubsection.3.1.2.1} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{subsection.3.1.2} has been referenced but does not 
+exist, replaced by a fixed one
+
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/loc
+al/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texl
+ive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/202
+4/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (13 pages, 68689 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
+ 209 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
  38 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

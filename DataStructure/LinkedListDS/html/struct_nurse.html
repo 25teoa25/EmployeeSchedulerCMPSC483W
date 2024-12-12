@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Nurse Struct Reference</title>
+<title>Nurse Scheduling Project Data Structure: Nurse Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">Nurse Scheduling Project Data Structure
    </div>
   </td>
  </tr>
@@ -99,67 +99,41 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a50af1e13aeabad7c88854a7053873fbb" id="r_a50af1e13aeabad7c88854a7053873fbb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50af1e13aeabad7c88854a7053873fbb">getShiftPreference</a> (int shiftNumber) const</td></tr>
-<tr class="memdesc:a50af1e13aeabad7c88854a7053873fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the shift preference for a specific shift.  <br /></td></tr>
-<tr class="separator:a50af1e13aeabad7c88854a7053873fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a738f7c515c10864a22d9e40912502ae0" id="r_a738f7c515c10864a22d9e40912502ae0"><td class="memItemLeft" align="right" valign="top"><a id="a738f7c515c10864a22d9e40912502ae0" name="a738f7c515c10864a22d9e40912502ae0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="struct_nurse.html">Nurse</a> &amp;other) const</td></tr>
+<tr class="separator:a738f7c515c10864a22d9e40912502ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a5d3ba06497533aaa2c0feb95d38c02e6" id="r_a5d3ba06497533aaa2c0feb95d38c02e6"><td class="memItemLeft" align="right" valign="top"><a id="a5d3ba06497533aaa2c0feb95d38c02e6" name="a5d3ba06497533aaa2c0feb95d38c02e6"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fullName</b></td></tr>
+<tr class="memdesc:a5d3ba06497533aaa2c0feb95d38c02e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Full name of the nurse. <br /></td></tr>
 <tr class="separator:a5d3ba06497533aaa2c0feb95d38c02e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a530d9fd0fe016e7cbcb98c2f7ae700b9" id="r_a530d9fd0fe016e7cbcb98c2f7ae700b9"><td class="memItemLeft" align="right" valign="top"><a id="a530d9fd0fe016e7cbcb98c2f7ae700b9" name="a530d9fd0fe016e7cbcb98c2f7ae700b9"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>nurseNumber</b></td></tr>
+<tr class="memdesc:a530d9fd0fe016e7cbcb98c2f7ae700b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique identifier for the nurse. <br /></td></tr>
 <tr class="separator:a530d9fd0fe016e7cbcb98c2f7ae700b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c5bf93177d9cc477275935701b6a618" id="r_a2c5bf93177d9cc477275935701b6a618"><td class="memItemLeft" align="right" valign="top"><a id="a2c5bf93177d9cc477275935701b6a618" name="a2c5bf93177d9cc477275935701b6a618"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>nurseType</b></td></tr>
+<tr class="memdesc:a2c5bf93177d9cc477275935701b6a618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of nurse (e.g., "RN", "LPN") <br /></td></tr>
 <tr class="separator:a2c5bf93177d9cc477275935701b6a618"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3bf3a333abc8223eb15e5da7b7ded1e" id="r_af3bf3a333abc8223eb15e5da7b7ded1e"><td class="memItemLeft" align="right" valign="top"><a id="af3bf3a333abc8223eb15e5da7b7ded1e" name="af3bf3a333abc8223eb15e5da7b7ded1e"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>department</b></td></tr>
+<tr class="memdesc:af3bf3a333abc8223eb15e5da7b7ded1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Department of the nurse (e.g., "Oncology") <br /></td></tr>
 <tr class="separator:af3bf3a333abc8223eb15e5da7b7ded1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f45fe0bb0eeb949288283e63f3e8b51" id="r_a6f45fe0bb0eeb949288283e63f3e8b51"><td class="memItemLeft" align="right" valign="top"><a id="a6f45fe0bb0eeb949288283e63f3e8b51" name="a6f45fe0bb0eeb949288283e63f3e8b51"></a>
 std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>shiftPreferences</b></td></tr>
+<tr class="memdesc:a6f45fe0bb0eeb949288283e63f3e8b51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores preferences for 42 shifts (0, 1, 2) <br /></td></tr>
 <tr class="separator:a6f45fe0bb0eeb949288283e63f3e8b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76d88770566cf490680518f3167f0fe5" id="r_a76d88770566cf490680518f3167f0fe5"><td class="memItemLeft" align="right" valign="top"><a id="a76d88770566cf490680518f3167f0fe5" name="a76d88770566cf490680518f3167f0fe5"></a>
+std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>scheduledShifts</b></td></tr>
+<tr class="memdesc:a76d88770566cf490680518f3167f0fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores what shifts a nurse is scheduled for. <br /></td></tr>
+<tr class="separator:a76d88770566cf490680518f3167f0fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structure representing a nurse's data. </p>
-<p>This structure holds information about a nurse, including their full name, nurse number, type (e.g., "RN", "LPN"), department, and shift preferences. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a50af1e13aeabad7c88854a7053873fbb" name="a50af1e13aeabad7c88854a7053873fbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50af1e13aeabad7c88854a7053873fbb">&#9670;&#160;</a></span>getShiftPreference()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Nurse::getShiftPreference </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>shiftNumber</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the shift preference for a specific shift. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shiftNumber</td><td>The shift number (1-42). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>int The preference for the specified shift (0, 1, 2). </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<p>This structure holds information about a nurse, including their full name, nurse number, type, department, and shift preferences. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="_nurse_list_8h_source.html">NurseList.h</a></li>
 </ul>
 </div><!-- contents -->

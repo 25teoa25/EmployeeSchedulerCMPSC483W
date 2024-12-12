@@ -6,27 +6,44 @@
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
 \DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_nurse}{Nurse}}\ \{}
-\DoxyCodeLine{00015\ \ \ \ \ std::string\ fullName;}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ nurseNumber;}
-\DoxyCodeLine{00017\ \ \ \ \ std::string\ nurseType;}
-\DoxyCodeLine{00018\ \ \ \ \ std::string\ department;}
-\DoxyCodeLine{00019\ \ \ \ \ std::vector<int>\ shiftPreferences;\ \textcolor{comment}{//\ Stores\ preferences\ for\ 42\ shifts}}
-\DoxyCodeLine{00020\ \ \ \ \ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_nurse_a50af1e13aeabad7c88854a7053873fbb}{getShiftPreference}}(\textcolor{keywordtype}{int}\ shiftNumber)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (shiftNumber\ >=\ 1\ \&\&\ shiftNumber\ <=\ shiftPreferences.size())\ \{}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ shiftPreferences[shiftNumber\ -\/\ 1];}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;\ \textcolor{comment}{//\ Invalid\ shift\ number}}
-\DoxyCodeLine{00032\ \ \ \ \ \}}
-\DoxyCodeLine{00033\ \};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00041\ \textcolor{keyword}{extern}\ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ std::vector<Nurse>>>\ departmentNursesMap;}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{comment}{//\ No\ need\ to\ declare\ viewNursesByDepartmentAndType\ here;\ it's\ in\ NurseFunctions.h}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <algorithm>}\ \ \textcolor{comment}{//\ For\ std::remove}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_nurse}{Nurse}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_nurse_a5d3ba06497533aaa2c0feb95d38c02e6}{fullName}};\ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9}{nurseNumber}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_nurse_a2c5bf93177d9cc477275935701b6a618}{nurseType}};\ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_nurse_af3bf3a333abc8223eb15e5da7b7ded1e}{department}};\ \ }
+\DoxyCodeLine{00021\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{struct_nurse_a6f45fe0bb0eeb949288283e63f3e8b51}{shiftPreferences}};\ }
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{struct_nurse_a76d88770566cf490680518f3167f0fe5}{scheduledShifts}};\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Equality\ operator\ to\ compare\ nurses\ by\ nurseNumber\ for\ removal}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_nurse}{Nurse}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9}{nurseNumber}}\ ==\ other.\mbox{\hyperlink{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9}{nurseNumber}};}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ Fake\ nurse\ for\ a\ shift\ unable\ to\ be\ scheduled}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ Declare\ a\ global\ instance\ of\ Nurse}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{struct_nurse}{Nurse}}\ fakeNurse;}
+\DoxyCodeLine{00034\ \ \ \ \ }
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ Alias\ for\ the\ shift\ schedule:\ Vector\ of\ 42\ vectors\ of\ Nurses}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{using\ }ShiftSchedule\ =\ std::vector<std::vector<Nurse>>;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ add(ShiftSchedule\&\ schedule,\ \textcolor{keywordtype}{int}\ shift,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_nurse}{Nurse}}\&\ nurse);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ remove(ShiftSchedule\&\ schedule,\ \textcolor{keywordtype}{int}\ shift,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_nurse}{Nurse}}\&\ nurse);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ Global\ variables}}
+\DoxyCodeLine{00042\ \textcolor{keyword}{extern}\ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ std::vector<Nurse>>>\ departmentNursesMap;}
+\DoxyCodeLine{00043\ \textcolor{keyword}{extern}\ std::unordered\_map<int,\ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ int>>>\ constraintsMap;}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NURSE\_LIST\_H}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ Satisfaction\ scores\ for\ different\ algorithms}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ satisfactionScoreGeneticAlgorithm;\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ satisfactionScoreBruteForce;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ satisfactionScoreLinearProgramming;\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NURSE\_LIST\_H}}
 
 \end{DoxyCode}

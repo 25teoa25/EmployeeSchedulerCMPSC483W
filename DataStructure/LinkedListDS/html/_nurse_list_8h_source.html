@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: NurseList.h Source File</title>
+<title>Nurse Scheduling Project Data Structure: NurseList.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">Nurse Scheduling Project Data Structure
    </div>
   </td>
  </tr>
@@ -92,34 +92,54 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="struct_nurse.html">   14</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_nurse.html">Nurse</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::string fullName;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">int</span> nurseNumber;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::string nurseType;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    std::string department;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::vector&lt;int&gt; shiftPreferences; <span class="comment">// Stores preferences for 42 shifts</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="struct_nurse.html#a50af1e13aeabad7c88854a7053873fbb">   27</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="struct_nurse.html#a50af1e13aeabad7c88854a7053873fbb">getShiftPreference</a>(<span class="keywordtype">int</span> shiftNumber)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">if</span> (shiftNumber &gt;= 1 &amp;&amp; shiftNumber &lt;= shiftPreferences.size()) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">return</span> shiftPreferences[shiftNumber - 1];</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> -1; <span class="comment">// Invalid shift number</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;algorithm&gt;</span>  <span class="comment">// For std::remove</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="struct_nurse.html">   16</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_nurse.html">Nurse</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="struct_nurse.html#a5d3ba06497533aaa2c0feb95d38c02e6">   17</a></span>    std::string <a class="code hl_variable" href="struct_nurse.html#a5d3ba06497533aaa2c0feb95d38c02e6">fullName</a>;    </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="struct_nurse.html#a530d9fd0fe016e7cbcb98c2f7ae700b9">   18</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_nurse.html#a530d9fd0fe016e7cbcb98c2f7ae700b9">nurseNumber</a>;         </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="struct_nurse.html#a2c5bf93177d9cc477275935701b6a618">   19</a></span>    std::string <a class="code hl_variable" href="struct_nurse.html#a2c5bf93177d9cc477275935701b6a618">nurseType</a>;   </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="struct_nurse.html#af3bf3a333abc8223eb15e5da7b7ded1e">   20</a></span>    std::string <a class="code hl_variable" href="struct_nurse.html#af3bf3a333abc8223eb15e5da7b7ded1e">department</a>;  </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="struct_nurse.html#a6f45fe0bb0eeb949288283e63f3e8b51">   21</a></span>    std::vector&lt;int&gt; <a class="code hl_variable" href="struct_nurse.html#a6f45fe0bb0eeb949288283e63f3e8b51">shiftPreferences</a>; </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="struct_nurse.html#a76d88770566cf490680518f3167f0fe5">   22</a></span>    std::vector&lt;int&gt; <a class="code hl_variable" href="struct_nurse.html#a76d88770566cf490680518f3167f0fe5">scheduledShifts</a>; </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// Equality operator to compare nurses by nurseNumber for removal</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_struct" href="struct_nurse.html">Nurse</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="struct_nurse.html#a530d9fd0fe016e7cbcb98c2f7ae700b9">nurseNumber</a> == other.<a class="code hl_variable" href="struct_nurse.html#a530d9fd0fe016e7cbcb98c2f7ae700b9">nurseNumber</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
 </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
-</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">extern</span> std::unordered_map&lt;std::string, std::unordered_map&lt;std::string, std::vector&lt;Nurse&gt;&gt;&gt; departmentNursesMap;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// No need to declare viewNursesByDepartmentAndType here; it&#39;s in NurseFunctions.h</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// Fake nurse for a shift unable to be scheduled</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">// Declare a global instance of Nurse</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">extern</span> <a class="code hl_struct" href="struct_nurse.html">Nurse</a> fakeNurse;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// Alias for the shift schedule: Vector of 42 vectors of Nurses</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">using </span>ShiftSchedule = std::vector&lt;std::vector&lt;Nurse&gt;&gt;;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> add(ShiftSchedule&amp; schedule, <span class="keywordtype">int</span> shift, <span class="keyword">const</span> <a class="code hl_struct" href="struct_nurse.html">Nurse</a>&amp; nurse);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> remove(ShiftSchedule&amp; schedule, <span class="keywordtype">int</span> shift, <span class="keyword">const</span> <a class="code hl_struct" href="struct_nurse.html">Nurse</a>&amp; nurse);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// Global variables</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">extern</span> std::unordered_map&lt;std::string, std::unordered_map&lt;std::string, std::vector&lt;Nurse&gt;&gt;&gt; departmentNursesMap;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">extern</span> std::unordered_map&lt;int, std::unordered_map&lt;std::string, std::unordered_map&lt;std::string, int&gt;&gt;&gt; constraintsMap;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif </span><span class="comment">// NURSE_LIST_H</span></div>
-<div class="ttc" id="astruct_nurse_html"><div class="ttname"><a href="struct_nurse.html">Nurse</a></div><div class="ttdoc">Structure representing a nurse's data.</div><div class="ttdef"><b>Definition</b> NurseList.h:14</div></div>
-<div class="ttc" id="astruct_nurse_html_a50af1e13aeabad7c88854a7053873fbb"><div class="ttname"><a href="struct_nurse.html#a50af1e13aeabad7c88854a7053873fbb">Nurse::getShiftPreference</a></div><div class="ttdeci">int getShiftPreference(int shiftNumber) const</div><div class="ttdoc">Gets the shift preference for a specific shift.</div><div class="ttdef"><b>Definition</b> NurseList.h:27</div></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// Satisfaction scores for different algorithms</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">extern</span> <span class="keywordtype">int</span> satisfactionScoreGeneticAlgorithm; </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">extern</span> <span class="keywordtype">int</span> satisfactionScoreBruteForce;       </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">extern</span> <span class="keywordtype">int</span> satisfactionScoreLinearProgramming; </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#endif </span><span class="comment">// NURSE_LIST_H</span></div>
+<div class="ttc" id="astruct_nurse_html"><div class="ttname"><a href="struct_nurse.html">Nurse</a></div><div class="ttdoc">Structure representing a nurse's data.</div><div class="ttdef"><b>Definition</b> NurseList.h:16</div></div>
+<div class="ttc" id="astruct_nurse_html_a2c5bf93177d9cc477275935701b6a618"><div class="ttname"><a href="struct_nurse.html#a2c5bf93177d9cc477275935701b6a618">Nurse::nurseType</a></div><div class="ttdeci">std::string nurseType</div><div class="ttdoc">Type of nurse (e.g., &quot;RN&quot;, &quot;LPN&quot;)</div><div class="ttdef"><b>Definition</b> NurseList.h:19</div></div>
+<div class="ttc" id="astruct_nurse_html_a530d9fd0fe016e7cbcb98c2f7ae700b9"><div class="ttname"><a href="struct_nurse.html#a530d9fd0fe016e7cbcb98c2f7ae700b9">Nurse::nurseNumber</a></div><div class="ttdeci">int nurseNumber</div><div class="ttdoc">Unique identifier for the nurse.</div><div class="ttdef"><b>Definition</b> NurseList.h:18</div></div>
+<div class="ttc" id="astruct_nurse_html_a5d3ba06497533aaa2c0feb95d38c02e6"><div class="ttname"><a href="struct_nurse.html#a5d3ba06497533aaa2c0feb95d38c02e6">Nurse::fullName</a></div><div class="ttdeci">std::string fullName</div><div class="ttdoc">Full name of the nurse.</div><div class="ttdef"><b>Definition</b> NurseList.h:17</div></div>
+<div class="ttc" id="astruct_nurse_html_a6f45fe0bb0eeb949288283e63f3e8b51"><div class="ttname"><a href="struct_nurse.html#a6f45fe0bb0eeb949288283e63f3e8b51">Nurse::shiftPreferences</a></div><div class="ttdeci">std::vector&lt; int &gt; shiftPreferences</div><div class="ttdoc">Stores preferences for 42 shifts (0, 1, 2)</div><div class="ttdef"><b>Definition</b> NurseList.h:21</div></div>
+<div class="ttc" id="astruct_nurse_html_a76d88770566cf490680518f3167f0fe5"><div class="ttname"><a href="struct_nurse.html#a76d88770566cf490680518f3167f0fe5">Nurse::scheduledShifts</a></div><div class="ttdeci">std::vector&lt; int &gt; scheduledShifts</div><div class="ttdoc">Stores what shifts a nurse is scheduled for.</div><div class="ttdef"><b>Definition</b> NurseList.h:22</div></div>
+<div class="ttc" id="astruct_nurse_html_af3bf3a333abc8223eb15e5da7b7ded1e"><div class="ttname"><a href="struct_nurse.html#af3bf3a333abc8223eb15e5da7b7ded1e">Nurse::department</a></div><div class="ttdeci">std::string department</div><div class="ttdoc">Department of the nurse (e.g., &quot;Oncology&quot;)</div><div class="ttdef"><b>Definition</b> NurseList.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

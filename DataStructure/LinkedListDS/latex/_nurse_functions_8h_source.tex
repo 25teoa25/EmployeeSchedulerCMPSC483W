@@ -5,9 +5,36 @@
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ NURSE\_FUNCTIONS\_H}}
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00014\ \textcolor{keywordtype}{void}\ viewNursesByDepartmentAndType(\textcolor{keyword}{const}\ std::string\&\ department,\ \textcolor{keyword}{const}\ std::string\&\ type);}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NURSE\_FUNCTIONS\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}json.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}NurseList.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{using\ }json\ =\ nlohmann::json;}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}\ viewNursesByDepartmentAndType(\textcolor{keyword}{const}\ std::string\&\ department,\ \textcolor{keyword}{const}\ std::string\&\ type);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ viewNursesByDepartmentAndTypeJSON(\textcolor{keyword}{const}\ std::string\&\ department,\ \textcolor{keyword}{const}\ std::string\&\ type);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }ShiftSchedule\ =\ std::vector<std::vector<Nurse>>;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00033\ \mbox{\hyperlink{struct_nurse}{Nurse}}\ getRandomNurseFromShift(\textcolor{keyword}{const}\ ShiftSchedule\&\ schedule,\ \textcolor{keywordtype}{int}\ shift,\ \textcolor{keyword}{const}\ std::string\&\ nurseType);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ printShiftSchedule(\textcolor{keyword}{const}\ ShiftSchedule\&\ schedule);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ remove(ShiftSchedule\&\ schedule,\ \textcolor{keywordtype}{int}\ shift,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_nurse}{Nurse}}\&\ nurse);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ add(ShiftSchedule\&\ schedule,\ \textcolor{keywordtype}{int}\ shift,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_nurse}{Nurse}}\&\ nurse);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{void}\ shiftScheduleToJSON(\textcolor{keyword}{const}\ ShiftSchedule\&\ schedule,\ \textcolor{keyword}{const}\ std::string\&\ filename);}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NURSE\_FUNCTIONS\_H}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ printNursesForShift(\textcolor{keyword}{const}\ ShiftSchedule\&\ schedule,\ \textcolor{keywordtype}{int}\ shift);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{void}\ returnBestSatisfactionScores(}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{int}\ scoreGeneticAlgorithm,\ \textcolor{keyword}{const}\ ShiftSchedule\&\ scheduleGeneticAlgorithm,}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ scoreBruteForce,\ \textcolor{keyword}{const}\ ShiftSchedule\&\ scheduleBruteForce,}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ scoreLinearProgramming,\ \textcolor{keyword}{const}\ ShiftSchedule\&\ scheduleLinearProgramming}
+\DoxyCodeLine{00100\ );}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{int}\ calculateTotalShiftPreferences(\textcolor{keyword}{const}\ ShiftSchedule\&\ shiftSchedule);}
 
 \end{DoxyCode}

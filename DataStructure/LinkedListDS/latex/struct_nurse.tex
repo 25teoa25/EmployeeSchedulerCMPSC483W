@@ -12,53 +12,36 @@ Structure representing a nurse\textquotesingle{}s data.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{struct_nurse_a50af1e13aeabad7c88854a7053873fbb}{get\+Shift\+Preference}} (int shift\+Number) const
-\begin{DoxyCompactList}\small\item\em Gets the shift preference for a specific shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\Hypertarget{struct_nurse_a738f7c515c10864a22d9e40912502ae0}\label{struct_nurse_a738f7c515c10864a22d9e40912502ae0} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{struct_nurse}{Nurse}} \&other) const
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{struct_nurse_a5d3ba06497533aaa2c0feb95d38c02e6}\label{struct_nurse_a5d3ba06497533aaa2c0feb95d38c02e6} 
 std\+::string {\bfseries full\+Name}
-\item 
+\begin{DoxyCompactList}\small\item\em Full name of the nurse. \end{DoxyCompactList}\item 
 \Hypertarget{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9}\label{struct_nurse_a530d9fd0fe016e7cbcb98c2f7ae700b9} 
 int {\bfseries nurse\+Number}
-\item 
+\begin{DoxyCompactList}\small\item\em Unique identifier for the nurse. \end{DoxyCompactList}\item 
 \Hypertarget{struct_nurse_a2c5bf93177d9cc477275935701b6a618}\label{struct_nurse_a2c5bf93177d9cc477275935701b6a618} 
 std\+::string {\bfseries nurse\+Type}
-\item 
+\begin{DoxyCompactList}\small\item\em Type of nurse (e.\+g., "{}\+RN"{}, "{}\+LPN"{}) \end{DoxyCompactList}\item 
 \Hypertarget{struct_nurse_af3bf3a333abc8223eb15e5da7b7ded1e}\label{struct_nurse_af3bf3a333abc8223eb15e5da7b7ded1e} 
 std\+::string {\bfseries department}
-\item 
+\begin{DoxyCompactList}\small\item\em Department of the nurse (e.\+g., "{}\+Oncology"{}) \end{DoxyCompactList}\item 
 \Hypertarget{struct_nurse_a6f45fe0bb0eeb949288283e63f3e8b51}\label{struct_nurse_a6f45fe0bb0eeb949288283e63f3e8b51} 
 std\+::vector$<$ int $>$ {\bfseries shift\+Preferences}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Stores preferences for 42 shifts (0, 1, 2) \end{DoxyCompactList}\item 
+\Hypertarget{struct_nurse_a76d88770566cf490680518f3167f0fe5}\label{struct_nurse_a76d88770566cf490680518f3167f0fe5} 
+std\+::vector$<$ int $>$ {\bfseries scheduled\+Shifts}
+\begin{DoxyCompactList}\small\item\em Stores what shifts a nurse is scheduled for. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Structure representing a nurse\textquotesingle{}s data. 
 
-This structure holds information about a nurse, including their full name, nurse number, type (e.\+g., "{}\+RN"{}, "{}\+LPN"{}), department, and shift preferences. 
-
-\doxysubsection{Member Function Documentation}
-\Hypertarget{struct_nurse_a50af1e13aeabad7c88854a7053873fbb}\index{Nurse@{Nurse}!getShiftPreference@{getShiftPreference}}
-\index{getShiftPreference@{getShiftPreference}!Nurse@{Nurse}}
-\doxysubsubsection{\texorpdfstring{getShiftPreference()}{getShiftPreference()}}
-{\footnotesize\ttfamily \label{struct_nurse_a50af1e13aeabad7c88854a7053873fbb} 
-int Nurse\+::get\+Shift\+Preference (\begin{DoxyParamCaption}\item[{int}]{shift\+Number}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Gets the shift preference for a specific shift. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em shift\+Number} & The shift number (1-\/42). \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-int The preference for the specified shift (0, 1, 2). 
-\end{DoxyReturn}
-
+This structure holds information about a nurse, including their full name, nurse number, type, department, and shift preferences. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
